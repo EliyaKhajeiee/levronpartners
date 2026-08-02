@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-const body = Inter({
+const body = Figtree({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
@@ -37,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${body.variable} h-full antialiased`}>
-      <body className="bg-bg text-fg flex min-h-full flex-col">{children}</body>
+      <body className="bg-paper text-ink flex min-h-full flex-col">
+        {children}
+      </body>
     </html>
   );
 }

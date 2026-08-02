@@ -15,7 +15,9 @@ import { useEffect, useLayoutEffect } from "react";
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-const SELECTOR = "[data-split],[data-fade],[data-line]";
+// Every attribute that has a hidden state in globals.css must be listed here,
+// or those elements stay invisible forever once .reveal-ready is on.
+const SELECTOR = "[data-split],[data-fade],[data-rise],[data-line],[data-grow]";
 
 export function Reveal() {
   useIsomorphicLayoutEffect(() => {
@@ -42,11 +44,22 @@ export function Reveal() {
       { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
     );
 
-    // Next frame, so the hero animates in on load rather than appearing
-    // already-revealed. Anything inside the first screen is revealed directly:
-    // the observer's negative bottom margin would otherwise strand content
-    // sitting low on the opening viewport until the visitor happened to scroll.
-    const frame = requestAnimationFrame(() => {
+    // Deferred by one beat so the opening screen animates in rather than
+    // appearing already-revealed. Anything inside the first viewport is
+    // revealed directly: the observer's negative bottom margin would otherwise
+    // strand content sitting low on the opening screen until the visitor
+    // happened to scroll.
+    //
+    // A frame callback alone is not safe here. Browsers stop issuing frames to
+    // pages that are not being presented — a link opened in a background tab —
+    // so a page gated purely on rAF can stay blank indefinitely. The timer is
+    // the guarantee; the frame is just the nicer timing when one arrives.
+    let started = false;
+
+    const start = () => {
+      if (started) return;
+      started = true;
+
       document.querySelectorAll<HTMLElement>(SELECTOR).forEach((node) => {
         if (node.getBoundingClientRect().top < window.innerHeight) {
           node.classList.add("is-in");
@@ -54,10 +67,14 @@ export function Reveal() {
           observer.observe(node);
         }
       });
-    });
+    };
+
+    const frame = requestAnimationFrame(start);
+    const timer = window.setTimeout(start, 200);
 
     return () => {
       cancelAnimationFrame(frame);
+      clearTimeout(timer);
       observer.disconnect();
       root.classList.remove("reveal-ready");
     };

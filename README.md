@@ -41,56 +41,39 @@ naming, that's the thing to add.
 
 ## Design system
 
-Dark, monochrome and warm. Tokens live once in `src/app/globals.css` under
-`@theme inline` and are used as Tailwind utilities (`bg-bg`, `text-fg`,
-`text-muted`, …).
+Light and typographic, in the register of ode.partners. Tokens live in
+`src/app/globals.css` under `@theme inline`.
 
-| Token   | Hex       | Use                                              |
-| ------- | --------- | ------------------------------------------------ |
-| `bg`    | `#12100F` | Page background, warm near-black                 |
-| `cream` | `#F4EEE2` | Type, the inverted panel, the pill button fill   |
-| `muted` | `#938B82` | Body copy, secondary lines                       |
-| `faint` | `#514941` | Index numbers, labels, footer                    |
+| Token   | Hex       | Use                                       |
+| ------- | --------- | ----------------------------------------- |
+| `paper` | `#F4F2EF` | Page background                           |
+| `ink`   | `#171614` | Type, dark panels, the contact block      |
+| `muted` | `#6F6A64` | Secondary copy, labels                    |
+| `line`  | `#DEDAD3` | Hairlines, card borders, tag outlines     |
+| `teal` / `amber` / `clay` | — | **Inside the product panels only.** Never page chrome. |
 
-**Two colours, no accent.** The cream is Palette A's from the brand deck; the
-whole palette is the contrast between it and the near-black. An earlier pass
-used a hot orange at full-bleed scale and it read as jarring rather than
-confident — if you reintroduce colour, do it at the scale of a hairline rule,
-not a panel.
+Type is Figtree — a stand-in for ode's Raptor Text, which is licensed. The
+display style is 800 weight, `-0.042em` tracking, `0.86` leading, lowercase.
 
-Type is Inter alone at two tracking settings (`.display`, `.display-sm`). No
-cards, no fills, no borders beyond hairline rules. The single inversion — the
-cream panel — is the one loud move on the page, and it works because nothing
-around it competes. The restraint is the design.
+## The product panels
 
-## Motion
+`src/components/Panels.tsx` draws six panels in pure markup: a takeoff drawing,
+an estimate sheet, a dispatch board, a cost variance chart, a document
+extraction and a follow-up thread.
 
-Five pieces, all hand-rolled, no animation library:
+They exist because **ode's richness comes from photography and client work, and
+this site has neither.** The panels illustrate the kind of thing we build. They
+are not screenshots of any client's system and must not be captioned as if they
+were. The numbers and names in them are invented.
 
-| File                            | What it does                                                        |
-| ------------------------------- | ------------------------------------------------------------------- |
-| `components/Reveal.tsx`         | Observes every reveal target and drives the whole system            |
-| `components/Split.tsx`          | Splits a heading into per-word masks that slide up in sequence      |
-| `components/ScrollText.tsx`     | The statement that lights word by word as you scroll past it        |
-| `components/Ambient.tsx`        | Soft light that eases toward the cursor, idling in a slow drift     |
-| `components/Magnetic.tsx`       | Pill buttons that lean toward the pointer                           |
+**Replacing them with real imagery is the single biggest upgrade available to
+this page.** Worth shooting: crews and job sites, an estimator at two monitors,
+a truck bay at 6am. Real photography in these slots would close most of the
+remaining distance to the reference.
 
-Everything is slow on purpose — reveals run 1.3–1.6s on an expo ease. Speeding
-them up is the fastest way to make the page feel cheap.
-
-Mark up new elements with `data-split`, `data-fade` or `data-line`, and stagger
-a group with an inline `--group-delay`.
-
-Two rules the code already follows, worth keeping:
-
-- **Hidden states are gated behind `.reveal-ready`**, a class only JS adds. With
-  JS off or hydration broken, the page renders fully visible instead of blank.
-- **Anything inside the first viewport reveals immediately** rather than waiting
-  on the observer, whose negative bottom margin would otherwise strand a hero
-  CTA on a short laptop screen.
-
-Everything respects `prefers-reduced-motion`, and the pointer effects are
-`(pointer: fine)` only — touch devices attach no listeners at all.
+Note that panels are nested inside display headings, so `.card` resets the
+inherited tracking, leading, weight and `text-transform` — without that reset
+their small text gets crushed.
 
 ## Deploy
 

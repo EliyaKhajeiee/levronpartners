@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Warm near-black against the cream from the brand deck. No accent colour —
-     the contrast between these two is the whole palette. */
-  --color-bg: #12100f;
-  --color-cream: #f4eee2;
-  --color-fg: #f4eee2;
-  --color-muted: #938b82;
-  --color-faint: #514941;
+  --color-paper: #f4f2ef;
+  --color-ink: #171614;
+  --color-muted: #6f6a64;
+  --color-line: #dedad3;
+  --color-card: #ffffff;
 
-  --color-background: var(--color-bg);
-  --color-foreground: var(--color-fg);
+  /* Used only inside the product panels, the way real UI carries colour.
+     Never as page chrome. */
+  --color-teal: #0e6e6e;
+  --color-amber: #c98a2e;
+  --color-clay: #b4573a;
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
 
   --font-sans: var(--font-body);
 
@@ -18,9 +22,7 @@
 }
 
 :root {
-  color-scheme: dark;
-  --rule: rgba(244, 238, 226, 0.12);
-  --rule-soft: rgba(244, 238, 226, 0.07);
+  color-scheme: light;
 }
 
 html {
@@ -29,50 +31,70 @@ html {
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-cream);
-  color: var(--color-bg);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 /* ---------------- Type ---------------- */
 
 .display {
-  font-weight: 400;
-  letter-spacing: -0.032em;
-  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.042em;
+  line-height: 0.86;
 }
 
-.display-sm {
-  font-weight: 400;
-  letter-spacing: -0.024em;
-  line-height: 1.08;
+.display-md {
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  line-height: 1.02;
 }
 
 .label {
   font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-faint);
+  color: var(--color-muted);
 }
 
-.hairline {
-  border-color: var(--rule);
+/* Small superscript count next to a section title, as ode does */
+.count {
+  font-size: 0.34em;
+  font-weight: 600;
+  letter-spacing: 0;
+  vertical-align: super;
+  color: var(--color-muted);
 }
 
-.hairline-soft {
-  border-color: var(--rule-soft);
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* ---------------- Connector rules ---------------- */
+
+.connector {
+  width: 1px;
+  background: var(--color-line);
+  margin-inline: auto;
 }
 
 /* ---------------- Word mask reveal ----------------
-   Words sit in an overflow-hidden span and rise from below. The masked state
-   only exists under .reveal-ready, which JS adds — so with JS off the text
-   renders normally instead of vanishing. */
+   Masked state only exists under .reveal-ready, which JS adds — with JS off
+   the text renders normally rather than vanishing. */
 
 .split-word {
   display: inline-block;
@@ -88,8 +110,8 @@ body {
 .reveal-ready .split-inner {
   display: inline-block;
   transform: translateY(108%);
-  transition: transform 1.35s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 70ms + var(--group-delay, 0ms));
+  transition: transform 1.15s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 62ms + var(--group-delay, 0ms));
   will-change: transform;
 }
 
@@ -97,14 +119,14 @@ body {
   transform: translateY(0);
 }
 
-/* ---------------- Fade + rule reveals ---------------- */
+/* ---------------- Fade / rise / rule reveals ---------------- */
 
 .reveal-ready [data-fade] {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px);
   transition:
-    opacity 1.4s var(--ease-out-expo),
-    transform 1.4s var(--ease-out-expo);
+    opacity 1.2s var(--ease-out-expo),
+    transform 1.2s var(--ease-out-expo);
   transition-delay: var(--group-delay, 0ms);
 }
 
@@ -113,10 +135,25 @@ body {
   transform: none;
 }
 
+/* Media panels rise and settle, with a soft clip */
+.reveal-ready [data-rise] {
+  opacity: 0;
+  transform: translateY(46px) scale(0.985);
+  transition:
+    opacity 1.3s var(--ease-out-expo),
+    transform 1.3s var(--ease-out-expo);
+  transition-delay: var(--group-delay, 0ms);
+}
+
+.reveal-ready [data-rise].is-in {
+  opacity: 1;
+  transform: none;
+}
+
 .reveal-ready [data-line] {
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1.6s var(--ease-out-expo);
+  transition: transform 1.4s var(--ease-out-expo);
   transition-delay: var(--group-delay, 0ms);
 }
 
@@ -124,53 +161,108 @@ body {
   transform: scaleX(1);
 }
 
+.reveal-ready [data-grow] {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.4s var(--ease-out-expo);
+  transition-delay: var(--group-delay, 0ms);
+}
+
+.reveal-ready [data-grow].is-in {
+  transform: scaleY(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready .split-inner,
   .reveal-ready [data-fade],
-  .reveal-ready [data-line] {
+  .reveal-ready [data-rise],
+  .reveal-ready [data-line],
+  .reveal-ready [data-grow] {
     transform: none !important;
     opacity: 1 !important;
     transition: none !important;
   }
+
+  .scroll-cue span {
+    animation: none !important;
+  }
 }
 
-/* ---------------- Ambient ----------------
-   A single soft warm light, barely there. It reads as depth rather than
-   as a colour. */
+/* ---------------- Scroll cue ---------------- */
 
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    46rem 36rem at var(--mx, 50%) var(--my, 14%),
-    rgba(244, 238, 226, 0.055),
-    transparent 68%
-  );
+.scroll-cue span {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: var(--color-ink);
+  transform-origin: top;
+  animation: cue 2.6s var(--ease-out-expo) infinite;
 }
 
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.16;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+@keyframes cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* ---------------- Cards ---------------- */
+
+/* Panels are nested inside display headings, so they have to reset the
+   inherited display typography or their small text gets crushed. */
+.card,
+.card-dark {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+}
+
+.card-dark {
+  background: var(--color-ink);
+}
+
+.lift {
+  transition:
+    transform 0.9s var(--ease-out-expo),
+    box-shadow 0.9s var(--ease-out-expo);
+}
+
+.group:hover .lift {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -28px rgba(23, 22, 20, 0.3);
 }
 
 /* ---------------- Bits ---------------- */
 
 .pill {
   transition:
-    background-color 0.6s var(--ease-out-expo),
-    color 0.6s var(--ease-out-expo),
-    border-color 0.6s var(--ease-out-expo);
+    background-color 0.5s var(--ease-out-expo),
+    color 0.5s var(--ease-out-expo);
 }
 
 .arrow-shift {
-  transition: transform 0.7s var(--ease-out-expo);
+  transition: transform 0.6s var(--ease-out-expo);
 }
 
 .group:hover .arrow-shift {
@@ -179,26 +271,9 @@ body {
 
 .link-quiet {
   color: var(--color-muted);
-  transition: color 0.6s var(--ease-out-expo);
+  transition: color 0.5s var(--ease-out-expo);
 }
 
 .link-quiet:hover {
-  color: var(--color-cream);
-}
-
-/* Work rows: the title eases across and the rule brightens. No fill. */
-.row-title {
-  transition: transform 0.9s var(--ease-out-expo);
-}
-
-.group:hover .row-title {
-  transform: translateX(14px);
-}
-
-.row-rule {
-  transition: background-color 0.9s var(--ease-out-expo);
-}
-
-.group:hover .row-rule {
-  background-color: rgba(244, 238, 226, 0.34);
+  color: var(--color-ink);
 }
