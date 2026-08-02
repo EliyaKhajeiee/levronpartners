@@ -55,25 +55,31 @@ Light and typographic, in the register of ode.partners. Tokens live in
 Type is Figtree — a stand-in for ode's Raptor Text, which is licensed. The
 display style is 800 weight, `-0.042em` tracking, `0.86` leading, lowercase.
 
-## The product panels
+## Photography
 
-`src/components/Panels.tsx` draws six panels in pure markup: a takeoff drawing,
-an estimate sheet, a dispatch board, a cost variance chart, a document
-extraction and a follow-up thread.
+**The page has no imagery yet, and that is the main thing holding it back.**
 
-They exist because **ode's richness comes from photography and client work, and
-this site has neither.** The panels illustrate the kind of thing we build. They
-are not screenshots of any client's system and must not be captioned as if they
-were. The numbers and names in them are invented.
+An earlier pass filled the image slots with product panels drawn in markup —
+fake estimate sheets and dispatch boards. They read as obviously fake and were
+removed. There are no placeholder graphics now: `src/lib/media.ts` defines the
+slots, and any slot with an empty `src` simply does not render, so the layout
+closes up and the page stays clean until real photographs exist.
 
-**Replacing them with real imagery is the single biggest upgrade available to
-this page.** Worth shooting: crews and job sites, an estimator at two monitors,
-a truck bay at 6am. Real photography in these slots would close most of the
-remaining distance to the reference.
+To turn the slots on, drop files into `/public/photos` and fill in `src` and
+`alt` in `src/lib/media.ts`. Shoot list, in order of impact:
 
-Note that panels are nested inside display headings, so `.card` resets the
-inherited tracking, leading, weight and `text-transform` — without that reset
-their small text gets crushed.
+| Slot      | What to shoot                                              |
+| --------- | ---------------------------------------------------------- |
+| `hero`    | A crew on a roof or in a mechanical room — wide, room to crop |
+| `intro`   | An estimator at two monitors, over the shoulder             |
+| `work[0]` | Drawings, a plan table, takeoff in progress                 |
+| `work[1]` | Truck bay or shop floor at the start of a shift             |
+| `work[2]` | Paperwork, submittals, a jobsite trailer desk               |
+| `work[3]` | Someone on the phone in the office                          |
+
+Shoot wide with headroom — every slot crops with `object-cover`. Real,
+slightly-imperfect documentary photography will look far better here than
+anything staged or stock.
 
 ## Deploy
 
