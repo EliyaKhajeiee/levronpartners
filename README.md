@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Levron Partners
 
-## Getting Started
+Marketing site for Levron Partners — AI systems for construction and HVAC contractors.
 
-First, run the development server:
+Next.js 16 (App Router) · Tailwind CSS v4 · statically prerendered · deploys to Vercel.
+
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm start       # serve the production build
+npm run lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Things to change before launch
 
-## Learn More
+Everything you'll want to touch first lives in **`src/lib/site.ts`**:
 
-To learn more about Next.js, take a look at the following resources:
+| Field        | Currently                      | Do this                                                                                        |
+| ------------ | ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `bookingUrl` | `https://cal.com/levron/intro` | **Placeholder — swap in your real Cal.com / Calendly link.** Every CTA on the page points here. |
+| `email`      | `eliya@levronpartners.com`     | Confirm this inbox exists                                                                       |
+| `url`        | `https://levronpartners.com`   | Used for OG tags / `metadataBase`                                                               |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Page content lives in plain arrays at the top of **`src/app/page.tsx`** —
+`capabilities`, `steps`, `outcomes`, `faqs`, `fit`, `marquee`. Edit the copy
+there; the layout follows.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### About the numbers in the "What we aim at" section
 
-## Deploy on Vercel
+`outcomes` in `src/app/page.tsx` is written as **targets you commit to**, not as
+results you've already delivered ("Same day bid turnaround", "< 60 sec lead
+response"). That framing is deliberate and honest while you have no case studies
+published. Once you have real client results, swap that section for named
+outcomes with the client's permission — it will convert harder than targets do.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design system
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Palette A, "Blueprint Teal", from the brand deck. Tokens are defined once in
+`src/app/globals.css` under `@theme inline` and used as Tailwind utilities
+(`bg-teal`, `text-ink`, `bg-cream`, `text-brass`, …).
+
+| Token       | Hex       | Use                                       |
+| ----------- | --------- | ----------------------------------------- |
+| `teal`      | `#0E6E6E` | Primary accent, hovers, eyebrows          |
+| `teal-lit`  | `#17908D` | Accent on dark sections                   |
+| `cream`     | `#F4EEE2` | Alternating section bands                 |
+| `cream-lit` | `#FBF8F2` | Page background                           |
+| `ink`       | `#1E2428` | Body text, dark sections                  |
+| `brass`     | `#C0703B` | Reserved — currently unused, keep it rare |
+
+Type: Instrument Serif (display) · Inter (body) · JetBrains Mono (eyebrows/labels).
+
+### Scroll animation
+
+`src/components/Reveal.tsx` drives every `data-reveal` element. The hidden state
+is gated behind a `.reveal-ready` class that only JavaScript adds, so if JS is
+off or hydration fails **the page still renders fully visible** rather than
+blank. Stagger a group by setting `--reveal-delay` inline.
+
+## Deploy
+
+```bash
+git remote add origin https://github.com/EliyaKhajeiee/levronpartners.git
+git branch -M main
+git push -u origin main
+```
+
+Then on [vercel.com/new](https://vercel.com/new), import the repo. Vercel detects
+Next.js automatically — no build settings, no environment variables needed. Add
+`levronpartners.com` under Project → Settings → Domains and point your registrar
+at the records Vercel gives you.
