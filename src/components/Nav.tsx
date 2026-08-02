@@ -41,10 +41,10 @@ export function Nav() {
       <nav className="relative mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10">
         <a
           href="#top"
-          className="display text-[1.375rem] tracking-[-0.05em]"
+          className="display text-[1.25rem] tracking-[-0.04em]"
           aria-label={site.name}
         >
-          levron
+          Levron Partners
         </a>
 
         <div className="flex items-center gap-7">
@@ -64,7 +64,7 @@ export function Nav() {
             href={site.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group bg-ink pill inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[0.8125rem] font-semibold text-white hover:bg-[#332f2a]"
+            className="group bg-ink pill inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[0.8125rem] font-semibold text-white hover:bg-teal"
           >
             Get started
             <span className="arrow-shift">→</span>

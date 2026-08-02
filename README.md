@@ -41,19 +41,26 @@ naming, that's the thing to add.
 
 ## Design system
 
-Light and typographic, in the register of ode.partners. Tokens live in
-`src/app/globals.css` under `@theme inline`.
+Palette A — Blueprint Teal — from the brand deck, on a light cream ground.
+Tokens live in `src/app/globals.css` under `@theme inline`.
 
-| Token   | Hex       | Use                                       |
-| ------- | --------- | ----------------------------------------- |
-| `paper` | `#F4F2EF` | Page background                           |
-| `ink`   | `#171614` | Type, dark panels, the contact block      |
-| `muted` | `#6F6A64` | Secondary copy, labels                    |
-| `line`  | `#DEDAD3` | Hairlines, card borders, tag outlines     |
-| `teal` / `amber` / `clay` | — | **Inside the product panels only.** Never page chrome. |
+| Token   | Hex       | Use                                              |
+| ------- | --------- | ------------------------------------------------ |
+| `paper` | `#F4EEE2` | Cream page background                            |
+| `ink`   | `#1E2428` | Charcoal type, the contact block                 |
+| `teal`  | `#0E6E6E` | Accent — button hovers, tag hovers, section counts |
+| `brass` | `#C0703B` | Reserved, currently unused                       |
+| `muted` | `#6B7176` | Secondary copy                                   |
+| `line`  | `#D8D1C3` | Hairlines and tag outlines                       |
 
-Type is Figtree — a stand-in for ode's Raptor Text, which is licensed. The
-display style is 800 weight, `-0.042em` tracking, `0.86` leading, lowercase.
+Type is Figtree, sentence case. `.display` is 800 weight at `-0.035em`
+tracking and `0.86` leading. Headings were briefly set lowercase to echo the
+reference site — that's been undone; the brand is "Levron Partners", set
+normally.
+
+The hero composition is deliberately the one from the original mockup:
+headline, right-aligned qualifier beneath it, then the paragraph bottom-left
+and the CTA bottom-right.
 
 ## Photography
 

@@ -60,21 +60,18 @@ export default function Home() {
 
       <main id="top" className="flex-1">
         {/* ───────────── Hero ───────────── */}
-        <section className="px-6 pt-[21vh] pb-14 md:px-10 md:pt-[24vh]">
-          <div className="mx-auto max-w-[1500px]">
-            <h1 className="display text-[clamp(3rem,11.5vw,11rem)] lowercase">
+        <section className="flex min-h-[100svh] flex-col justify-between px-6 pt-[26vh] pb-14 md:px-10 md:pb-20">
+          <div className="mx-auto w-full max-w-[1500px]">
+            <h1 className="display max-w-[16ch] text-[clamp(2.875rem,9.6vw,9rem)]">
               <span data-split className="block">
-                <Split text="Same crew." />
-              </span>
-              <span data-split className="block">
-                <Split text="More capacity." start={2} />
+                <Split text="Same crew. More capacity." />
               </span>
             </h1>
 
             {hasPhoto(photos.hero) && (
               <div
                 data-rise
-                style={{ "--group-delay": "420ms" } as React.CSSProperties}
+                style={{ "--group-delay": "480ms" } as React.CSSProperties}
                 className="relative mt-12 aspect-[16/7] w-full overflow-hidden rounded-[1.25rem]"
               >
                 <Image
@@ -88,42 +85,41 @@ export default function Home() {
               </div>
             )}
 
-            <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-12">
-              <p
-                data-fade
-                style={{ "--group-delay": "560ms" } as React.CSSProperties}
-                className="text-ink/75 text-[clamp(1.0625rem,1.5vw,1.4375rem)] leading-[1.45] tracking-[-0.015em] md:col-span-5"
-              >
-                We find where your operation is leaking hours, then build the
-                software that removes them. Custom to how your business
-                actually runs.
-              </p>
+            <p
+              data-fade
+              style={{ "--group-delay": "640ms" } as React.CSSProperties}
+              className="text-muted mt-[8vh] text-right text-[clamp(1rem,1.7vw,1.5rem)] tracking-[-0.02em]"
+            >
+              For construction and home services.
+            </p>
+          </div>
 
-              <p
-                data-fade
-                style={{ "--group-delay": "660ms" } as React.CSSProperties}
-                className="text-muted text-[clamp(1.0625rem,1.5vw,1.4375rem)] leading-[1.45] tracking-[-0.015em] md:col-span-4 md:col-start-7"
-              >
-                For construction and HVAC contractors doing five million and up.
-              </p>
+          <div className="mx-auto flex w-full max-w-[1500px] flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+            <p
+              data-fade
+              style={{ "--group-delay": "780ms" } as React.CSSProperties}
+              className="text-muted max-w-[36ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.45] tracking-[-0.015em]"
+            >
+              We find where your operation is leaking hours, then build the
+              software that removes them. Custom to how your business actually
+              runs.
+            </p>
 
-              <div
-                data-fade
-                style={{ "--group-delay": "760ms" } as React.CSSProperties}
-                className="md:col-span-2 md:col-start-11 md:justify-self-end"
-              >
-                <Magnetic strength={0.24}>
-                  <a
-                    href={site.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-ink pill inline-flex items-center gap-3 rounded-full px-7 py-4 text-[0.9375rem] font-semibold text-white hover:bg-[#332f2a]"
-                  >
-                    Get started
-                    <span className="arrow-shift">→</span>
-                  </a>
-                </Magnetic>
-              </div>
+            <div
+              data-fade
+              style={{ "--group-delay": "900ms" } as React.CSSProperties}
+            >
+              <Magnetic strength={0.24}>
+                <a
+                  href={site.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white"
+                >
+                  Get Started
+                  <span className="arrow-shift">→</span>
+                </a>
+              </Magnetic>
             </div>
           </div>
         </section>
@@ -164,7 +160,7 @@ export default function Home() {
           <div className="mx-auto max-w-[1500px]">
             <h2
               data-split
-              className="display text-[clamp(2.5rem,8vw,7rem)] lowercase"
+              className="display text-[clamp(2.25rem,6.6vw,5.75rem)]"
             >
               <Split text="What we build" />
               <span className="count">4</span>
@@ -257,7 +253,7 @@ export default function Home() {
           <div className="mx-auto max-w-[1500px]">
             <h2
               data-split
-              className="display text-[clamp(2.5rem,8vw,7rem)] lowercase"
+              className="display text-[clamp(2.25rem,6.6vw,5.75rem)]"
             >
               <Split text="How it works" />
               <span className="count">3</span>
@@ -292,7 +288,7 @@ export default function Home() {
             <div className="bg-ink relative overflow-hidden rounded-[1.75rem] px-7 py-16 md:px-16 md:py-28">
               <h2
                 data-split
-                className="display text-[clamp(2.5rem,7vw,6rem)] lowercase text-white"
+                className="display text-[clamp(2.25rem,6vw,5.25rem)] text-white"
               >
                 <Split text="Let’s find the hours." />
               </h2>
@@ -333,8 +329,8 @@ export default function Home() {
       <footer className="px-6 pb-10 md:px-10">
         <div className="mx-auto max-w-[1500px]">
           <div className="border-line flex flex-col gap-5 border-t pt-8 text-[0.8125rem] sm:flex-row sm:items-center sm:justify-between">
-            <span className="display text-[1.125rem] tracking-[-0.05em]">
-              levron
+            <span className="display text-[1.0625rem] tracking-[-0.04em]">
+              Levron Partners
             </span>
             <div className="text-muted flex flex-wrap items-center gap-x-8 gap-y-3">
               <a href={`mailto:${site.email}`} className="link-quiet">

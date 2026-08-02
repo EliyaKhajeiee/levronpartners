@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #f4f2ef;
-  --color-ink: #171614;
-  --color-muted: #6f6a64;
-  --color-line: #dedad3;
-  --color-card: #ffffff;
-
-  /* Used only inside the product panels, the way real UI carries colour.
-     Never as page chrome. */
+  /* Palette A — Blueprint Teal, from the brand deck */
+  --color-paper: #f4eee2; /* cream */
+  --color-ink: #1e2428; /* charcoal */
   --color-teal: #0e6e6e;
-  --color-amber: #c98a2e;
-  --color-clay: #b4573a;
+  --color-brass: #c0703b;
+
+  --color-muted: #6b7176;
+  --color-line: #d8d1c3;
 
   --color-background: var(--color-paper);
   --color-foreground: var(--color-ink);
@@ -46,7 +43,7 @@ body {
 
 .display {
   font-weight: 800;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.035em;
   line-height: 0.86;
 }
 
@@ -66,11 +63,11 @@ body {
 
 /* Small superscript count next to a section title, as ode does */
 .count {
-  font-size: 0.34em;
+  font-size: 0.3em;
   font-weight: 600;
   letter-spacing: 0;
   vertical-align: super;
-  color: var(--color-muted);
+  color: var(--color-teal);
 }
 
 .tag {
@@ -82,14 +79,14 @@ body {
   font-size: 0.75rem;
   color: var(--color-muted);
   white-space: nowrap;
+  transition:
+    border-color 0.5s var(--ease-out-expo),
+    color 0.5s var(--ease-out-expo);
 }
 
-/* ---------------- Connector rules ---------------- */
-
-.connector {
-  width: 1px;
-  background: var(--color-line);
-  margin-inline: auto;
+.group:hover .tag {
+  border-color: color-mix(in oklab, var(--color-teal) 45%, transparent);
+  color: var(--color-teal);
 }
 
 /* ---------------- Word mask reveal ----------------
@@ -218,41 +215,6 @@ body {
   }
 }
 
-/* ---------------- Cards ---------------- */
-
-/* Panels are nested inside display headings, so they have to reset the
-   inherited display typography or their small text gets crushed. */
-.card,
-.card-dark {
-  border-radius: 1.25rem;
-  overflow: hidden;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-.card {
-  background: var(--color-card);
-  border: 1px solid var(--color-line);
-}
-
-.card-dark {
-  background: var(--color-ink);
-}
-
-.lift {
-  transition:
-    transform 0.9s var(--ease-out-expo),
-    box-shadow 0.9s var(--ease-out-expo);
-}
-
-.group:hover .lift {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px -28px rgba(23, 22, 20, 0.3);
-}
-
 /* ---------------- Bits ---------------- */
 
 .pill {
@@ -275,5 +237,5 @@ body {
 }
 
 .link-quiet:hover {
-  color: var(--color-ink);
+  color: var(--color-teal);
 }
