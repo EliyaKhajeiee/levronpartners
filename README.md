@@ -45,17 +45,23 @@ Dark, monochrome and warm. Tokens live once in `src/app/globals.css` under
 `@theme inline` and are used as Tailwind utilities (`bg-bg`, `text-fg`,
 `text-muted`, …).
 
-| Token     | Hex       | Use                                            |
-| --------- | --------- | ---------------------------------------------- |
-| `bg`      | `#141111` | Page background, warm near-black               |
-| `fg`      | `#F4F2F0` | Headlines, the pill button fill                |
-| `muted`   | `#8B8683` | Body copy, secondary lines                     |
-| `faint`   | `#4A4442` | Index numbers, labels, footer                  |
-| `teal`    | `#17908D` | Held in reserve from the brand deck — unused   |
+| Token   | Hex       | Use                                              |
+| ------- | --------- | ------------------------------------------------ |
+| `bg`    | `#12100F` | Page background, warm near-black                 |
+| `cream` | `#F4EEE2` | Type, the inverted panel, the pill button fill   |
+| `muted` | `#938B82` | Body copy, secondary lines                       |
+| `faint` | `#514941` | Index numbers, labels, footer                    |
 
-Type is Inter alone, at two tracking settings (`.display`, `.display-sm`). No
-accent colour, no cards, no borders beyond hairline rules — the restraint is
-the design, so be careful adding to it.
+**Two colours, no accent.** The cream is Palette A's from the brand deck; the
+whole palette is the contrast between it and the near-black. An earlier pass
+used a hot orange at full-bleed scale and it read as jarring rather than
+confident — if you reintroduce colour, do it at the scale of a hairline rule,
+not a panel.
+
+Type is Inter alone at two tracking settings (`.display`, `.display-sm`). No
+cards, no fills, no borders beyond hairline rules. The single inversion — the
+cream panel — is the one loud move on the page, and it works because nothing
+around it competes. The restraint is the design.
 
 ## Motion
 
@@ -66,8 +72,11 @@ Five pieces, all hand-rolled, no animation library:
 | `components/Reveal.tsx`         | Observes every reveal target and drives the whole system            |
 | `components/Split.tsx`          | Splits a heading into per-word masks that slide up in sequence      |
 | `components/ScrollText.tsx`     | The statement that lights word by word as you scroll past it        |
-| `components/Ambient.tsx`        | Warm light that eases toward the cursor, idling in a slow drift     |
+| `components/Ambient.tsx`        | Soft light that eases toward the cursor, idling in a slow drift     |
 | `components/Magnetic.tsx`       | Pill buttons that lean toward the pointer                           |
+
+Everything is slow on purpose — reveals run 1.3–1.6s on an expo ease. Speeding
+them up is the fastest way to make the page feel cheap.
 
 Mark up new elements with `data-split`, `data-fade` or `data-line`, and stagger
 a group with an inline `--group-delay`.

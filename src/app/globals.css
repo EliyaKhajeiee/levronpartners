@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #0e0c0b;
-  --color-fg: #f6f6f6;
-  --color-muted: #8a8481;
-  --color-faint: #4a4340;
-  --color-accent: #ff4a14;
-  --color-accent-deep: #e03a06;
+  /* Warm near-black against the cream from the brand deck. No accent colour —
+     the contrast between these two is the whole palette. */
+  --color-bg: #12100f;
+  --color-cream: #f4eee2;
+  --color-fg: #f4eee2;
+  --color-muted: #938b82;
+  --color-faint: #514941;
 
   --color-background: var(--color-bg);
   --color-foreground: var(--color-fg);
@@ -18,8 +19,8 @@
 
 :root {
   color-scheme: dark;
-  --rule: rgba(246, 246, 246, 0.13);
-  --rule-soft: rgba(246, 246, 246, 0.07);
+  --rule: rgba(244, 238, 226, 0.12);
+  --rule-soft: rgba(244, 238, 226, 0.07);
 }
 
 html {
@@ -35,22 +36,29 @@ body {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #0e0c0b;
+  background: var(--color-cream);
+  color: var(--color-bg);
 }
 
 /* ---------------- Type ---------------- */
 
 .display {
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.88;
+  font-weight: 400;
+  letter-spacing: -0.032em;
+  line-height: 0.98;
 }
 
 .display-sm {
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.024em;
+  line-height: 1.08;
+}
+
+.label {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-faint);
 }
 
 .hairline {
@@ -62,9 +70,9 @@ body {
 }
 
 /* ---------------- Word mask reveal ----------------
-   Words sit in an overflow-hidden span and slide up from below. The masked
-   state only exists under .reveal-ready, which JS adds — so with JS off the
-   text renders normally instead of vanishing. */
+   Words sit in an overflow-hidden span and rise from below. The masked state
+   only exists under .reveal-ready, which JS adds — so with JS off the text
+   renders normally instead of vanishing. */
 
 .split-word {
   display: inline-block;
@@ -79,9 +87,9 @@ body {
 
 .reveal-ready .split-inner {
   display: inline-block;
-  transform: translateY(110%);
-  transition: transform 1s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 48ms + var(--group-delay, 0ms));
+  transform: translateY(108%);
+  transition: transform 1.35s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 70ms + var(--group-delay, 0ms));
   will-change: transform;
 }
 
@@ -93,10 +101,10 @@ body {
 
 .reveal-ready [data-fade] {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(12px);
   transition:
-    opacity 1.1s var(--ease-out-expo),
-    transform 1.1s var(--ease-out-expo);
+    opacity 1.4s var(--ease-out-expo),
+    transform 1.4s var(--ease-out-expo);
   transition-delay: var(--group-delay, 0ms);
 }
 
@@ -108,7 +116,7 @@ body {
 .reveal-ready [data-line] {
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1.3s var(--ease-out-expo);
+  transition: transform 1.6s var(--ease-out-expo);
   transition-delay: var(--group-delay, 0ms);
 }
 
@@ -124,30 +132,22 @@ body {
     opacity: 1 !important;
     transition: none !important;
   }
-
-  .marquee-track {
-    animation: none !important;
-  }
 }
 
-/* ---------------- Ambient + grain ---------------- */
+/* ---------------- Ambient ----------------
+   A single soft warm light, barely there. It reads as depth rather than
+   as a colour. */
 
 .ambient {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(
-      40rem 32rem at var(--mx, 45%) var(--my, 16%),
-      rgba(255, 74, 20, 0.2),
-      transparent 66%
-    ),
-    radial-gradient(
-      52rem 38rem at 82% 4%,
-      rgba(255, 120, 40, 0.07),
-      transparent 70%
-    );
+  background: radial-gradient(
+    46rem 36rem at var(--mx, 50%) var(--my, 14%),
+    rgba(244, 238, 226, 0.055),
+    transparent 68%
+  );
 }
 
 .grain {
@@ -155,77 +155,50 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.32;
+  opacity: 0.16;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ---------------- Marquee ---------------- */
-
-.marquee-track {
-  animation: marquee 34s linear infinite;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ---------------- Cursor ---------------- */
-
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 90;
-  pointer-events: none;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
-  border-radius: 999px;
-  background: var(--color-fg);
-  mix-blend-mode: difference;
-  transition: width 0.4s var(--ease-out-expo), height 0.4s var(--ease-out-expo),
-    margin 0.4s var(--ease-out-expo);
-}
-
-.cursor-dot[data-big="true"] {
-  width: 54px;
-  height: 54px;
-  margin: -27px 0 0 -27px;
-}
-
-@media (pointer: coarse) {
-  .cursor-dot {
-    display: none;
-  }
 }
 
 /* ---------------- Bits ---------------- */
 
 .pill {
   transition:
-    background-color 0.45s var(--ease-out-expo),
-    color 0.45s var(--ease-out-expo);
+    background-color 0.6s var(--ease-out-expo),
+    color 0.6s var(--ease-out-expo),
+    border-color 0.6s var(--ease-out-expo);
 }
 
 .arrow-shift {
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform 0.7s var(--ease-out-expo);
 }
 
 .group:hover .arrow-shift {
-  transform: translateX(6px);
+  transform: translateX(5px);
 }
 
 .link-quiet {
   color: var(--color-muted);
-  transition: color 0.4s var(--ease-out-expo);
+  transition: color 0.6s var(--ease-out-expo);
 }
 
 .link-quiet:hover {
-  color: var(--color-accent);
+  color: var(--color-cream);
+}
+
+/* Work rows: the title eases across and the rule brightens. No fill. */
+.row-title {
+  transition: transform 0.9s var(--ease-out-expo);
+}
+
+.group:hover .row-title {
+  transform: translateX(14px);
+}
+
+.row-rule {
+  transition: background-color 0.9s var(--ease-out-expo);
+}
+
+.group:hover .row-rule {
+  background-color: rgba(244, 238, 226, 0.34);
 }
