@@ -43,8 +43,15 @@ body {
 
 .display {
   font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.86;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+/* Pulls the first glyph's left sidebearing off the margin so the headline
+   optically aligns with the copy beneath it. */
+.optical {
+  margin-left: -0.045em;
 }
 
 .display-md {
@@ -238,4 +245,41 @@ body {
 
 .link-quiet:hover {
   color: var(--color-teal);
+}
+
+/* Nav links: a rule that draws in on hover and stays put on the current page */
+.nav-link {
+  position: relative;
+  color: var(--color-muted);
+  transition: color 0.5s var(--ease-out-expo);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.nav-link:hover {
+  color: var(--color-ink);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link.is-active {
+  color: var(--color-teal);
+}
+
+.nav-link.is-active::after {
+  transform: scaleX(1);
 }

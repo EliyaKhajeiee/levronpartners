@@ -39,6 +39,21 @@ Nothing on the page claims a result you haven't delivered — there are no
 metrics, logos or case studies, deliberately. When you have a client win worth
 naming, that's the thing to add.
 
+## Pages
+
+Four static routes, not one long scroll.
+
+| Route       | File                      | Carries                                   |
+| ----------- | ------------------------- | ----------------------------------------- |
+| `/`         | `src/app/page.tsx`        | Hero, positioning, the statement, two onward cards |
+| `/work`     | `src/app/work/page.tsx`   | The four systems, each with detail and tags |
+| `/process`  | `src/app/process/page.tsx`| Map / Build / Compound, plus how we work   |
+| `/contact`  | `src/app/contact/page.tsx`| Booking, what to expect, who it's for      |
+
+`Nav` and `Footer` live in `src/app/layout.tsx`, so every page gets them.
+`ContactCta` is the shared dark closing block — pass `heading` and `body` to
+tune it per page. The nav marks the current route in teal with a standing rule.
+
 ## Design system
 
 Palette A — Blueprint Teal — from the brand deck, on a light cream ground.

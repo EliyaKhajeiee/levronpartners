@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 
 const body = Figtree({
   variable: "--font-body",
@@ -38,7 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${body.variable} h-full antialiased`}>
       <body className="bg-paper text-ink flex min-h-full flex-col">
+        <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   );
