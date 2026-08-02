@@ -1,6 +1,6 @@
 # Levron Partners
 
-Marketing site for Levron Partners — AI systems for construction and HVAC contractors.
+One-page site for Levron Partners — custom software for construction and HVAC operators.
 
 Next.js 16 (App Router) · Tailwind CSS v4 · statically prerendered · deploys to Vercel.
 
@@ -29,41 +29,59 @@ Everything you'll want to touch first lives in **`src/lib/site.ts`**:
 | `email`      | `eliya@levronpartners.com`     | Confirm this inbox exists                                                                       |
 | `url`        | `https://levronpartners.com`   | Used for OG tags / `metadataBase`                                                               |
 
-Page content lives in plain arrays at the top of **`src/app/page.tsx`** —
-`capabilities`, `steps`, `outcomes`, `faqs`, `fit`, `marquee`. Edit the copy
-there; the layout follows.
+Page content lives in two plain arrays at the top of **`src/app/page.tsx`** —
+`work` and `beats` — plus the headings written inline. Edit the copy there; the
+layout follows.
 
-### About the numbers in the "What we aim at" section
+### Copy that isn't yet true
 
-`outcomes` in `src/app/page.tsx` is written as **targets you commit to**, not as
-results you've already delivered ("Same day bid turnaround", "< 60 sec lead
-response"). That framing is deliberate and honest while you have no case studies
-published. Once you have real client results, swap that section for named
-outcomes with the client's permission — it will convert harder than targets do.
+Nothing on the page claims a result you haven't delivered — there are no
+metrics, logos or case studies, deliberately. When you have a client win worth
+naming, that's the thing to add.
 
 ## Design system
 
-Palette A, "Blueprint Teal", from the brand deck. Tokens are defined once in
-`src/app/globals.css` under `@theme inline` and used as Tailwind utilities
-(`bg-teal`, `text-ink`, `bg-cream`, `text-brass`, …).
+Dark, monochrome and warm. Tokens live once in `src/app/globals.css` under
+`@theme inline` and are used as Tailwind utilities (`bg-bg`, `text-fg`,
+`text-muted`, …).
 
-| Token       | Hex       | Use                                       |
-| ----------- | --------- | ----------------------------------------- |
-| `teal`      | `#0E6E6E` | Primary accent, hovers, eyebrows          |
-| `teal-lit`  | `#17908D` | Accent on dark sections                   |
-| `cream`     | `#F4EEE2` | Alternating section bands                 |
-| `cream-lit` | `#FBF8F2` | Page background                           |
-| `ink`       | `#1E2428` | Body text, dark sections                  |
-| `brass`     | `#C0703B` | Reserved — currently unused, keep it rare |
+| Token     | Hex       | Use                                            |
+| --------- | --------- | ---------------------------------------------- |
+| `bg`      | `#141111` | Page background, warm near-black               |
+| `fg`      | `#F4F2F0` | Headlines, the pill button fill                |
+| `muted`   | `#8B8683` | Body copy, secondary lines                     |
+| `faint`   | `#4A4442` | Index numbers, labels, footer                  |
+| `teal`    | `#17908D` | Held in reserve from the brand deck — unused   |
 
-Type: Instrument Serif (display) · Inter (body) · JetBrains Mono (eyebrows/labels).
+Type is Inter alone, at two tracking settings (`.display`, `.display-sm`). No
+accent colour, no cards, no borders beyond hairline rules — the restraint is
+the design, so be careful adding to it.
 
-### Scroll animation
+## Motion
 
-`src/components/Reveal.tsx` drives every `data-reveal` element. The hidden state
-is gated behind a `.reveal-ready` class that only JavaScript adds, so if JS is
-off or hydration fails **the page still renders fully visible** rather than
-blank. Stagger a group by setting `--reveal-delay` inline.
+Five pieces, all hand-rolled, no animation library:
+
+| File                            | What it does                                                        |
+| ------------------------------- | ------------------------------------------------------------------- |
+| `components/Reveal.tsx`         | Observes every reveal target and drives the whole system            |
+| `components/Split.tsx`          | Splits a heading into per-word masks that slide up in sequence      |
+| `components/ScrollText.tsx`     | The statement that lights word by word as you scroll past it        |
+| `components/Ambient.tsx`        | Warm light that eases toward the cursor, idling in a slow drift     |
+| `components/Magnetic.tsx`       | Pill buttons that lean toward the pointer                           |
+
+Mark up new elements with `data-split`, `data-fade` or `data-line`, and stagger
+a group with an inline `--group-delay`.
+
+Two rules the code already follows, worth keeping:
+
+- **Hidden states are gated behind `.reveal-ready`**, a class only JS adds. With
+  JS off or hydration broken, the page renders fully visible instead of blank.
+- **Anything inside the first viewport reveals immediately** rather than waiting
+  on the observer, whose negative bottom margin would otherwise strand a hero
+  CTA on a short laptop screen.
+
+Everything respects `prefers-reduced-motion`, and the pointer effects are
+`(pointer: fine)` only — touch devices attach no listeners at all.
 
 ## Deploy
 

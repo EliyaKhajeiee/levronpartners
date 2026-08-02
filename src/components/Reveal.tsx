@@ -3,17 +3,19 @@
 import { useEffect, useLayoutEffect } from "react";
 
 /**
- * Scroll-reveal for every `[data-reveal]` element on the page.
+ * Drives every reveal on the page: word masks (`[data-split]`), fades
+ * (`[data-fade]`) and rules (`[data-line]`).
  *
- * The hidden state lives behind `.reveal-ready` on <html>, and that class is
- * only added here — after hydration, before paint. So the page renders fully
- * visible if JS is off or hydration fails, and nothing is ever stranded at
- * opacity 0. Adding the class in a layout effect (not an inline script) keeps
- * React the sole owner of the <html> className, which avoids a hydration
- * mismatch.
+ * The hidden/offset state lives behind `.reveal-ready` on <html>, added here
+ * after hydration but before paint. With JS off — or if hydration fails — the
+ * page renders fully visible instead of blank. Keeping the class change in a
+ * layout effect (rather than an inline script) leaves React the sole owner of
+ * the <html> className, which avoids a hydration mismatch.
  */
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+const SELECTOR = "[data-split],[data-fade],[data-line]";
 
 export function Reveal() {
   useIsomorphicLayoutEffect(() => {
@@ -37,16 +39,15 @@ export function Reveal() {
           }
         });
       },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.08 },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
     );
 
-    // Observe on the next frame so above-the-fold content animates in on load
-    // rather than appearing already-revealed. Anything inside the real viewport
-    // is revealed directly — the observer's negative bottom margin would
-    // otherwise strand content sitting low on the first screen (the hero CTA on
-    // a short laptop display) until the visitor happened to scroll.
+    // Next frame, so the hero animates in on load rather than appearing
+    // already-revealed. Anything inside the first screen is revealed directly:
+    // the observer's negative bottom margin would otherwise strand content
+    // sitting low on the opening viewport until the visitor happened to scroll.
     const frame = requestAnimationFrame(() => {
-      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((node) => {
+      document.querySelectorAll<HTMLElement>(SELECTOR).forEach((node) => {
         if (node.getBoundingClientRect().top < window.innerHeight) {
           node.classList.add("is-in");
         } else {
