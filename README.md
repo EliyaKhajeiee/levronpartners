@@ -1,6 +1,14 @@
-# Levron Partners
+# Levron Labs
 
-One-page site for Levron Partners — custom software for construction and HVAC operators.
+Site for Levron Labs — custom software for construction and HVAC operators.
+
+> **The repo and domain still say "levronpartners".** The brand is Levron Labs;
+> the wordmark, metadata and copy have all been moved over. What has *not* moved
+> is `site.url` (`levronpartners.com`), `site.email` (`eliya@levronpartners.com`)
+> and the GitHub remote — those are live and pointed at real records, so they're
+> a deliberate decision rather than a rename. Note that `levronlabs.com` already
+> serves the other Levron Labs site (`stotlefitness/Levron-Labs`), so the two
+> need untangling before this one can take that domain.
 
 Next.js 16 (App Router) · Tailwind CSS v4 · statically prerendered · deploys to Vercel.
 
@@ -45,7 +53,7 @@ Four static routes, not one long scroll.
 
 | Route       | File                      | Carries                                   |
 | ----------- | ------------------------- | ----------------------------------------- |
-| `/`         | `src/app/page.tsx`        | Hero, positioning, the statement, two onward cards |
+| `/`         | `src/app/page.tsx`        | Hero, positioning, the brief artifact, the statement, two onward cards |
 | `/work`     | `src/app/work/page.tsx`   | The four systems, each with detail and tags |
 | `/process`  | `src/app/process/page.tsx`| Map / Build / Compound, plus how we work   |
 | `/contact`  | `src/app/contact/page.tsx`| Booking, what to expect, who it's for      |
@@ -70,8 +78,23 @@ Tokens live in `src/app/globals.css` under `@theme inline`.
 
 Type is Figtree, sentence case. `.display` is 800 weight at `-0.035em`
 tracking and `0.86` leading. Headings were briefly set lowercase to echo the
-reference site — that's been undone; the brand is "Levron Partners", set
+reference site — that's been undone; the brand is "Levron Labs", set
 normally.
+
+### The artifact panel
+
+`src/components/Artifact.tsx` is a framed surface that holds a document: a
+chrome bar with a mono label and filename, a ruled `.blueprint-grid` ground,
+the contents, and an optional footnote rule. It takes `label`, `title`,
+`footnote` and `className`, and carries `data-rise` so it settles in with the
+other media panels.
+
+It is **not** an app window — no traffic lights, no toolbar — because anything
+that mimics shipped software runs straight back into the fake-product-panel
+problem below. The frame says "this is a thing we hand you"; keep what goes
+inside true. The homepage instance (`engagement-brief.md`) holds the Map /
+Build / Compound outline, which is real and also stated on `/process` — keep
+the two in step.
 
 The hero composition is deliberately the one from the original mockup:
 headline, right-aligned qualifier beneath it, then the paragraph bottom-left

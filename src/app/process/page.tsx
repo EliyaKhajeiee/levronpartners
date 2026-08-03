@@ -7,7 +7,7 @@ import { ContactCta } from "@/components/ContactCta";
 export const metadata: Metadata = {
   title: "Process",
   description:
-    "Map the constraints, ship working software in weeks, then compound. How a Levron Partners engagement runs.",
+    "Map the constraints, ship working software in weeks, then compound. How a Levron Labs engagement runs.",
 };
 
 const beats = [

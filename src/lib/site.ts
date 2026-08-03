@@ -1,5 +1,5 @@
 export const site = {
-  name: "Levron Partners",
+  name: "Levron Labs",
   domain: "levronpartners.com",
   url: "https://levronpartners.com",
   tagline: "Same crew. More capacity.",

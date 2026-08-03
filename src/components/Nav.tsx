@@ -47,7 +47,7 @@ export function Nav() {
           className="display text-[1.25rem] tracking-[-0.04em]"
           aria-label={site.name}
         >
-          Levron Partners
+          {site.name}
         </Link>
 
         <div className="flex items-center gap-6 sm:gap-8">

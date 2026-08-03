@@ -16,7 +16,7 @@ export function Footer() {
             href="/"
             className="display text-[1.0625rem] tracking-[-0.04em]"
           >
-            Levron Partners
+            {site.name}
           </Link>
 
           <div className="text-muted flex flex-wrap items-center gap-x-7 gap-y-3">

@@ -222,6 +222,36 @@ body {
   }
 }
 
+/* ---------------- Artifact panel ----------------
+   A drafting grid, ruled in the hairline colour so it reads as ground rather
+   than content. Masked off toward the bottom so the grid never competes with
+   the type sitting on it. */
+
+/* The rules sit on their own layer: a mask on the element itself would fade
+   the contents along with the grid. */
+.blueprint-grid {
+  position: relative;
+}
+
+.blueprint-grid::before {
+  --grid: color-mix(in oklab, var(--color-line) 62%, transparent);
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.blueprint-grid > * {
+  position: relative;
+}
+
 /* ---------------- Bits ---------------- */
 
 .pill {
