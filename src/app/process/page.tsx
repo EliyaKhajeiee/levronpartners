@@ -32,7 +32,7 @@ const beats = [
     k: "Compound",
     when: "Ongoing",
     t: "Then it gets sharper.",
-    b: "Estimating data feeds job costing; job costing sharpens the next bid. Each system makes the next one cheaper to build and more accurate once it is.",
+    b: "Quoting data feeds job costing; job costing sharpens the next quote. Each system makes the next one cheaper to build and more accurate once it is.",
     out: "A technical partner who knows your operation, and an advantage that compounds instead of decaying.",
   },
 ];
@@ -44,7 +44,7 @@ const principles = [
   },
   {
     t: "We work inside what you run.",
-    b: "Procore, ServiceTitan, Sage — your team keeps the tools they know. A migration is something we'd only recommend if the system itself is the constraint.",
+    b: "Procore, ServiceTitan, Jobber, QuickBooks — your team keeps the tools they know. A migration is something we'd only recommend if the system itself is the constraint.",
   },
   {
     t: "Fixed monthly, not hourly.",

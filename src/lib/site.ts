@@ -3,8 +3,21 @@ export const site = {
   domain: "levronpartners.com",
   url: "https://levronpartners.com",
   tagline: "Same crew. More capacity.",
+
+  /**
+   * Deliberately says "operation" and not "construction operation".
+   * Construction and home services is where we're selling, and the copy leans
+   * that way — but the site stays legible to the operator in another trade who
+   * lands on it, because those are still deals we take. Revisit when the
+   * vertical is worth naming exclusively.
+   */
   description:
-    "We find where your construction or HVAC operation is leaking hours, then build the software that removes them. Custom to how your business actually runs.",
+    "We find where your operation is leaking hours, then build the software that removes them. Custom to how your business actually runs.",
+
+  /** The two lines carried over from the brand deck. */
+  promise: "We redesign how work flows.",
+  line: "Small interventions. Disproportionate outcomes.",
+
   email: "eliya@levronpartners.com",
 
   // Swap this for your real Cal.com / Calendly link.

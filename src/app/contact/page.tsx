@@ -7,19 +7,19 @@ import { Magnetic } from "@/components/Magnetic";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a working session with Levron Labs. Bring your last ten bids and a dispatch board.",
+    "Book a working session with Levron Labs. Bring your last ten quotes and a normal week off the schedule.",
 };
 
 const expect = [
   {
     n: "01",
-    t: "Bring your last ten bids",
+    t: "Bring your last ten quotes",
     b: "Won and lost. We want to see how long each took to price and where the time went.",
   },
   {
     n: "02",
-    t: "And a dispatch board",
-    b: "A normal week, not a good one. The gaps are the interesting part.",
+    t: "And a normal week",
+    b: "Off the schedule or the dispatch board — a normal one, not a good one. The gaps are the interesting part.",
   },
   {
     n: "03",
@@ -28,10 +28,13 @@ const expect = [
   },
 ];
 
+// Construction and home services lead the list because that's where we're
+// selling — but the list doesn't end there, and neither do the engagements.
 const fit = [
-  "Mechanical, HVAC, plumbing and electrical contractors doing $5M+",
+  "Contractors and trades — mechanical, HVAC, plumbing, electrical — doing $5M+",
   "GCs and design-build firms bidding more than they can price",
-  "Service shops where speed-to-lead decides the close",
+  "Service businesses where speed-to-lead decides the close",
+  "Any operation where the office spends its day retyping what the field already wrote down",
   "Owners who want leverage, not another dashboard nobody opens",
 ];
 

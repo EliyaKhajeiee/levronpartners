@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Palette A — Blueprint Teal, from the brand deck */
-  --color-paper: #f4eee2; /* cream */
-  --color-ink: #1e2428; /* charcoal */
-  --color-teal: #0e6e6e;
-  --color-brass: #c0703b;
+  /* The brand palette, straight off the deck. Deck name in the comment; the
+     token keeps the shorter name the components already use. */
+  --color-paper: #f4eee2; /* Paper    — the page */
+  --color-ink: #1f2428; /* Carbon   — type, the closing block */
+  --color-teal: #0e6e6e; /* Blueprint — the accent */
+  --color-brass: #c0703b; /* Foundry  — held in reserve */
 
   --color-muted: #6b7176;
   --color-line: #d8d1c3;
@@ -66,6 +67,92 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-muted);
+}
+
+/* ---------------- Wordmark ----------------
+   The deck sets LEVRON wide and LABS wider still. Letter-spacing adds its
+   track after the final glyph too, which pushes the word off-centre under the
+   mark — the negative margin takes that trailing space back. */
+
+.wordmark {
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  margin-right: -0.26em;
+  text-transform: uppercase;
+}
+
+.wordmark-sub {
+  font-weight: 500;
+  font-size: 0.52em;
+  line-height: 1;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Flattens a partner mark to a single ink silhouette, so a row of seven
+   brands reads as one row rather than seven. */
+.logo-ink {
+  filter: brightness(0) saturate(100%);
+  opacity: 0.72;
+}
+
+/* ---------------- Marquee ----------------
+   The track holds the same list twice, so translating it exactly -50% lands
+   the second copy where the first started and the loop is seamless. Duration
+   comes in per-instance from the item count, so the speed stays constant
+   however many logos sit in the row. */
+
+.marquee {
+  overflow: hidden;
+  /* Feathers both ends so logos arrive and leave rather than being clipped. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6rem,
+    black calc(100% - 6rem),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 6rem,
+    black calc(100% - 6rem),
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  /* With nothing moving, the doubled list is just repetition — drop it and
+     let the row scroll by hand instead. */
+  .marquee-track > [data-marquee-clone] {
+    display: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
 }
 
 /* Small superscript count next to a section title, as ode does */

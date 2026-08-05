@@ -5,7 +5,7 @@ import { Magnetic } from "./Magnetic";
 /** The dark closing block, shared by every page. */
 export function ContactCta({
   heading = "Let’s find the hours.",
-  body = "Bring your last ten bids and a dispatch board. Forty-five minutes is usually enough to see where it’s going.",
+  body = "Bring your last ten quotes and a normal week off the schedule. Forty-five minutes is usually enough to see where it’s going.",
 }: {
   heading?: string;
   body?: string;

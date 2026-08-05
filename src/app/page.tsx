@@ -8,6 +8,9 @@ import { ScrollText } from "@/components/ScrollText";
 import { Magnetic } from "@/components/Magnetic";
 import { ContactCta } from "@/components/ContactCta";
 import { Artifact } from "@/components/Artifact";
+import { Proof } from "@/components/Proof";
+import { BrandStrip } from "@/components/BrandStrip";
+import { brandPhotos } from "@/lib/brand-photos";
 
 // The shape of an engagement, in brief. The full version lives on /process —
 // keep these lines in step with the beats there.
@@ -33,8 +36,8 @@ const onward = [
   {
     href: "/work",
     label: "Work",
-    title: "Four systems we build",
-    body: "Estimating, job costing, document agents and follow-up.",
+    title: "Where the week goes",
+    body: "Some of the moments operators have brought us first.",
   },
   {
     href: "/process",
@@ -90,7 +93,7 @@ export default function Home() {
               style={{ "--group-delay": "680ms" } as React.CSSProperties}
               className="text-muted mt-[8vh] text-right text-[clamp(1rem,1.7vw,1.5rem)] tracking-[-0.02em]"
             >
-              For construction and home services.
+              {site.promise}
             </p>
           </div>
 
@@ -123,6 +126,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <Proof />
 
         {/* ───────────── Intro ───────────── */}
         <section className="px-6 py-[14vh] md:px-10">
@@ -199,6 +204,16 @@ export default function Home() {
             />
           </div>
         </section>
+
+        <BrandStrip
+          label="Levron in the world"
+          photos={[
+            brandPhotos.businessCard,
+            brandPhotos.vehicle,
+            brandPhotos.plaque,
+            brandPhotos.stationery,
+          ]}
+        />
 
         {/* ───────────── Onward ───────────── */}
         <section className="px-6 pb-[14vh] md:px-10">

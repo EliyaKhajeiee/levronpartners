@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
+import { Wordmark } from "./Wordmark";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -42,12 +43,8 @@ export function Nav() {
       <div className="from-paper pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent" />
 
       <nav className="relative mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10">
-        <Link
-          href="/"
-          className="display text-[1.25rem] tracking-[-0.04em]"
-          aria-label={site.name}
-        >
-          {site.name}
+        <Link href="/" className="text-[0.875rem]" aria-label={site.name}>
+          <Wordmark />
         </Link>
 
         <div className="flex items-center gap-6 sm:gap-8">
