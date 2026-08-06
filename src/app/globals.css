@@ -6,7 +6,8 @@
   --color-paper: #f4eee2; /* Paper    — the page */
   --color-ink: #1f2428; /* Carbon   — type, the closing block */
   --color-teal: #0e6e6e; /* Blueprint — the accent */
-  --color-brass: #c0703b; /* Foundry  — held in reserve */
+  --color-brass: #c0703b; /* Foundry  — large formats only, 3.23:1 on paper */
+  --color-brick: #8c3a2e; /* Brick    — cost / the "before" side, 6.59:1 */
 
   --color-muted: #6b7176;
   --color-line: #d8d1c3;
