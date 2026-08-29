@@ -1,11 +1,22 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { industries } from "@/lib/industries";
 import { Wordmark } from "./Wordmark";
 
 const links = [
   { href: "/work", label: "Work" },
   { href: "/process", label: "Process" },
   { href: "/contact", label: "Contact" },
+];
+
+// Flattened for the footer, since mobile has no nav dropdown to reach these
+// from — this row is how a phone visitor finds a sub-industry page at all.
+const industryLinks = [
+  { href: "/industries", label: "Industries" },
+  ...industries.flatMap((group) => [
+    { href: group.href, label: group.label },
+    ...group.children.map((c) => ({ href: c.href, label: c.label })),
+  ]),
 ];
 
 /** The four words along the bottom of the brand deck. */
@@ -27,8 +38,17 @@ export function Footer() {
           </span>
         </div>
 
+        <div className="border-line flex flex-wrap items-center gap-x-7 gap-y-3 border-t py-8 text-[0.8125rem]">
+          <span className="label">Industries</span>
+          {industryLinks.map((l) => (
+            <Link key={l.href} href={l.href} className="link-quiet">
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
         <div className="border-line flex flex-col gap-6 border-t pt-8 text-[0.8125rem] md:flex-row md:items-center md:justify-between">
-          <Link href="/" className="text-[0.8125rem]" aria-label={site.name}>
+          <Link href="/" className="text-[1rem]" aria-label={site.name}>
             <Wordmark />
           </Link>
 

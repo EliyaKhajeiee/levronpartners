@@ -6,9 +6,11 @@ import { Magnetic } from "./Magnetic";
 export function ContactCta({
   heading = "Let’s find the hours.",
   body = "Bring your last ten quotes and a normal week off the schedule. Forty-five minutes is usually enough to see where it’s going.",
+  cta = "Get Started",
 }: {
   heading?: string;
   body?: string;
+  cta?: string;
 }) {
   return (
     <section className="px-6 pb-[12vh] md:px-10">
@@ -41,7 +43,7 @@ export function ContactCta({
                   rel="noopener noreferrer"
                   className="group bg-paper text-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold hover:text-white"
                 >
-                  Get Started
+                  {cta}
                   <span className="arrow-shift">→</span>
                 </a>
               </Magnetic>

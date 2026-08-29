@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { Wordmark } from "./Wordmark";
+import { IndustriesMenu } from "./IndustriesMenu";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -13,42 +13,18 @@ const links = [
 ];
 
 export function Nav() {
-  const [hidden, setHidden] = useState(false);
-  const last = useRef(0);
   const pathname = usePathname();
 
-  useEffect(() => {
-    last.current = window.scrollY;
-
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - last.current;
-
-      if (Math.abs(delta) > 6) {
-        setHidden(delta > 0 && y > 140);
-        last.current = y;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
-    >
-      <div className="from-paper pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent" />
-
+    <header className="bg-paper/80 fixed inset-x-0 top-0 z-50 backdrop-blur-md">
       <nav className="relative mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10">
-        <Link href="/" className="text-[0.875rem]" aria-label={site.name}>
+        <Link href="/" className="text-[1.25rem]" aria-label={site.name}>
           <Wordmark />
         </Link>
 
         <div className="flex items-center gap-6 sm:gap-8">
           <div className="hidden items-center gap-8 sm:flex">
+            <IndustriesMenu />
             {links.map((l) => {
               const active = pathname === l.href;
               return (
