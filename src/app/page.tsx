@@ -54,20 +54,28 @@ export default function Home() {
 
       <main id="top" className="flex-1">
         {/* ───────────── Hero ───────────── */}
-        <section className="flex min-h-[100svh] flex-col justify-between px-6 pt-[26vh] pb-14 md:px-10 md:pb-20">
+        <section className="flex min-h-[100svh] flex-col justify-between px-6 pt-28 pb-14 md:px-10 md:pt-32 md:pb-20">
           <div className="mx-auto w-full max-w-[1500px]">
+            <p data-fade className="label mb-8">
+              For construction &amp; home service businesses
+            </p>
+
             {/* Each clause keeps its own line — left to wrap, the headline
-                breaks mid-sentence as "Same crew. More / capacity." */}
-            <h1 className="display optical text-[clamp(2.875rem,9.2vw,8.5rem)]">
+                breaks mid-sentence as "The business runs on you. / It
+                doesn't have to." */}
+            <h1
+              className="display optical text-[clamp(2.875rem,9.2vw,8.5rem)]"
+              style={{ lineHeight: 0.98 }}
+            >
               <span data-split className="block">
-                <Split text="Same crew." />
+                <Split text="The business runs on you." />
               </span>
               <span
                 data-split
                 style={{ "--group-delay": "140ms" } as React.CSSProperties}
                 className="block"
               >
-                <Split text="More capacity." />
+                <Split text="It doesn’t have to." />
               </span>
             </h1>
 
@@ -87,30 +95,23 @@ export default function Home() {
                 />
               </div>
             )}
-
-            <p
-              data-fade
-              style={{ "--group-delay": "680ms" } as React.CSSProperties}
-              className="text-muted mt-[8vh] text-right text-[clamp(1rem,1.7vw,1.5rem)] tracking-[-0.02em]"
-            >
-              {site.promise}
-            </p>
           </div>
 
           <div className="mx-auto flex w-full max-w-[1500px] flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
             <p
               data-fade
-              style={{ "--group-delay": "820ms" } as React.CSSProperties}
-              className="text-muted max-w-[36ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.45] tracking-[-0.015em]"
+              style={{ "--group-delay": "680ms" } as React.CSSProperties}
+              className="text-muted max-w-[44ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.5] tracking-[-0.015em]"
             >
-              We find where your operation is leaking hours, then build the
-              software that removes them. Custom to how your business actually
-              runs.
+              We find where your operation is leaking time and money, then
+              build the systems that let you take on more without adding
+              overhead. Built around how you actually work — not another
+              platform you have to work around.
             </p>
 
             <div
               data-fade
-              style={{ "--group-delay": "940ms" } as React.CSSProperties}
+              style={{ "--group-delay": "860ms" } as React.CSSProperties}
             >
               <Magnetic strength={0.24}>
                 <a

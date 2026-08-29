@@ -137,8 +137,11 @@ body {
 }
 
 @keyframes marquee {
-  to {
+  from {
     transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -195,8 +198,8 @@ body {
 
 .reveal-ready .split-word {
   overflow: hidden;
-  padding-bottom: 0.16em;
-  margin-bottom: -0.16em;
+  padding-block: 0.16em;
+  margin-block: -0.16em;
 }
 
 .reveal-ready .split-inner {

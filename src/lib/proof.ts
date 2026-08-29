@@ -1,12 +1,12 @@
 /**
  * The two proof rows.
  *
- * `partners` are the platforms we build on and the partner programmes we're in
- * or applying to. Deliberately labelled "Partners & platforms" rather than
- * "Trusted by" — none of these are clients, and the page shouldn't imply they
- * are. Their marks live in /public/partners as single-colour glyphs and get
- * tinted to ink at render, so the row reads as one row instead of seven brands
- * shouting over each other.
+ * `partners` mirrors the "Proudly Partnered With" row on levronlabs.com — a
+ * slow marquee of partner-programme badges, each already rendered in a single
+ * ink colour by the brand itself. Buildxact isn't part of that programme list
+ * but stays in because it's real; its mark is flattened to ink at render
+ * (`brightness-0`) so it sits at the same visual weight as the rest instead of
+ * standing out as the one colour logo in the row.
  *
  * `clients` are real engagements, carried over from the Levron Labs site.
  * Nothing here is aspirational — if a name comes off the list, take it out of
@@ -17,28 +17,54 @@ export type Partner = {
   name: string;
   /** Mark in /public/partners. */
   src: string;
-  /** Optical size trim — these marks don't share a common cap height. */
-  scale?: number;
-  /**
-   * The asset is the brand's own wordmark, so it carries the name itself and
-   * we don't set one beside it. Used where a company's glyph is too detailed
-   * to survive at this size — ServiceTitan's mascot turns to mud at 24px.
-   */
-  wordmark?: boolean;
+  width: number;
+  height: number;
+  /** Rendered height per breakpoint — these marks don't share a cap height. */
+  className: string;
+  /** Set when the mark is an icon alone and needs its name set beside it. */
+  label?: string;
+  /** Forces a colour mark to the page's ink, for the one brand without a flat mark. */
+  flatten?: boolean;
 };
 
 export const partners: Partner[] = [
-  { name: "Google", src: "/partners/google.svg" },
-  { name: "OpenAI", src: "/partners/openai.svg" },
-  { name: "Anthropic", src: "/partners/anthropic.svg", scale: 0.92 },
   {
-    name: "ServiceTitan",
-    src: "/partners/servicetitan.png",
-    wordmark: true,
+    name: "Google Cloud Partner",
+    src: "/partners/google-cloud.png",
+    width: 757,
+    height: 184,
+    className: "h-8 sm:h-10",
   },
-  { name: "Jobber", src: "/partners/jobber.png", scale: 1.02 },
-  { name: "Buildxact", src: "/partners/buildxact.png", scale: 0.98 },
-  { name: "Make", src: "/partners/make.svg" },
+  {
+    name: "OpenAI Select Partner",
+    src: "/partners/openai.png",
+    width: 395,
+    height: 154,
+    className: "h-10 sm:h-14",
+  },
+  {
+    name: "Microsoft AI Cloud Partner",
+    src: "/partners/microsoft.png",
+    width: 590,
+    height: 120,
+    className: "h-8 sm:h-10",
+  },
+  {
+    name: "Zapier Solution Partner",
+    src: "/partners/zapier.png",
+    width: 993,
+    height: 126,
+    className: "h-5 sm:h-6",
+  },
+  {
+    name: "Buildxact",
+    src: "/partners/buildxact.png",
+    width: 32,
+    height: 51,
+    className: "h-8 sm:h-10",
+    label: "Buildxact",
+    flatten: true,
+  },
 ];
 
 export type Client = {

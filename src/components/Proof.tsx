@@ -1,18 +1,18 @@
 import Image from "next/image";
-import { partners, clients, type Client } from "@/lib/proof";
+import { partners, clients, type Partner, type Client } from "@/lib/proof";
 import { FlowRule } from "./FlowRule";
 
 /**
  * The credibility block: the stack we build on, then the operations we've
  * built for.
  *
- * Two rows, deliberately given two different treatments. The partner marks are
- * flattened to ink and centred so the row reads as one material — a list of
- * tools, not a wall of borrowed brands. The client logos keep their own colour
- * and ride a marquee, because they came from seven different places at seven
- * different aspect ratios and a static grid only draws attention to that; in
- * motion they read as a stream of names, which is the point. Each tile names
- * the ground it needs in `lib/proof.ts`.
+ * Both rows ride the same marquee — the partner row matches the "Proudly
+ * Partnered With" wheel on levronlabs.com, each mark already at the ink
+ * weight the brand renders it in. The client logos keep their own colour,
+ * because they came from seven different places at seven different aspect
+ * ratios and a static grid only draws attention to that; in motion they read
+ * as a stream of names, which is the point. Each tile names the ground it
+ * needs in `lib/proof.ts`.
  */
 
 function SectionHead({ children }: { children: React.ReactNode }) {
@@ -26,6 +26,31 @@ function SectionHead({ children }: { children: React.ReactNode }) {
         className="bg-line mt-5 h-px w-full origin-left"
         aria-hidden="true"
       />
+    </div>
+  );
+}
+
+function PartnerLogo({ p, clone = false }: { p: Partner; clone?: boolean }) {
+  return (
+    <div
+      className="flex shrink-0 items-center gap-2.5 px-6 sm:px-10"
+      {...(clone ? { "data-marquee-clone": "", "aria-hidden": true } : {})}
+    >
+      <span className={`relative block w-auto ${p.className}`}>
+        <Image
+          src={p.src}
+          alt={p.label ? "" : p.name}
+          width={p.width}
+          height={p.height}
+          unoptimized
+          className={`h-full w-auto object-contain ${p.flatten ? "brightness-0" : ""}`}
+        />
+      </span>
+      {p.label && (
+        <span className="text-ink text-[1.0625rem] font-semibold tracking-[-0.01em] whitespace-nowrap">
+          {p.label}
+        </span>
+      )}
     </div>
   );
 }
@@ -84,54 +109,29 @@ export function Proof() {
 
   return (
     <section className="py-[10vh]">
-      {/* ── Partners & platforms ── */}
-      <SectionHead>Partners &amp; platforms</SectionHead>
+      {/* ── Proudly partnered with ── */}
+      <SectionHead>Proudly partnered with</SectionHead>
 
-      <div className="mx-auto max-w-[1500px] px-6 md:px-10">
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-9 pt-12 md:gap-x-16 lg:gap-x-20">
-          {partners.map((p, i) => (
-            <div
-              key={p.name}
-              data-fade
-              style={{ "--group-delay": `${i * 70}ms` } as React.CSSProperties}
-              className="flex items-center gap-3.5"
-            >
-              <span
-                className={`relative block h-8 shrink-0 ${
-                  p.wordmark ? "w-[10.5rem]" : "w-9"
-                }`}
-                style={{ transform: `scale(${p.scale ?? 1})` }}
-              >
-                {/* These marks are already trimmed to size and flattened to
-                    one colour, so there is nothing for the optimizer to win —
-                    and re-encoding hairline logo art at this size only costs
-                    fidelity. Straight through. */}
-                <Image
-                  src={p.src}
-                  alt={p.wordmark ? p.name : ""}
-                  fill
-                  unoptimized
-                  sizes={p.wordmark ? "168px" : "36px"}
-                  className="logo-ink object-contain"
-                />
-              </span>
-              {!p.wordmark && (
-                <span className="text-ink/75 text-[1.0625rem] font-medium tracking-[-0.015em] whitespace-nowrap">
-                  {p.name}
-                </span>
-              )}
-            </div>
+      {/* Held to a 40rem window rather than run full-bleed — five marks is
+          barely 500px of unique content, and the fade at the edges is what
+          reads as a wheel rather than a static row. */}
+      <div
+        className="marquee mx-auto mt-10 max-w-[40rem]"
+        style={{ "--marquee-duration": "70s" } as React.CSSProperties}
+      >
+        <div className="marquee-track">
+          {partners.map((p) => (
+            <PartnerLogo key={`a-${p.name}`} p={p} />
+          ))}
+          {/* The second pass carries no information — every mark in it is a
+              clone, same as the client row below. */}
+          {partners.map((p) => (
+            <PartnerLogo key={`b-${p.name}`} p={p} clone />
           ))}
         </div>
+      </div>
 
-        <p
-          data-fade
-          className="text-muted mx-auto mt-11 max-w-[54ch] text-center text-[0.9375rem] leading-[1.65]"
-        >
-          The model providers we build on, the platforms your team already runs,
-          and the partner programmes we&rsquo;re working through.
-        </p>
-
+      <div className="mx-auto max-w-[1500px] px-6 md:px-10">
         {/* ── The rule between them ──
             Held to a narrow column: run full-bleed the lines stretch to a
             hairline smear and the lane change stops reading. */}
