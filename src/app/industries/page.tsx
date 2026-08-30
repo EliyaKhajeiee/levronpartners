@@ -73,12 +73,12 @@ export default function IndustriesPage() {
                             "--group-delay": `${240 + i * 100}ms`,
                           } as React.CSSProperties
                         }
-                        className="group border-line hover:border-teal flex items-baseline justify-between gap-6 border-b py-4 transition-colors duration-500 first:border-t"
+                        className="group border-line hover:border-teal flex flex-col gap-1 border-b py-4 transition-colors duration-500 first:border-t sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                       >
                         <span className="text-[clamp(1rem,1.4vw,1.1875rem)] font-medium tracking-[-0.01em]">
                           {child.label}
                         </span>
-                        <span className="text-muted group-hover:text-teal shrink-0 text-[0.8125rem] transition-colors duration-500">
+                        <span className="text-muted group-hover:text-teal text-[0.8125rem] transition-colors duration-500 sm:shrink-0">
                           {child.eyebrow}
                         </span>
                       </Link>

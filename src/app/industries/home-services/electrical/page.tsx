@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
-import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
 import { IndustryHero } from "@/components/IndustryHero";

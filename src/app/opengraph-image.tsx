@@ -45,9 +45,7 @@ export default async function Image() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={markSrc} width={72} height={29} alt="" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={wordmarkSrc} width={220} height={54} alt="" />
         </div>
 
