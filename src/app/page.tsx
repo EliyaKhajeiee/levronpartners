@@ -9,8 +9,6 @@ import { Magnetic } from "@/components/Magnetic";
 import { ContactCta } from "@/components/ContactCta";
 import { Artifact } from "@/components/Artifact";
 import { Proof } from "@/components/Proof";
-import { BrandStrip } from "@/components/BrandStrip";
-import { brandPhotos } from "@/lib/brand-photos";
 
 // The shape of an engagement, in brief. The full version lives on /process —
 // keep these lines in step with the beats there.
@@ -33,6 +31,12 @@ const brief = [
 ];
 
 const onward = [
+  {
+    href: "/industries",
+    label: "Industries",
+    title: "Two places time actually goes",
+    body: "Construction and home service, and the trades inside each.",
+  },
   {
     href: "/work",
     label: "Work",
@@ -206,19 +210,9 @@ export default function Home() {
           </div>
         </section>
 
-        <BrandStrip
-          label="Levron in the world"
-          photos={[
-            brandPhotos.businessCard,
-            brandPhotos.vehicle,
-            brandPhotos.plaque,
-            brandPhotos.stationery,
-          ]}
-        />
-
         {/* ───────────── Onward ───────────── */}
         <section className="px-6 pb-[14vh] md:px-10">
-          <div className="mx-auto grid max-w-[1500px] gap-x-12 md:grid-cols-2">
+          <div className="mx-auto grid max-w-[1500px] gap-x-12 md:grid-cols-3">
             {onward.map((card, i) => (
               <Link
                 key={card.href}

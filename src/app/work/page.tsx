@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { photos, hasPhoto } from "@/lib/media";
-import { brandPhotos } from "@/lib/brand-photos";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ContactCta } from "@/components/ContactCta";
@@ -191,7 +190,6 @@ export default function WorkPage() {
         ))}
 
         <BrandBand
-          photo={brandPhotos.signage}
           heading={site.line}
           body="None of these are platforms you move onto. They are narrow places where a week leaks, closed one at a time, inside the tools your team already opens every morning."
         />

@@ -3,32 +3,39 @@ import type { BrandPhoto } from "@/lib/brand-photos";
 import { Split } from "./Split";
 
 /**
- * A dark full-width band: a brand photograph, heavily dimmed, with a statement
- * sitting on it.
+ * A dark full-width band: a statement on Carbon, optionally sitting on a
+ * heavily dimmed brand photograph.
  *
- * The overlay is doing two jobs. It holds the type at contrast, and it hides
- * the fact that these deck renders don't have the resolution to run wide on
- * their own — at 22% behind Carbon they read as texture, which is all they're
- * being asked to be. Don't lift the opacity much past that.
+ * The overlay is doing two jobs when a photo is passed. It holds the type at
+ * contrast, and it hides the fact that these deck renders don't have the
+ * resolution to run wide on their own — at 22% behind Carbon they read as
+ * texture, which is all they're being asked to be. Don't lift the opacity
+ * much past that.
+ *
+ * `photo` is optional so this still works as a plain statement band when the
+ * available renders carry the wrong brand mark — wrong beats nothing here,
+ * same rule as an empty slot in `media.ts`.
  */
 export function BrandBand({
   photo,
   heading,
   body,
 }: {
-  photo: BrandPhoto;
+  photo?: BrandPhoto;
   heading: string;
   body?: string;
 }) {
   return (
     <section className="relative isolate overflow-hidden">
-      <Image
-        src={photo.src}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover opacity-[0.22]"
-      />
+      {photo && (
+        <Image
+          src={photo.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-[0.22]"
+        />
+      )}
       <div className="bg-ink absolute inset-0 -z-10" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-[1500px] px-6 py-[18vh] md:px-10">

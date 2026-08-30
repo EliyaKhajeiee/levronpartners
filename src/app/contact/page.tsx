@@ -7,7 +7,7 @@ import { Magnetic } from "@/components/Magnetic";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a working session with Levron Labs. Bring your last ten quotes and a normal week off the schedule.",
+    "Book a working session with Levron Partners. Bring your last ten quotes and a normal week off the schedule.",
 };
 
 const expect = [
