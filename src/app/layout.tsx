@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { organizationSchema } from "@/lib/schema";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 
 const body = Figtree({
   variable: "--font-body",
@@ -40,9 +43,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${body.variable} h-full antialiased`}>
       <body className="bg-paper text-ink flex min-h-full flex-col">
+        <JsonLd data={organizationSchema()} />
         <Nav />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

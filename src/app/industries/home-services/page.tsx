@@ -5,7 +5,9 @@ import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { IndustryChildren } from "@/components/IndustryChildren";
+import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Home Services",
@@ -40,6 +42,14 @@ export default function HomeServicesPage() {
   return (
     <>
       <Reveal />
+      <JsonLd
+        data={serviceSchema({
+          name: "Custom Software for Home Service Businesses",
+          description: metadata.description as string,
+          url: group.href,
+          serviceType: "Home service operations software",
+        })}
+      />
 
       <main id="top" className="flex-1">
         <VideoHero

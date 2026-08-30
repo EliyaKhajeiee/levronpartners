@@ -6,7 +6,9 @@ import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { Artifact } from "@/components/Artifact";
+import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "General Contractors & Design-Build",
@@ -44,6 +46,21 @@ export default function GeneralContractorsPage() {
   return (
     <>
       <Reveal />
+      <JsonLd
+        data={serviceSchema({
+          name: "Estimating & Project Ops Software for General Contractors",
+          description: metadata.description as string,
+          url: page.href,
+          serviceType: "Construction estimating software",
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Industries", url: "/industries" },
+          { name: group.label, url: group.href },
+          { name: page.label, url: page.href },
+        ])}
+      />
 
       <main id="top" className="flex-1">
         <ImageHero

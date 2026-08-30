@@ -5,7 +5,9 @@ import { ContactCta } from "@/components/ContactCta";
 import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { Artifact } from "@/components/Artifact";
+import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Roofing",
@@ -54,6 +56,21 @@ export default function RoofingPage() {
   return (
     <>
       <Reveal />
+      <JsonLd
+        data={serviceSchema({
+          name: "Lead Follow-Up Automation for Roofing Contractors",
+          description: metadata.description as string,
+          url: page.href,
+          serviceType: "Roofing lead management software",
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Industries", url: "/industries" },
+          { name: group.label, url: group.href },
+          { name: page.label, url: page.href },
+        ])}
+      />
 
       <main id="top" className="flex-1">
         <ImageHero

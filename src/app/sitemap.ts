@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { industries } from "@/lib/industries";
+import { caseStudies } from "@/lib/caseStudies";
 
 // Build timestamp — every route here is generated from code, not dated
 // content, so a real signal beats leaving lastModified out entirely.
@@ -34,5 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
-  return [...staticRoutes, ...industryRoutes];
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((cs) => ({
+    url: `${site.url}/work/${cs.slug}`,
+    lastModified: BUILT,
+    changeFrequency: "monthly",
+    priority: 0.75,
+  }));
+
+  return [...staticRoutes, ...industryRoutes, ...caseStudyRoutes];
 }

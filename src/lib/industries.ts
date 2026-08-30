@@ -65,6 +65,18 @@ export const industries: IndustryGroup[] = [
         label: "Roofing",
         eyebrow: "For retail & storm roofing contractors",
       },
+      {
+        slug: "plumbing",
+        href: "/industries/home-services/plumbing",
+        label: "Plumbing",
+        eyebrow: "For plumbing contractors & emergency service shops",
+      },
+      {
+        slug: "electrical",
+        href: "/industries/home-services/electrical",
+        label: "Electrical",
+        eyebrow: "For electrical contractors & panel/rewire shops",
+      },
     ],
   },
 ];

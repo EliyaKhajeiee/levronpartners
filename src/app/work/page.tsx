@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { photos, hasPhoto } from "@/lib/media";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ContactCta } from "@/components/ContactCta";
 import { BrandBand } from "@/components/BrandBand";
 import { site } from "@/lib/site";
+import { caseStudies } from "@/lib/caseStudies";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -201,6 +203,48 @@ export default function WorkPage() {
             photo={hasPhoto(photos.work[i + 2]) ? photos.work[i + 2] : undefined}
           />
         ))}
+
+        {/* Two real, measured outcomes — the concrete counterweight to the
+            "not a catalogue" framing right below. Cut the moment a listed
+            case study isn't backed by a real, approved number. */}
+        <section className="border-line border-t px-6 py-[13vh] md:px-10">
+          <div className="mx-auto max-w-[1500px]">
+            <p data-fade className="label mb-12">
+              What it looked like once
+            </p>
+            <div className="grid gap-x-12 gap-y-10 md:grid-cols-2">
+              {caseStudies.map((cs, i) => (
+                <Link
+                  key={cs.slug}
+                  href={`/work/${cs.slug}`}
+                  data-fade
+                  style={{ "--group-delay": `${i * 120}ms` } as React.CSSProperties}
+                  className="group border-line block border-t py-10"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="border-line flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-white p-1.5">
+                      <Image
+                        src={cs.logo}
+                        alt=""
+                        width={40}
+                        height={40}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                    <div className="label">{cs.sector}</div>
+                  </div>
+                  <h3 className="display-md mt-5 flex items-center gap-4 text-[clamp(1.25rem,2.2vw,1.75rem)]">
+                    {cs.headline}
+                    <span className="arrow-shift text-teal shrink-0">→</span>
+                  </h3>
+                  <p className="text-muted mt-3 text-[0.9375rem]">
+                    {cs.stats[cs.stats.length - 1].value} — {cs.company}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* The page has just walked through several examples. This is what stops
             them reading as a menu — say plainly it isn't one, and that the

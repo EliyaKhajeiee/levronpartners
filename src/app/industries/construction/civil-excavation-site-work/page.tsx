@@ -5,7 +5,9 @@ import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
 import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
+import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Civil, Excavation & Site Work",
@@ -52,6 +54,21 @@ export default function CivilExcavationPage() {
   return (
     <>
       <Reveal />
+      <JsonLd
+        data={serviceSchema({
+          name: "Job Costing Software for Civil & Excavation Contractors",
+          description: metadata.description as string,
+          url: page.href,
+          serviceType: "Construction job costing software",
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Industries", url: "/industries" },
+          { name: group.label, url: group.href },
+          { name: page.label, url: page.href },
+        ])}
+      />
 
       <main id="top" className="flex-1">
         <ImageHero

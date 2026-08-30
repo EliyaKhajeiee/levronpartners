@@ -3,6 +3,7 @@ import { site } from "@/lib/site";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { Magnetic } from "@/components/Magnetic";
+import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -154,6 +155,38 @@ export default function ContactPage() {
                 </li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        <section className="border-line border-t px-6 py-[14vh] md:px-10">
+          <div className="mx-auto grid max-w-[1500px] gap-10 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <p data-fade className="label mb-4">
+                Or skip the call
+              </p>
+              <h2
+                data-split
+                className="display-md max-w-[16ch] text-[clamp(1.5rem,2.6vw,2.25rem)]"
+              >
+                <Split text="Tell us here instead." />
+              </h2>
+              <p
+                data-fade
+                style={{ "--group-delay": "160ms" } as React.CSSProperties}
+                className="text-muted mt-5 max-w-[36ch] text-[0.9375rem] leading-[1.65]"
+              >
+                A couple of lines on what&rsquo;s slow or getting missed is
+                enough to start. We reply from a person, not a sequence.
+              </p>
+            </div>
+
+            <div
+              data-fade
+              style={{ "--group-delay": "220ms" } as React.CSSProperties}
+              className="md:col-span-6 md:col-start-6"
+            >
+              <LeadForm />
+            </div>
           </div>
         </section>
       </main>
