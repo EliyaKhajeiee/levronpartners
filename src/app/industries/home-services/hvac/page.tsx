@@ -6,9 +6,13 @@ import { ContactCta } from "@/components/ContactCta";
 import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
+import { CaseStudyCallout } from "@/components/CaseStudyCallout";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { caseStudyBySlug } from "@/lib/caseStudies";
 import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+
+const caseStudy = caseStudyBySlug("kung-fu-air-service")!;
 
 export const metadata: Metadata = {
   title: "HVAC",
@@ -84,6 +88,8 @@ export default function HvacPage() {
         />
 
         <StatStrip stats={stats} />
+
+        <CaseStudyCallout caseStudy={caseStudy} />
 
         <section className="px-6 py-[14vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">

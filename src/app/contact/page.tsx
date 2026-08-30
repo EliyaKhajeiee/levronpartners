@@ -29,11 +29,13 @@ const expect = [
   },
 ];
 
-// Construction and home services lead the list because that's where we're
-// selling — but the list doesn't end there, and neither do the engagements.
+// Construction, home services, and tax lead the list because that's where
+// we're selling — but the list doesn't end there, and neither do the
+// engagements.
 const fit = [
   "Contractors and trades — mechanical, HVAC, plumbing, electrical — doing $5M+",
   "GCs and design-build firms bidding more than they can price",
+  "Tax and accounting firms buried the moment the season turns",
   "Service businesses where speed-to-lead decides the close",
   "Any operation where the office spends its day retyping what the field already wrote down",
   "Owners who want leverage, not another dashboard nobody opens",

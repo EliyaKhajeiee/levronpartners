@@ -22,11 +22,11 @@ const page = group.children.find((c) => c.slug === "plumbing")!;
 const lost = [
   {
     title: "After-hours calls go to voicemail",
-    body: "A pipe bursts at ten at night. The homeowner calls the first number that answers — and a competitor picks up while you're asleep or on another job.",
+    body: "A pipe bursts at ten at night. The homeowner calls the first number that answers — and a competitor picks up while you’re asleep or on another job.",
   },
   {
     title: "Every quote starts from a blank page",
-    body: "Fixture specs, labor, and permit costs get typed out again for every job, even the ones you've priced a hundred times before.",
+    body: "Fixture specs, labor, and permit costs get typed out again for every job, even the ones you’ve priced a hundred times before.",
   },
   {
     title: "Dispatch runs on group texts",
@@ -80,7 +80,7 @@ export default function PlumbingPage() {
           eyebrow={page.eyebrow}
           headline="Stop losing emergency calls to the plumber who calls back first."
           headlineClassName="max-w-[19ch]"
-          body="A burst pipe doesn't wait for business hours, and neither does the homeowner looking for someone to fix it. Whoever answers first usually gets the job — price doesn't come into it. We build the response and dispatch layer that makes sure that's you, and the estimating system that gets a number back to them before they've called anyone else."
+          body="A burst pipe doesn’t wait for business hours, and neither does the homeowner looking for someone to fix it. Whoever answers first usually gets the job — price doesn’t come into it. We build the response and dispatch layer that makes sure that’s you, and the estimating system that gets a number back to them before they’ve called anyone else."
           topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },

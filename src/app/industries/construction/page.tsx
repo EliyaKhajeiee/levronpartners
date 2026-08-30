@@ -5,9 +5,13 @@ import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { IndustryChildren } from "@/components/IndustryChildren";
+import { CaseStudyCallout } from "@/components/CaseStudyCallout";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
+import { caseStudyBySlug } from "@/lib/caseStudies";
 import { serviceSchema } from "@/lib/schema";
+
+const caseStudy = caseStudyBySlug("south-central-investment-group")!;
 
 export const metadata: Metadata = {
   title: "Construction",
@@ -72,6 +76,8 @@ export default function ConstructionPage() {
         />
 
         <StatStrip stats={stats} />
+
+        <CaseStudyCallout caseStudy={caseStudy} />
 
         <IndustryChildren group={group} />
 

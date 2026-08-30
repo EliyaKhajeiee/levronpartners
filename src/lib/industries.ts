@@ -1,13 +1,13 @@
 /**
- * The industries taxonomy: two catch-all groups, each with a handful of
+ * The industries taxonomy: three catch-all groups, each with a handful of
  * tighter sub-pages. Nav.tsx renders this as the "Industries" dropdown,
  * Footer.tsx renders it as a flat link list, and the hub pages use it to
  * cross-link their own children.
  *
- * The group pages stay the catch-all — anyone in construction or home
- * service who doesn't see their trade named below still belongs on the
- * group page. The sub-pages exist where we have something more specific to
- * say, not to imply the group page is thin.
+ * The group pages stay the catch-all — anyone in construction, home
+ * service, or tax who doesn't see their trade named below still belongs on
+ * the group page. The sub-pages exist where we have something more specific
+ * to say, not to imply the group page is thin.
  */
 
 export type IndustryLink = {
@@ -76,6 +76,26 @@ export const industries: IndustryGroup[] = [
         href: "/industries/home-services/electrical",
         label: "Electrical",
         eyebrow: "For electrical contractors & panel/rewire shops",
+      },
+    ],
+  },
+  {
+    slug: "tax",
+    href: "/industries/tax",
+    label: "Tax & Accounting",
+    eyebrow: "For tax preparers, bookkeepers & accounting firms",
+    children: [
+      {
+        slug: "tax-preparation",
+        href: "/industries/tax/tax-preparation",
+        label: "Tax Preparation & Planning",
+        eyebrow: "For seasonal and year-round tax prep firms",
+      },
+      {
+        slug: "bookkeeping-accounting",
+        href: "/industries/tax/bookkeeping-accounting",
+        label: "Bookkeeping & Accounting",
+        eyebrow: "For bookkeeping & full-service accounting firms",
       },
     ],
   },

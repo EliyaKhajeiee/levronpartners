@@ -9,7 +9,7 @@ import { industries } from "@/lib/industries";
 export const metadata: Metadata = {
   title: "Industries",
   description:
-    "Where we build: construction and home service operations, and the tighter trades inside each — general contractors, civil and site work, HVAC, and roofing.",
+    "Where we build: construction, home service, and tax & accounting operations, and the tighter trades inside each — general contractors, civil and site work, HVAC, roofing, plumbing, electrical, tax prep, and bookkeeping.",
 };
 
 export default function IndustriesPage() {
@@ -20,9 +20,9 @@ export default function IndustriesPage() {
       <main id="top" className="flex-1">
         <VideoHero
           eyebrow="Industries"
-          headline="Two places time actually goes."
-          headlineClassName="max-w-[16ch]"
-          body="Construction and home service run differently, but the same pattern shows up in both: the company knows more than any system it runs on. Start with the operation that matches yours, or the trade underneath it if we have something more specific to say."
+          headline="Three places time actually goes."
+          headlineClassName="max-w-[18ch]"
+          body="Construction, home service, and tax all run differently, but the same pattern shows up in each: the company knows more than any system it runs on. Start with the operation that matches yours, or the trade underneath it if we have something more specific to say."
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },

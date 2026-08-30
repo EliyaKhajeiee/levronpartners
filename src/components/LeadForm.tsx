@@ -7,7 +7,7 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 /**
  * The on-page alternative to a booking flow. Posts to `/api/lead`, which
- * emails `site.email` via Resend — so the visitors who won't complete an
+ * emails `site.email` via Resend — so the visitors who won’t complete an
  * external scheduling tool still reach you.
  *
  * Renders its own error state rather than a toast, since a contact form is

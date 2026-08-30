@@ -37,7 +37,7 @@ const slow = [
 const build = [
   {
     title: "Templated estimating",
-    body: "Your standard pricing, panel specs, and code requirements fill themselves in, so a bid goes out while it's still fresh instead of a day later.",
+    body: "Your standard pricing, panel specs, and code requirements fill themselves in, so a bid goes out while it’s still fresh instead of a day later.",
   },
   {
     title: "Code and permit lookups built in",
@@ -80,7 +80,7 @@ export default function ElectricalPage() {
           eyebrow={page.eyebrow}
           headline="Your bids take too long, and slow bids lose jobs."
           headlineClassName="max-w-[18ch]"
-          body="Panel upgrades, rewires, and inspection-ready estimates carry the same handful of decisions every time — what the code requires, what the standard scope is, what it costs. The problem is that knowledge gets rebuilt by hand for every bid instead of pulled from what your company already knows. We turn it into a system that prices work in minutes and tracks the callback work that's quietly eating your margin."
+          body="Panel upgrades, rewires, and inspection-ready estimates carry the same handful of decisions every time — what the code requires, what the standard scope is, what it costs. The problem is that knowledge gets rebuilt by hand for every bid instead of pulled from what your company already knows. We turn it into a system that prices work in minutes and tracks the callback work that’s quietly eating your margin."
           topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
@@ -93,7 +93,7 @@ export default function ElectricalPage() {
         <section className="px-6 py-[14vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">
             <ScrollText
-              text="The bid you send fastest is the one you're most likely to win."
+              text="The bid you send fastest is the one you’re most likely to win."
               className="display-md mx-auto max-w-[24ch] text-center text-[clamp(1.75rem,4.4vw,3.5rem)]"
             />
           </div>

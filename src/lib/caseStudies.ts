@@ -67,7 +67,7 @@ export const caseStudies: CaseStudy[] = [
     problem:
       "Kung Fu Air Service spent 10–15 hours a week on quoting. Every job required the same repetitive line items — removing the old unit, applying warranty terms, documenting flare connection specs — typed or copy-pasted by hand, every time. None of it was hard work. It was the same handful of details, re-entered over and over, for every quote that went out the door.",
     found:
-      "Quoting followed a small, predictable set of rules. The unit, the install specs, and the warranty terms changed job to job, but the structure of every quote — and most of its language — stayed the same. Exactly the kind of repetitive, rule-based work that shouldn't require someone typing it out by hand.",
+      "Quoting followed a small, predictable set of rules. The unit, the install specs, and the warranty terms changed job to job, but the structure of every quote — and most of its language — stayed the same. Exactly the kind of repetitive, rule-based work that shouldn’t require someone typing it out by hand.",
     built: [
       "Voice-to-quote generation from a single spoken command",
       "Automatic application of manufacturer warranty terms",
@@ -76,7 +76,7 @@ export const caseStudies: CaseStudy[] = [
       "Fully formatted, ready-to-send quotes — no retyping, no copy-pasting",
     ],
     result:
-      "Chris gives a simple voice command — \"install a 12,000 BTU Fujitsu, new piping, new line covers, new condenser pads\" — and a fully formatted quote comes out the other side, warranty terms and install specs applied automatically. Weekly quoting time dropped from 10–15 hours to 3–5.",
+      "Chris gives a simple voice command — “install a 12,000 BTU Fujitsu, new piping, new line covers, new condenser pads” — and a fully formatted quote comes out the other side, warranty terms and install specs applied automatically. Weekly quoting time dropped from 10–15 hours to 3–5.",
     quote: "This is exactly what AI was made for.",
   },
 ];

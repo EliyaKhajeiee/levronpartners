@@ -35,7 +35,7 @@ const onward = [
     href: "/industries",
     label: "Industries",
     title: "Two places time actually goes",
-    body: "Construction and home service, and the trades inside each.",
+    body: "Construction, home service, and tax — and the trades inside each.",
   },
   {
     href: "/work",
@@ -61,7 +61,7 @@ export default function Home() {
         <section className="flex min-h-[100svh] flex-col justify-between px-6 pt-28 pb-14 md:px-10 md:pt-32 md:pb-20">
           <div className="mx-auto w-full max-w-[1500px]">
             <p data-fade className="label mb-8">
-              For construction &amp; home service businesses
+              For construction, home service &amp; tax businesses
             </p>
 
             {/* Each clause keeps its own line — left to wrap, the headline
