@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { IndustryChildren } from "@/components/IndustryChildren";
@@ -42,7 +42,7 @@ export default function HomeServicesPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryHero
+        <VideoHero
           eyebrow={group.eyebrow}
           headline="More trucks shouldn’t mean more office."
           headlineClassName="max-w-[17ch]"
@@ -51,6 +51,8 @@ export default function HomeServicesPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          videoSrc="/video/home-services-hero.mp4"
+          chip={{ value: "50+ hrs/month back", label: "time returned to the operation" }}
         />
 
         <PointsGrid
