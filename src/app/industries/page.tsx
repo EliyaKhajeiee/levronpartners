@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ContactCta } from "@/components/ContactCta";
+import { VideoHero } from "@/components/VideoHero";
 import { industries } from "@/lib/industries";
 
 export const metadata: Metadata = {
@@ -17,29 +18,17 @@ export default function IndustriesPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <section className="px-6 pt-[22vh] pb-[10vh] md:px-10 md:pt-[26vh]">
-          <div className="mx-auto max-w-[1500px]">
-            <p data-fade className="label mb-8">
-              Industries
-            </p>
-            <h1
-              data-split
-              className="display optical max-w-[16ch] text-[clamp(2.5rem,7.4vw,6.5rem)]"
-            >
-              <Split text="Two places time actually goes." />
-            </h1>
-            <p
-              data-fade
-              style={{ "--group-delay": "320ms" } as React.CSSProperties}
-              className="text-muted mt-10 max-w-[54ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.45] tracking-[-0.015em]"
-            >
-              Construction and home service run differently, but the same
-              pattern shows up in both: the company knows more than any system
-              it runs on. Start with the operation that matches yours, or the
-              trade underneath it if we have something more specific to say.
-            </p>
-          </div>
-        </section>
+        <VideoHero
+          eyebrow="Industries"
+          headline="Two places time actually goes."
+          headlineClassName="max-w-[16ch]"
+          body="Construction and home service run differently, but the same pattern shows up in both: the company knows more than any system it runs on. Start with the operation that matches yours, or the trade underneath it if we have something more specific to say."
+          links={[
+            { label: "See what we’d build", href: "/contact" },
+            { label: "See the work", href: "/work" },
+          ]}
+          videoSrc="/video/industries-hero.mp4"
+        />
 
         <section className="px-6 pb-[14vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">

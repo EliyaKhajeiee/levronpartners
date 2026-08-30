@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
+import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { Artifact } from "@/components/Artifact";
@@ -47,22 +46,22 @@ export default function GeneralContractorsPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
-        <IndustryHero
+        <ImageHero
+          breadcrumb={{
+            parentHref: group.href,
+            parentLabel: group.label,
+            label: page.label,
+          }}
           eyebrow={page.eyebrow}
           headline="The estimate shouldn’t start over every time."
           headlineClassName="max-w-[17ch]"
           body="Your best people already know what things cost, how you build, which assemblies work, and where projects usually go sideways. The problem is that knowledge still lives across spreadsheets, old jobs, and individual judgment. We turn it into a system the company owns — without changing how you actually price or build."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "Read the case study", href: "#case-study" },
           ]}
+          imageSrc="/photos/industries/general-contractors-design-build.jpg"
+          chip={{ value: "Another home / year", label: "capacity without another hire" }}
         />
 
         <PointsGrid

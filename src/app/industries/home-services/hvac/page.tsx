@@ -3,8 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
+import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { industries } from "@/lib/industries";
@@ -44,22 +43,22 @@ export default function HvacPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
-        <IndustryHero
+        <ImageHero
+          breadcrumb={{
+            parentHref: group.href,
+            parentLabel: group.label,
+            label: page.label,
+          }}
           eyebrow={page.eyebrow}
           headline="Every install quote is mostly the last one."
           headlineClassName="max-w-[18ch]"
           body="Removal and disposal. Flare connections. Warranty language. Standard scope. A lot of the same work gets typed again after every walkthrough. We build around the way your techs and estimators already work, so the repetitive scope fills itself in and the judgment — especially the pricing — stays with your people."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          imageSrc="/photos/industries/hvac.jpg"
+          chip={{ value: "15 hrs/week → under 5", label: "weekly quoting time" }}
         />
 
         <PointsGrid

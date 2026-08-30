@@ -3,8 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
+import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { industries } from "@/lib/industries";
 
@@ -55,22 +54,21 @@ export default function CivilExcavationPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
-        <IndustryHero
+        <ImageHero
+          breadcrumb={{
+            parentHref: group.href,
+            parentLabel: group.label,
+            label: page.label,
+          }}
           eyebrow={page.eyebrow}
           headline="You’ll know what that job cost in three months."
           headlineClassName="max-w-[19ch]"
           body="The question is whether you know while the iron is still on site. Owned-equipment rates can be wrong in both directions: carry too much cost and you lose hard bids you should be competitive on; carry too little and replacement eventually comes straight out of profit. Same root problem: the real cost of the machine never gets tied back to the job while the work is happening."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "Talk through your process", href: "/contact" },
           ]}
+          imageSrc="/photos/industries/civil-excavation-site-work.jpg"
         />
 
         <PointsGrid

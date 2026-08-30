@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { IndustryChildren } from "@/components/IndustryChildren";
@@ -42,7 +42,7 @@ export default function ConstructionPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryHero
+        <VideoHero
           eyebrow={group.eyebrow}
           headline="Every job still starts from scratch."
           headlineClassName="max-w-[17ch]"
@@ -51,6 +51,8 @@ export default function ConstructionPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          videoSrc="/video/construction-hero.mp4"
+          chip={{ value: "50+ hrs/month back", label: "coordination, reduced from 3–4 hrs/day to under 1" }}
         />
 
         <PointsGrid

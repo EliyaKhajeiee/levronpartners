@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
+import { ImageHero } from "@/components/ImageHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { Artifact } from "@/components/Artifact";
 import { industries } from "@/lib/industries";
@@ -57,22 +56,21 @@ export default function RoofingPage() {
       <Reveal />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
-        <IndustryHero
+        <ImageHero
+          breadcrumb={{
+            parentHref: group.href,
+            parentLabel: group.label,
+            label: page.label,
+          }}
           eyebrow={page.eyebrow}
           headline="The inspection isn’t where you lose the job."
           headlineClassName="max-w-[19ch]"
           body="You already paid to generate the lead, send someone out, and inspect the roof. Then the homeowner gets instructions, has to understand an insurance process they rarely deal with, and has to take the next step themselves. That’s where good inspections quietly stall."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          imageSrc="/photos/industries/roofing.jpg"
         />
 
         <PointsGrid
