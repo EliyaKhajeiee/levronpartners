@@ -66,7 +66,7 @@ export default function CivilExcavationPage() {
           body="The question is whether you know while the iron is still on site. Owned-equipment rates can be wrong in both directions: carry too much cost and you lose hard bids you should be competitive on; carry too little and replacement eventually comes straight out of profit. Same root problem: the real cost of the machine never gets tied back to the job while the work is happening."
           links={[
             { label: "See what we’d build", href: "/contact" },
-            { label: "Talk through your process", href: "/contact" },
+            { label: "See the work", href: "/work" },
           ]}
           imageSrc="/photos/industries/civil-excavation-site-work.jpg"
         />

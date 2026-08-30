@@ -52,6 +52,7 @@ export default function HomeServicesPage() {
             { label: "See the work", href: "/work" },
           ]}
           videoSrc="/video/home-services-hero.mp4"
+          poster="/video/home-services-poster.jpg"
           chip={{ value: "50+ hrs/month back", label: "time returned to the operation" }}
         />
 

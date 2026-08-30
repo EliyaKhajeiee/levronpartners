@@ -28,6 +28,7 @@ export default function IndustriesPage() {
             { label: "See the work", href: "/work" },
           ]}
           videoSrc="/video/industries-hero.mp4"
+          poster="/video/industries-poster.jpg"
         />
 
         <section className="px-6 pb-[14vh] md:px-10">

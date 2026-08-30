@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Split } from "./Split";
 
@@ -6,15 +9,19 @@ type Chip = { value: string; label: string };
 
 /**
  * A full-bleed, cinematic hero — video behind the nav, copy sitting low
- * against a bottom-heavy scrim. Same beats as `IndustryHero` (eyebrow,
- * headline, body, next-step links) plus an optional stat "chip" in the
- * corner, but everything renders in white over motion instead of ink over
+ * against a bottom-heavy scrim. Same beats the old `IndustryHero` had
+ * (eyebrow, headline, body, next-step links) plus an optional stat "chip" in
+ * the corner, but everything renders in white over motion instead of ink over
  * paper, so it can't reuse `.label` / `.text-muted` — those colours are
  * pinned by an un-layered rule in globals.css and would always win over a
  * `text-white` utility from Tailwind's `@layer utilities`.
  *
- * Reserved for pages that actually have footage to put behind it — most
- * industry pages should stay on `IndustryHero`.
+ * `poster` always renders behind the `<video>`, so it's what a visitor sees
+ * before the clip buffers, if it fails to load at all, and — since the
+ * effect below pauses playback on mount — for anyone with
+ * prefers-reduced-motion set. Same rule `Reveal`/`ScrollText`/`Magnetic`
+ * already apply elsewhere on this site: autoplay motion isn't optional for
+ * the vestibular-disorder crowd, it's a WCAG 2.3.3 miss.
  */
 export function VideoHero({
   eyebrow,
@@ -35,9 +42,21 @@ export function VideoHero({
   poster?: string;
   chip?: Chip;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, []);
+
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-6 pb-[10vh] md:px-10 md:pb-[12vh]">
       <video
+        ref={videoRef}
         className="absolute inset-0 -z-20 h-full w-full object-cover"
         src={videoSrc}
         poster={poster}
