@@ -40,6 +40,13 @@ export function AssessmentWizard() {
   const [submitting, setSubmitting] = useState(false);
   const halfwayFired = useRef(false);
   const resolvedRef = useRef(false);
+  // Guards the create-on-"revenue" branch below against a double-tap: two
+  // taps inside the 300ms auto-advance window both read `submissionId` as
+  // null from the same stale closure, so both fire POST /api/assessment and
+  // mint a row — the second one silently orphaned once state catches up to
+  // whichever response resolved last. A ref (synchronous, unlike state)
+  // closes that window.
+  const creatingSubmission = useRef(false);
 
   const questions = useMemo(() => getQuestionsForTrack(track), [track]);
   const currentQuestion = questions[stepIndex];
@@ -75,7 +82,8 @@ export function AssessmentWizard() {
     window.setTimeout(async () => {
       // Row is created once both industry and revenue are known — everything
       // before that has nowhere to be saved yet.
-      if (currentQuestion.id === "revenue" && !submissionId) {
+      if (currentQuestion.id === "revenue" && !submissionId && !creatingSubmission.current) {
+        creatingSubmission.current = true;
         const res = await fetch("/api/assessment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
