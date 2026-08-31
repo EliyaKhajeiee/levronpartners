@@ -149,7 +149,7 @@ export function ResultsView({
       <section id="session" className="scroll-mt-28 border-line border-t pt-[8vh]">
         {current.requestedDatetime ? (
           <div className="text-center">
-            <p className="text-ink text-[1.0625rem] font-medium">You&rsquo;re booked.</p>
+            <p className="text-ink text-[1.0625rem] font-medium">Time requested.</p>
             <p className="text-muted mt-2 text-[0.9375rem]">
               {new Date(current.requestedDatetime).toLocaleString(undefined, {
                 weekday: "long",
@@ -159,6 +159,7 @@ export function ResultsView({
                 minute: "2-digit",
               })}
             </p>
+            <p className="text-muted mt-2 text-[0.875rem]">We&rsquo;ll confirm by email shortly.</p>
           </div>
         ) : (
           <RequestSessionCalendar

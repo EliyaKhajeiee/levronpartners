@@ -107,7 +107,7 @@ export function RequestSessionCalendar({ onBook, onSkip, onIdleAbandon, submitti
           onClick={() => selectedSlot && onBook(selectedSlot, note)}
           className="bg-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white transition-colors duration-500 disabled:opacity-50"
         >
-          {submitting ? "Booking…" : "Book this time"}
+          {submitting ? "Requesting…" : "Request this time"}
         </button>
         <button
           type="button"

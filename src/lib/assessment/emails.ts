@@ -71,16 +71,16 @@ export async function sendInitialBookedEmail(submission: AssessmentSubmission): 
   const { error } = await client.emails.send({
     from: FROM,
     to: submission.contact.email,
-    subject: "You're booked — here's what to bring",
+    subject: "We've got your request — here's what to bring",
     text: `Hi ${submission.contact.firstName},
 
-You're on the calendar for ${sessionLine}.
+You requested ${sessionLine}. We'll confirm that time (or reach out to find one that works) shortly.
 
 Your results are ready now, if you want a look before we talk: ${resultsUrl(submission.id)}
 
 What to bring: your last ten bids or quotes and a normal week off the schedule — not a good one. That's what we'll actually work from.
 
-See you then,
+Talk soon,
 ${site.name}`,
   });
   if (error) console.error("[assessment/emails] booked email failed:", error);
@@ -88,8 +88,8 @@ ${site.name}`,
   const { error: teamError } = await client.emails.send({
     from: FROM,
     to: [...site.notifyEmails],
-    subject: `Session booked: ${submission.contact.company ?? submission.contact.email}`,
-    text: `${submission.contact.firstName} ${submission.contact.lastName} (${submission.contact.email}) booked ${sessionLine}.\n\nResults: ${resultsUrl(submission.id)}`,
+    subject: `Session requested: ${submission.contact.company ?? submission.contact.email}`,
+    text: `${submission.contact.firstName} ${submission.contact.lastName} (${submission.contact.email}) requested ${sessionLine}. Confirm or propose another time.\n\nResults: ${resultsUrl(submission.id)}`,
   });
   if (teamError) console.error("[assessment/emails] team booking notify failed:", teamError);
 }
