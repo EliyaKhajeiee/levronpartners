@@ -4,7 +4,7 @@ import type { AssessmentSubmission } from "./types";
 import { TRACK_LABELS } from "./questions";
 import { tensionLine } from "./tension";
 
-const FROM = `${site.name} website <onboarding@resend.dev>`;
+const FROM = `${site.name} <${site.email}>`;
 
 function resultsUrl(id: string): string {
   return `${site.url}/assessment/results/${id}`;

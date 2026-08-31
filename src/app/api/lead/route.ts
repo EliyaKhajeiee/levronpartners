@@ -64,10 +64,7 @@ export async function POST(request: Request) {
   } else {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      // Resend requires the from address's domain to be verified with them —
-      // swap this for a levronpartners.com address once that's done, and use
-      // their shared onboarding domain (onboarding@resend.dev) until then.
-      from: `${site.name} website <onboarding@resend.dev>`,
+      from: `${site.name} <${site.email}>`,
       to: [...site.notifyEmails],
       replyTo: email,
       subject: `New lead: ${company}`,
