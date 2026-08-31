@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { site } from "@/lib/site";
+import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
@@ -9,10 +10,12 @@ export const runtime = "nodejs";
  * `/contact` posts here instead of only offering a mailto link + a
  * scheduling tool in a new tab.
  *
- * Needs `RESEND_API_KEY` in the environment — sign up free at resend.com,
- * verify the sending domain (or use their shared onboarding domain to start),
- * and set the key in Vercel's project settings. Until it's set, this returns
- * a clear 503 rather than silently pretending the email sent.
+ * Writes to Supabase's `contact_leads` table and sends the internal
+ * notification email independently of each other — a lead surviving only
+ * requires one of the two to work. Before Supabase was wired up, an
+ * unconfigured or failing `RESEND_API_KEY` meant the lead was gone the
+ * moment the request finished; now the row in `contact_leads` is the
+ * durable copy, and email is just the "come look at this now" nudge on top.
  */
 export async function POST(request: Request) {
   let body: unknown;
@@ -44,31 +47,41 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "That email address doesn't look right." }, { status: 400 });
   }
 
+  let stored = false;
+  const supabase = getSupabaseServerClient();
+  if (supabase) {
+    const { error } = await supabase.from("contact_leads").insert({ company, email, message });
+    if (error) console.error("[api/lead] Supabase insert failed:", error.message);
+    else stored = true;
+  } else {
+    console.error("[api/lead] Supabase not configured — lead not persisted.");
+  }
+
+  let emailed = false;
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error("[api/lead] RESEND_API_KEY is not set — email not sent.");
-    return NextResponse.json(
-      { error: "The contact form isn't wired up to send email yet. Please email us directly." },
-      { status: 503 },
-    );
+  } else {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      // Resend requires the from address's domain to be verified with them —
+      // swap this for a levronpartners.com address once that's done, and use
+      // their shared onboarding domain (onboarding@resend.dev) until then.
+      from: `${site.name} website <onboarding@resend.dev>`,
+      to: [...site.notifyEmails],
+      replyTo: email,
+      subject: `New lead: ${company}`,
+      text: `${company} (${email}) wrote:\n\n${message}`,
+    });
+    if (error) console.error("[api/lead] Resend error:", error);
+    else emailed = true;
   }
 
-  const resend = new Resend(apiKey);
-
-  const { error } = await resend.emails.send({
-    // Resend requires the from address's domain to be verified with them —
-    // swap this for a levronpartners.com address once that's done, and use
-    // their shared onboarding domain (onboarding@resend.dev) until then.
-    from: `${site.name} website <onboarding@resend.dev>`,
-    to: [...site.notifyEmails],
-    replyTo: email,
-    subject: `New lead: ${company}`,
-    text: `${company} (${email}) wrote:\n\n${message}`,
-  });
-
-  if (error) {
-    console.error("[api/lead] Resend error:", error);
-    return NextResponse.json({ error: "Something went wrong sending that. Please email us directly." }, { status: 502 });
+  if (!stored && !emailed) {
+    return NextResponse.json(
+      { error: "Something went wrong sending that. Please email us directly." },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({ ok: true });
