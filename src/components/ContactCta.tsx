@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import Link from "next/link";
 import { Split } from "./Split";
 import { Magnetic } from "./Magnetic";
 
@@ -37,15 +37,13 @@ export function ContactCta({
               style={{ "--group-delay": "400ms" } as React.CSSProperties}
             >
               <Magnetic strength={0.24}>
-                <a
-                  href={site.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contact#form"
                   className="group bg-paper text-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold hover:text-white"
                 >
                   {cta}
                   <span className="arrow-shift">→</span>
-                </a>
+                </Link>
               </Magnetic>
             </div>
           </div>

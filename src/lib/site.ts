@@ -19,6 +19,10 @@ export const site = {
 
   email: "eliya@levronpartners.com",
 
-  // Swap this for your real Cal.com / Calendly link.
+  /** Internal recipients for lead/assessment notifications — everyone who should see a new lead land. */
+  notifyEmails: ["aristotle@levronlabs.com", "eliya@levronpartners.com"],
+
+  // Unused for now — every CTA routes to the /contact form instead. Kept
+  // around in case a real booking link comes back into the funnel later.
   bookingUrl: "https://cal.com/levron/intro",
 } as const;

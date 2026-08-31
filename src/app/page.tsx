@@ -1,34 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import { photos, hasPhoto } from "@/lib/media";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { Magnetic } from "@/components/Magnetic";
 import { ContactCta } from "@/components/ContactCta";
-import { Artifact } from "@/components/Artifact";
 import { Proof } from "@/components/Proof";
-
-// The shape of an engagement, in brief. The full version lives on /process —
-// keep these lines in step with the beats there.
-const brief = [
-  {
-    when: "Week 1–2",
-    k: "Map",
-    b: "Ride-alongs and screen-shares until we can name the three constraints capping your throughput, and what each costs you in a year.",
-  },
-  {
-    when: "Week 3–8",
-    k: "Build",
-    b: "The highest-leverage system first, in front of real jobs inside a month. You review it on your own data.",
-  },
-  {
-    when: "Ongoing",
-    k: "Compound",
-    b: "Each system makes the next one cheaper to build and more accurate once it is.",
-  },
-];
 
 const onward = [
   {
@@ -118,15 +96,13 @@ export default function Home() {
               style={{ "--group-delay": "860ms" } as React.CSSProperties}
             >
               <Magnetic strength={0.24}>
-                <a
-                  href={site.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contact#form"
                   className="group bg-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white"
                 >
                   Get Started
                   <span className="arrow-shift">→</span>
-                </a>
+                </Link>
               </Magnetic>
             </div>
           </div>
@@ -162,41 +138,6 @@ export default function Home() {
             >
               <Split text="We built Levron for the operators who are out of hours before they are out of work." />
             </h2>
-          </div>
-        </section>
-
-        {/* ───────────── Brief ───────────── */}
-        <section className="px-6 pb-[6vh] md:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <Artifact
-              title="engagement-brief.md"
-              footnote="Every engagement opens with the map. What follows is scoped from what it finds."
-            >
-              <div className="mx-auto max-w-[64ch]">
-                <h2 className="display-md text-[clamp(1.5rem,2.6vw,2.25rem)]">
-                  One system in production inside eight weeks.
-                </h2>
-
-                <dl className="mt-10">
-                  {brief.map((row) => (
-                    <div
-                      key={row.k}
-                      className="border-line grid gap-2 border-t py-6 md:grid-cols-12 md:gap-8"
-                    >
-                      <dt className="text-muted font-mono text-[0.75rem] md:col-span-3">
-                        {row.when}
-                      </dt>
-                      <dd className="md:col-span-9">
-                        <span className="text-teal font-medium">{row.k}.</span>{" "}
-                        <span className="text-ink/75 text-[0.9375rem] leading-[1.65]">
-                          {row.b}
-                        </span>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </Artifact>
           </div>
         </section>
 
@@ -236,7 +177,7 @@ export default function Home() {
           </div>
         </section>
 
-        <ContactCta />
+        <ContactCta body="Bring your last ten quotes and a normal week off the schedule. In forty-five minutes, we can usually see where the capacity is getting eaten." />
       </main>
     </>
   );

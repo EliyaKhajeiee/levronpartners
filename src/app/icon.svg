@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="#1F2428"/>
-  <!-- The mark, drawn on its own 292×100 grid, scaled to 21px wide and centred. -->
-  <g fill="#F4EEE2" transform="translate(5.5 12.4) scale(0.0719)">
+  <!-- The mark, drawn on its own 292×100 grid, scaled to 21px wide and centred.
+       Flipped on the x-axis to match /brand/mark.png (top bar straight, step on bottom). -->
+  <g fill="#F4EEE2" transform="translate(5.5 12.4) scale(0.0719) translate(0 100) scale(1 -1)">
     <path d="M0 0 H292 V52 H214 L196 34 H0 Z"/>
     <path d="M0 52 H178 L196 70 H292 V100 H0 Z"/>
   </g>

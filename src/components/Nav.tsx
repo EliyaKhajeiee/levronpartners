@@ -47,15 +47,13 @@ export function Nav() {
               pill's full text, and the hamburger without the pill's text
               wrapping into the logo (verified, not assumed: it did). The
               drawer below carries its own "Get Started" CTA instead. */}
-          <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/assessment"
             className="group bg-ink pill hover:bg-teal hidden shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-[0.8125rem] font-semibold whitespace-nowrap text-white sm:inline-flex"
           >
-            Get Started
+            Free Assessment
             <span className="arrow-shift">→</span>
-          </a>
+          </Link>
 
           <MobileNav />
         </div>

@@ -31,7 +31,7 @@ export function LeadForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: data.get("name"),
+          company: data.get("company"),
           email: data.get("email"),
           message: data.get("message"),
         }),
@@ -66,31 +66,37 @@ export function LeadForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <label className="flex flex-col gap-2">
-          <span className="text-muted text-[0.8125rem] font-medium">Name</span>
-          <input
-            required
-            name="name"
-            type="text"
-            autoComplete="name"
-            className="border-line focus:border-teal rounded-lg border bg-transparent px-4 py-3 text-[0.9375rem] outline-none transition-colors duration-300"
-          />
-        </label>
-        <label className="flex flex-col gap-2">
-          <span className="text-muted text-[0.8125rem] font-medium">Email</span>
-          <input
-            required
-            name="email"
-            type="email"
-            autoComplete="email"
-            className="border-line focus:border-teal rounded-lg border bg-transparent px-4 py-3 text-[0.9375rem] outline-none transition-colors duration-300"
-          />
-        </label>
-      </div>
+      <label className="flex flex-col gap-2">
+        <span className="text-muted text-[0.75rem] font-medium tracking-[0.06em] uppercase">
+          Work email
+        </span>
+        <input
+          required
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="you@company.com"
+          className="border-line focus:border-teal rounded-lg border bg-transparent px-4 py-3 text-[0.9375rem] outline-none transition-colors duration-300"
+        />
+      </label>
 
       <label className="flex flex-col gap-2">
-        <span className="text-muted text-[0.8125rem] font-medium">What’s costing you time right now?</span>
+        <span className="text-muted text-[0.75rem] font-medium tracking-[0.06em] uppercase">
+          Company name
+        </span>
+        <input
+          required
+          name="company"
+          type="text"
+          autoComplete="organization"
+          className="border-line focus:border-teal rounded-lg border bg-transparent px-4 py-3 text-[0.9375rem] outline-none transition-colors duration-300"
+        />
+      </label>
+
+      <label className="flex flex-col gap-2">
+        <span className="text-muted text-[0.75rem] font-medium tracking-[0.06em] uppercase">
+          What’s costing you time right now?
+        </span>
         <textarea
           required
           name="message"
@@ -108,8 +114,12 @@ export function LeadForm() {
         disabled={status === "sending"}
         className="bg-ink pill hover:bg-teal inline-flex w-fit items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white transition-colors duration-500 disabled:opacity-60"
       >
-        {status === "sending" ? "Sending…" : "Send it over"}
+        {status === "sending" ? "Sending…" : "Get in touch"}
       </button>
+
+      <p className="text-muted text-[0.8125rem]">
+        No spam. We&rsquo;ll only use this to follow up about working together.
+      </p>
     </form>
   );
 }

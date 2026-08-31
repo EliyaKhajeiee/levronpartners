@@ -1,6 +1,26 @@
 import Image from "next/image";
 import { partners, clients, type Partner, type Client } from "@/lib/proof";
-import { FlowRule } from "./FlowRule";
+import { Artifact } from "./Artifact";
+
+// The shape of an engagement, in brief. The full version lives on /process —
+// keep these lines in step with the beats there.
+const brief = [
+  {
+    when: "Week 1–2",
+    k: "Map",
+    b: "Ride-alongs and screen-shares until we can name the three constraints capping your throughput, and what each costs you in a year.",
+  },
+  {
+    when: "Week 3–8",
+    k: "Build",
+    b: "The highest-leverage system first, in front of real jobs inside a month. You review it on your own data.",
+  },
+  {
+    when: "Ongoing",
+    k: "Compound",
+    b: "Each system makes the next one cheaper to build and more accurate once it is.",
+  },
+];
 
 /**
  * The credibility block: the stack we build on, then the operations we've
@@ -8,11 +28,8 @@ import { FlowRule } from "./FlowRule";
  *
  * Both rows ride the same marquee — the partner row matches the "Proudly
  * Partnered With" wheel on levronlabs.com, each mark already at the ink
- * weight the brand renders it in. The client logos keep their own colour,
- * because they came from seven different places at seven different aspect
- * ratios and a static grid only draws attention to that; in motion they read
- * as a stream of names, which is the point. Each tile names the ground it
- * needs in `lib/proof.ts`.
+ * weight the brand renders it in. The client row keeps the same tile format
+ * but renders each logo in grayscale with no caption underneath.
  */
 
 function SectionHead({ children }: { children: React.ReactNode }) {
@@ -70,17 +87,9 @@ function ClientTile({ c, clone = false }: { c: Client; clone?: boolean }) {
           alt={`${c.name} logo`}
           fill
           sizes="116px"
-          className="object-contain p-2"
+          className="object-contain p-2 grayscale"
         />
       </div>
-      {/* Two lines' worth of room so the sectors stay on one baseline across
-          the row even when a name wraps. */}
-      <p className="text-ink mt-2.5 min-h-[2.5em] text-center text-[0.6875rem] leading-[1.25] font-medium">
-        {c.name}
-      </p>
-      <p className="text-muted mt-0.5 text-center text-[0.625rem]">
-        {c.sector}
-      </p>
     </div>
   );
 }
@@ -131,17 +140,40 @@ export function Proof() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1500px] px-6 md:px-10">
-        {/* ── The rule between them ──
-            Held to a narrow column: run full-bleed the lines stretch to a
-            hairline smear and the lane change stops reading. */}
-        <div className="mx-auto max-w-[30rem] py-[9vh]" aria-hidden="true">
-          <FlowRule variant="momentum" bend={0.56} />
-        </div>
+      <div className="mx-auto max-w-[1500px] px-6 py-[9vh] md:px-10">
+        <Artifact
+          title="engagement-brief.md"
+          footnote="Every engagement opens with the map. What follows is scoped from what it finds."
+        >
+          <div className="mx-auto max-w-[64ch]">
+            <h2 className="display-md text-[clamp(1.5rem,2.6vw,2.25rem)]">
+              One system in production inside eight weeks.
+            </h2>
+
+            <dl className="mt-10">
+              {brief.map((row) => (
+                <div
+                  key={row.k}
+                  className="border-line grid gap-2 border-t py-6 md:grid-cols-12 md:gap-8"
+                >
+                  <dt className="text-muted font-mono text-[0.75rem] md:col-span-3">
+                    {row.when}
+                  </dt>
+                  <dd className="md:col-span-9">
+                    <span className="text-teal font-medium">{row.k}.</span>{" "}
+                    <span className="text-ink/75 text-[0.9375rem] leading-[1.65]">
+                      {row.b}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </Artifact>
       </div>
 
-      {/* ── Companies we've worked with ── */}
-      <SectionHead>Companies we&rsquo;ve worked with</SectionHead>
+      {/* ── Proudly trusted by ── */}
+      <SectionHead>Proudly trusted by</SectionHead>
 
       {/* Held to a 64rem window rather than run full-bleed. Seven tiles is
           about 810px of unique content; give it the whole viewport and the

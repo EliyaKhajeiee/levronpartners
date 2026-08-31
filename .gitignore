@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# assessment placeholder store (local dev only — see src/lib/assessment/store.ts)
+/.data
+
+# Supabase CLI local state (project linking cache, not app code)
+/supabase/.temp

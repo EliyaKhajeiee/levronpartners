@@ -404,3 +404,24 @@ body {
 .nav-link.is-active::after {
   transform: scaleX(1);
 }
+
+/* ---------------- Print action plan ----------------
+   #print-shell marks the standalone print/PDF route. It renders inside the
+   normal layout (so nothing about routing changes), but reads as its own
+   document rather than a page on the site — the site's header and footer
+   are hidden whenever that id is present anywhere on the page. */
+body:has(#print-shell) > header,
+body:has(#print-shell) > footer {
+  display: none;
+}
+
+@media print {
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+}

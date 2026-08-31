@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { site } from "@/lib/site";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
-import { Magnetic } from "@/components/Magnetic";
 import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
@@ -14,29 +12,29 @@ export const metadata: Metadata = {
 const expect = [
   {
     n: "01",
-    t: "Bring your last ten quotes",
-    b: "Won and lost. We want to see how long each took to price and where the time went.",
+    t: "Bring your last ten bids or quotes",
+    b: "Won and lost. We want to see how they got priced, how long they took, and where the time went.",
   },
   {
     n: "02",
     t: "And a normal week",
-    b: "Off the schedule or the dispatch board — a normal one, not a good one. The gaps are the interesting part.",
+    b: "Pull up the schedule, dispatch board, or job list. A normal week, not a good one. The gaps are the interesting part.",
   },
   {
     n: "03",
     t: "Leave with a read",
-    b: "Where the throughput is going and what it would take to get it back. No deck, no pitch.",
+    b: "Where capacity is getting eaten, what should stay human, and what we’d build around the rest. No deck. No pitch.",
   },
 ];
 
 // Construction and home services lead the list because that's where we're
 // selling — but the list doesn't end there, and neither do the engagements.
 const fit = [
-  "Contractors and trades — mechanical, HVAC, plumbing, electrical — doing $5M+",
-  "GCs and design-build firms bidding more than they can price",
-  "Service businesses where speed-to-lead decides the close",
-  "Any operation where the office spends its day retyping what the field already wrote down",
-  "Owners who want leverage, not another dashboard nobody opens",
+  "Contractors and trades — HVAC, plumbing, electrical, mechanical and specialty contractors",
+  "GCs and design-build firms winning enough work that estimating is becoming the constraint",
+  "Service businesses where five minutes on a new lead can be the difference between booked and gone",
+  "Operations where the office spends its day retyping, routing, or chasing information the field already created",
+  "Owners who want more capacity, not another dashboard nobody opens",
 ];
 
 export default function ContactPage() {
@@ -57,42 +55,15 @@ export default function ContactPage() {
               <Split text="Let’s find the hours." />
             </h1>
 
-            <div className="mt-12 flex flex-col gap-8 md:mt-16 md:flex-row md:items-end md:justify-between">
-              <p
-                data-fade
-                style={{ "--group-delay": "400ms" } as React.CSSProperties}
-                className="text-muted max-w-[44ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.45] tracking-[-0.015em]"
-              >
-                Forty-five minutes, on a call, with the people who actually run
-                the work. We&rsquo;ll tell you plainly whether there&rsquo;s
-                something here worth building.
-              </p>
-
-              <div
-                data-fade
-                style={{ "--group-delay": "520ms" } as React.CSSProperties}
-                className="flex flex-wrap items-center gap-4"
-              >
-                <Magnetic strength={0.24}>
-                  <a
-                    href={site.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-ink pill hover:bg-teal inline-flex items-center gap-3 rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white"
-                  >
-                    Book a working session
-                    <span className="arrow-shift">→</span>
-                  </a>
-                </Magnetic>
-
-                <a
-                  href={`mailto:${site.email}`}
-                  className="border-line text-ink hover:border-teal hover:text-teal inline-flex items-center rounded-full border px-7 py-4 text-[0.9375rem] transition-colors duration-500"
-                >
-                  {site.email}
-                </a>
-              </div>
-            </div>
+            <p
+              data-fade
+              style={{ "--group-delay": "400ms" } as React.CSSProperties}
+              className="text-muted mt-12 max-w-[44ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.45] tracking-[-0.015em] md:mt-16"
+            >
+              Forty-five minutes, on a call, with the people who actually run
+              the work. We&rsquo;ll tell you plainly whether there&rsquo;s
+              something here worth building.
+            </p>
           </div>
         </section>
 
@@ -158,25 +129,26 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="border-line border-t px-6 py-[14vh] md:px-10">
+        <section id="form" className="border-line border-t px-6 py-[14vh] md:px-10">
           <div className="mx-auto grid max-w-[1500px] gap-10 md:grid-cols-12">
             <div className="md:col-span-4">
               <p data-fade className="label mb-4">
-                Or skip the call
+                Get in touch
               </p>
               <h2
                 data-split
                 className="display-md max-w-[16ch] text-[clamp(1.5rem,2.6vw,2.25rem)]"
               >
-                <Split text="Tell us here instead." />
+                <Split text="Tell us about your operation." />
               </h2>
               <p
                 data-fade
                 style={{ "--group-delay": "160ms" } as React.CSSProperties}
                 className="text-muted mt-5 max-w-[36ch] text-[0.9375rem] leading-[1.65]"
               >
-                A couple of lines on what&rsquo;s slow or getting missed is
-                enough to start. We reply from a person, not a sequence.
+                Share your email and company. We&rsquo;ll follow up to
+                schedule a structured diagnostic of how your business
+                actually runs.
               </p>
             </div>
 

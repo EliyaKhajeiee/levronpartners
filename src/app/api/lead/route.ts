@@ -22,18 +22,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { name, email, message } = (body ?? {}) as Record<string, unknown>;
+  const { company, email, message } = (body ?? {}) as Record<string, unknown>;
 
   if (
-    typeof name !== "string" ||
+    typeof company !== "string" ||
     typeof email !== "string" ||
     typeof message !== "string" ||
-    !name.trim() ||
+    !company.trim() ||
     !email.trim() ||
     !message.trim()
   ) {
     return NextResponse.json(
-      { error: "Name, email, and a message are all required." },
+      { error: "Company name, email, and a message are all required." },
       { status: 400 },
     );
   }
@@ -60,10 +60,10 @@ export async function POST(request: Request) {
     // swap this for a levronpartners.com address once that's done, and use
     // their shared onboarding domain (onboarding@resend.dev) until then.
     from: `${site.name} website <onboarding@resend.dev>`,
-    to: site.email,
+    to: [...site.notifyEmails],
     replyTo: email,
-    subject: `New lead: ${name}`,
-    text: `${name} (${email}) wrote:\n\n${message}`,
+    subject: `New lead: ${company}`,
+    text: `${company} (${email}) wrote:\n\n${message}`,
   });
 
   if (error) {

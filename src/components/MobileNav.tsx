@@ -135,16 +135,14 @@ export function MobileNav() {
       </nav>
 
       <div className="flex flex-col gap-4 px-6 pt-8">
-        <a
-          href={site.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/contact#form"
           onClick={() => setOpen(false)}
           className="bg-ink pill inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.9375rem] font-semibold text-white"
         >
           Get Started
           <span aria-hidden="true">→</span>
-        </a>
+        </Link>
         <a href={`mailto:${site.email}`} className="text-muted text-center text-[0.875rem]">
           {site.email}
         </a>
