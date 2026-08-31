@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getQuestionsForTrack } from "@/lib/assessment/questions";
-import type { AssessmentContact, Track } from "@/lib/assessment/types";
+import type { AssessmentContact, AssessmentSubmission, Track } from "@/lib/assessment/types";
 import type { TimeSlot } from "@/lib/assessment/slots";
 import { trackAssessment } from "@/lib/assessment/analytics";
 import { ProgressBar } from "./ProgressBar";
@@ -15,12 +15,19 @@ type Phase = "questions" | "analyzing" | "session" | "session-sent";
 
 const AUTO_ADVANCE_MS = 300;
 
-async function patchSubmission(id: string, body: Record<string, unknown>) {
-  await fetch(`/api/assessment/${id}`, {
+/**
+ * Returns the updated submission — critically, its `id`, which the store
+ * mints fresh on every update. Callers must carry that id forward into the
+ * next call; reusing the id this call was made with silently discards
+ * whatever just changed (see store.ts).
+ */
+async function patchSubmission(id: string, body: Record<string, unknown>): Promise<AssessmentSubmission | null> {
+  const res = await fetch(`/api/assessment/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
+  return (await res.json().catch(() => null)) as AssessmentSubmission | null;
 }
 
 export function AssessmentWizard() {
@@ -77,7 +84,8 @@ export function AssessmentWizard() {
         const body = (await res.json().catch(() => ({}))) as { id?: string };
         if (body.id) setSubmissionId(body.id);
       } else if (submissionId) {
-        void patchSubmission(submissionId, { answers: nextAnswers });
+        const updated = await patchSubmission(submissionId, { answers: nextAnswers });
+        if (updated) setSubmissionId(updated.id);
       }
 
       setStepIndex((i) => Math.min(i + 1, questions.length - 1));
@@ -87,7 +95,8 @@ export function AssessmentWizard() {
   async function handleEmailGate(contact: AssessmentContact) {
     if (!submissionId) return;
     setSubmitting(true);
-    await patchSubmission(submissionId, { answers, contact, finalize: true });
+    const updated = await patchSubmission(submissionId, { answers, contact, finalize: true });
+    if (updated) setSubmissionId(updated.id);
     trackAssessment("assessment_lead_created");
     setPhase("analyzing");
     window.setTimeout(() => {
@@ -101,22 +110,22 @@ export function AssessmentWizard() {
     resolvedRef.current = true;
     setSubmitting(true);
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    await patchSubmission(submissionId, {
+    const updated = await patchSubmission(submissionId, {
       requestedDatetime: slot.iso,
       requestedTimezone: timezone,
       requestedNote: note || undefined,
     });
     trackAssessment("assessment_calendar_time_selected");
     trackAssessment("assessment_session_requested");
-    router.push(`/assessment/results/${submissionId}`);
+    router.push(`/assessment/results/${updated?.id ?? submissionId}`);
   }
 
   async function handleSkip() {
     if (!submissionId || resolvedRef.current) return;
     resolvedRef.current = true;
-    await patchSubmission(submissionId, { skippedSession: true });
+    const updated = await patchSubmission(submissionId, { skippedSession: true });
     trackAssessment("assessment_calendar_skipped");
-    router.push(`/assessment/results/${submissionId}`);
+    router.push(`/assessment/results/${updated?.id ?? submissionId}`);
   }
 
   async function handleIdleAbandon() {

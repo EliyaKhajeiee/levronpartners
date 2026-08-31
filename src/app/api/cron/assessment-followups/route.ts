@@ -17,6 +17,11 @@ const FOLLOW_UP_AFTER_MS = 3 * 24 * 60 * 60 * 1000; // 3 days past the initial e
  *    fired). Sends the unbooked variant.
  * 2. Day-3 follow-up — for people who got an initial email (either variant)
  *    but never opened the results and never booked.
+ *
+ * Both are currently a no-op: `getStore().listAll()` returns `[]` until a
+ * real database backs the store (see store.ts) — there's nothing durable
+ * this route could discover "three days later." Left wired up so turning
+ * it on is just swapping the store, not writing this route.
  */
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;

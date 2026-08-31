@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { AssessmentResults, AssessmentSubmission } from "@/lib/assessment/types";
 import { formatAssessmentDollars, roundBreakdownLine } from "@/lib/assessment/format";
 import { dimensionLabel } from "@/lib/assessment/scoring";
@@ -19,6 +20,7 @@ export function ResultsView({
   results: AssessmentResults;
   submission: AssessmentSubmission;
 }) {
+  const router = useRouter();
   const [current, setCurrent] = useState(submission);
   const [submitting, setSubmitting] = useState(false);
   const { diagnosis, vision, roadmap, projections, methodology } = results;
@@ -28,13 +30,19 @@ export function ResultsView({
   }, []);
 
   async function patch(body: Record<string, unknown>) {
-    const res = await fetch(`/api/assessment/${submission.id}`, {
+    const res = await fetch(`/api/assessment/${current.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
     const updated = (await res.json().catch(() => null)) as AssessmentSubmission | null;
-    if (updated) setCurrent(updated);
+    if (updated) {
+      setCurrent(updated);
+      // The store mints a new id on every update — move the URL forward so
+      // a refresh (or the print link below) decodes the post-booking state
+      // instead of rolling back to whatever the page loaded with.
+      router.replace(`/assessment/results/${updated.id}`, { scroll: false });
+    }
   }
 
   async function handleBook(slot: TimeSlot, note: string) {
@@ -164,7 +172,7 @@ export function ResultsView({
 
       <div className="flex justify-center">
         <Link
-          href={`/assessment/results/${submission.id}/print`}
+          href={`/assessment/results/${current.id}/print`}
           onClick={() => trackAssessment("assessment_export_pdf")}
           className="link-quiet text-[0.875rem] font-medium"
         >

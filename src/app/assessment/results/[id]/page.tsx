@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import { getStore } from "@/lib/assessment/store";
 import { generateResults } from "@/lib/assessment/results";
 import { ResultsView } from "@/components/assessment/ResultsView";
@@ -12,9 +11,6 @@ export const metadata: Metadata = {
 
 type PageProps = { params: Promise<{ id: string }> };
 
-/** Crude bot guard so a link-preview crawler doesn't count as the visitor opening their results. */
-const BOT_UA = /bot|crawler|spider|slurp|preview|slack|facebookexternalhit|whatsapp|linkedinbot|discordbot|telegrambot/i;
-
 export default async function AssessmentResultsPage({ params }: PageProps) {
   const { id } = await params;
   const submission = await getStore().get(id);
@@ -23,11 +19,10 @@ export default async function AssessmentResultsPage({ params }: PageProps) {
     notFound();
   }
 
-  const headerList = await headers();
-  const userAgent = headerList.get("user-agent") ?? "";
-  if (!submission.resultsViewedAt && !BOT_UA.test(userAgent)) {
-    await getStore().update(id, { resultsViewedAt: new Date().toISOString() });
-  }
+  // Marking `resultsViewedAt` (and the bot-guard around it) is deferred
+  // until a real store exists — this route's copy of the submission is a
+  // one-off decode, not a row anything else can later ask "was this ever
+  // viewed?" about. See store.ts.
 
   const results = generateResults(submission.track, submission.scores, submission.leakage, submission.answers);
 

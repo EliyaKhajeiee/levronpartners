@@ -1,18 +1,21 @@
 import { randomUUID } from "crypto";
-import { mkdir, readFile, writeFile } from "fs/promises";
-import path from "path";
-import os from "os";
+import { decodeSubmission, encodeSubmission } from "./token";
 import type { AssessmentSubmission } from "./types";
 
 /**
  * Storage for assessment submissions, kept behind one small interface so
  * swapping the backing store is a one-file change.
  *
- * **Placeholder, not production storage.** There's no database wired up
- * for Levron Partners yet — this writes a JSON file to disk, which works
- * for local dev but is *not* durable on a serverless deploy (Vercel's
- * filesystem outside `/tmp` is read-only, and `/tmp` doesn't survive
- * between invocations or across instances).
+ * **Placeholder, not a real database.** There's no Supabase project wired up
+ * for Levron Partners yet, so `TokenAssessmentStore` below "stores" a
+ * submission by encoding it into its own id (see `token.ts`) rather than
+ * writing it anywhere — every API route can decode that id on its own, with
+ * no shared server-side state required. The one real cost: nothing here
+ * survives longer than a single browser tab's session. There's no way to
+ * discover "everyone who completed the assessment three days ago and never
+ * booked" without a database that can be queried later — so `listAll()`
+ * always returns empty, and the day-3 follow-up cron is a harmless no-op
+ * until a real store replaces this one.
  *
  * To wire up real persistence once a Supabase project exists:
  * 1. Create a table (roughly): `id uuid pk, track text, answers jsonb,
@@ -27,8 +30,9 @@ import type { AssessmentSubmission } from "./types";
  *    to read through, and do all writes from API routes with the service
  *    role key (bypasses RLS).
  * 3. Implement a `SupabaseAssessmentStore` against the same
- *    `AssessmentStore` interface below and swap it in inside `getStore()`.
- *    Nothing else in this codebase needs to change.
+ *    `AssessmentStore` interface below (real row ids, `update()` keeps the
+ *    same id instead of minting a new one) and swap it in inside
+ *    `getStore()`. Nothing else in this codebase needs to change.
  */
 export interface AssessmentStore {
   create(input: Pick<AssessmentSubmission, "track" | "answers">): Promise<AssessmentSubmission>;
@@ -37,79 +41,54 @@ export interface AssessmentStore {
   listAll(): Promise<AssessmentSubmission[]>;
 }
 
-function storeFilePath(): string {
-  if (process.env.ASSESSMENT_STORE_FILE) return process.env.ASSESSMENT_STORE_FILE;
-  // Local dev: keep it in the repo (gitignored) so it survives restarts.
-  // Any serverless deploy (Vercel sets VERCEL=1): fall back to /tmp. This
-  // is still not durable across invocations — it's here so the funnel
-  // doesn't hard-crash before the real store is wired up.
-  if (!process.env.VERCEL) {
-    return path.join(/* turbopackIgnore: true */ process.cwd(), ".data", "assessments.json");
-  }
-  return path.join(os.tmpdir(), "levron-partners-assessments.json");
-}
-
-class FileAssessmentStore implements AssessmentStore {
-  private async readAll(): Promise<AssessmentSubmission[]> {
-    try {
-      const raw = await readFile(storeFilePath(), "utf-8");
-      return JSON.parse(raw) as AssessmentSubmission[];
-    } catch {
-      return [];
-    }
-  }
-
-  private async writeAll(rows: AssessmentSubmission[]): Promise<void> {
-    const file = storeFilePath();
-    await mkdir(path.dirname(file), { recursive: true });
-    await writeFile(file, JSON.stringify(rows, null, 2), "utf-8");
-  }
-
+/**
+ * `update()` returns a submission whose `id` is a *new* token reflecting the
+ * post-patch state — the old id still decodes, but to the pre-patch
+ * snapshot. Callers must carry forward whatever id came back on the last
+ * response (the API routes and client below all do this); reusing a stale
+ * id silently discards whatever changed since it was minted.
+ */
+class TokenAssessmentStore implements AssessmentStore {
   async create(input: Pick<AssessmentSubmission, "track" | "answers">): Promise<AssessmentSubmission> {
     const now = new Date().toISOString();
     const row: AssessmentSubmission = {
-      id: randomUUID(),
+      id: randomUUID(), // placeholder; overwritten with the real token below
       track: input.track,
       answers: input.answers,
       status: "started",
       createdAt: now,
       updatedAt: now,
     };
-    const rows = await this.readAll();
-    rows.push(row);
-    await this.writeAll(rows);
-    return row;
+    return { ...row, id: encodeSubmission(row) };
   }
 
   async get(id: string): Promise<AssessmentSubmission | null> {
-    const rows = await this.readAll();
-    return rows.find((r) => r.id === id) ?? null;
+    const decoded = decodeSubmission(id);
+    if (!decoded) return null;
+    return { ...decoded, id };
   }
 
   async update(id: string, patch: Partial<AssessmentSubmission>): Promise<AssessmentSubmission | null> {
-    const rows = await this.readAll();
-    const index = rows.findIndex((r) => r.id === id);
-    if (index === -1) return null;
+    const existing = await this.get(id);
+    if (!existing) return null;
 
     const merged: AssessmentSubmission = {
-      ...rows[index],
+      ...existing,
       ...patch,
-      answers: { ...rows[index].answers, ...(patch.answers ?? {}) },
+      answers: { ...existing.answers, ...(patch.answers ?? {}) },
       updatedAt: new Date().toISOString(),
     };
-    rows[index] = merged;
-    await this.writeAll(rows);
-    return merged;
+    return { ...merged, id: encodeSubmission(merged) };
   }
 
   async listAll(): Promise<AssessmentSubmission[]> {
-    return this.readAll();
+    return [];
   }
 }
 
 let instance: AssessmentStore | null = null;
 
 export function getStore(): AssessmentStore {
-  if (!instance) instance = new FileAssessmentStore();
+  if (!instance) instance = new TokenAssessmentStore();
   return instance;
 }

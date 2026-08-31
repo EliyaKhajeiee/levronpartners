@@ -81,7 +81,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
   // ── Book a session ──
   if (typeof patch.requestedDatetime === "string") {
-    const updated = await store.update(id, {
+    let updated = await store.update(id, {
       requestedDatetime: patch.requestedDatetime,
       requestedTimezone: typeof patch.requestedTimezone === "string" ? patch.requestedTimezone : undefined,
       requestedNote: typeof patch.requestedNote === "string" ? patch.requestedNote : undefined,
@@ -90,27 +90,30 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     if (!updated.initialEmailSentAt) {
       await sendInitialBookedEmail(updated);
-      await store.update(id, {
+      // Chains off `updated.id`, not the original `id` — the store mints a
+      // new id on every update, and the prior one now only decodes back to
+      // the pre-booking snapshot.
+      updated = await store.update(updated.id, {
         initialEmailSentAt: new Date().toISOString(),
         initialEmailVariant: "booked",
       });
     }
-    return NextResponse.json(await store.get(id));
+    return NextResponse.json(updated);
   }
 
   // ── Skip the session (explicit skip link, or client-side idle timeout) ──
   if (patch.skippedSession === true) {
-    const updated = await store.update(id, { skippedSession: true });
+    let updated = await store.update(id, { skippedSession: true });
     if (!updated) return NextResponse.json({ error: "Not found." }, { status: 404 });
 
     if (!updated.initialEmailSentAt) {
       await sendInitialUnbookedEmail(updated);
-      await store.update(id, {
+      updated = await store.update(updated.id, {
         initialEmailSentAt: new Date().toISOString(),
         initialEmailVariant: "unbooked",
       });
     }
-    return NextResponse.json(await store.get(id));
+    return NextResponse.json(updated);
   }
 
   // ── Plain progress save (Q3–Q8): merge answers, no recompute ──
