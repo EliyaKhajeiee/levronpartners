@@ -60,9 +60,18 @@ export function ResultsView({
   return (
     <div className="flex flex-col gap-[10vh]">
       <section>
-        <p className="label mb-3">
-          {submission.track ? TRACK_LABELS[submission.track] : ""} · {diagnosis.maturityLabel}
-        </p>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-4">
+          <p className="label">
+            {submission.track ? TRACK_LABELS[submission.track] : ""} · {diagnosis.maturityLabel}
+          </p>
+          <Link
+            href={`/assessment/results/${current.id}/print`}
+            onClick={() => trackAssessment("assessment_export_pdf")}
+            className="link-quiet shrink-0 text-[0.8125rem] font-medium"
+          >
+            Export as PDF →
+          </Link>
+        </div>
         <div className="border-line grid gap-10 rounded-2xl border bg-white/40 p-6 md:grid-cols-[auto_1fr] md:items-center md:p-10">
           <ScoreRing score={diagnosis.scores.adjustedTotal} label={diagnosis.maturityLabel} />
           <div className="flex flex-col gap-6">
@@ -170,16 +179,6 @@ export function ResultsView({
           />
         )}
       </section>
-
-      <div className="flex justify-center">
-        <Link
-          href={`/assessment/results/${current.id}/print`}
-          onClick={() => trackAssessment("assessment_export_pdf")}
-          className="link-quiet text-[0.875rem] font-medium"
-        >
-          Export as PDF →
-        </Link>
-      </div>
     </div>
   );
 }

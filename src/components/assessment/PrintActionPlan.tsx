@@ -4,6 +4,8 @@ import { dimensionLabel } from "@/lib/assessment/scoring";
 import { buildAnswerSummary } from "@/lib/assessment/answerSummary";
 import { site } from "@/lib/site";
 import type { AssessmentResults, AssessmentSubmission } from "@/lib/assessment/types";
+import { AutoPrint } from "./AutoPrint";
+import { PrintButton } from "./PrintButton";
 
 export function PrintActionPlan({
   results,
@@ -19,6 +21,10 @@ export function PrintActionPlan({
 
   return (
     <div id="print-shell" className="print-shell mx-auto max-w-[7.5in] flex-1 bg-[#f4eee2] px-10 py-14 text-[#1f2428]">
+      <AutoPrint />
+      <div className="print:hidden mb-6 flex justify-end">
+        <PrintButton />
+      </div>
       <header className="print-avoid-break mb-10 flex items-end justify-between border-b border-[#d8d1c3] pb-6">
         <div>
           <p className="text-[0.6875rem] tracking-[0.14em] text-[#6b7176] uppercase">{site.name} — Action Plan</p>

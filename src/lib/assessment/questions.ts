@@ -24,6 +24,39 @@ export const QUESTIONS: Question[] = [
     required: true,
   },
 
+  // ── Sector/trade follow-up (context only, not scored) ──
+  {
+    id: "construction_sector",
+    type: "single",
+    prompt: "What sector of construction?",
+    tracks: ["construction"],
+    required: true,
+    options: [
+      { id: "residential", label: "Residential" },
+      { id: "commercial", label: "Commercial" },
+      { id: "institutional", label: "Institutional" },
+      { id: "industrial", label: "Industrial" },
+      { id: "civil_infrastructure", label: "Civil and infrastructure" },
+      { id: "mixed_use", label: "Mixed-use development" },
+    ],
+  },
+  {
+    id: "home_services_trade",
+    type: "single",
+    prompt: "What trade best describes your business?",
+    tracks: ["home_services"],
+    required: true,
+    options: [
+      { id: "hvac", label: "HVAC" },
+      { id: "electrical", label: "Electrical" },
+      { id: "plumbing", label: "Plumbing" },
+      { id: "roofing", label: "Roofing" },
+      { id: "lawn_care", label: "Lawn care" },
+      { id: "pest_control", label: "Pest control" },
+      { id: "other", label: "Something else" },
+    ],
+  },
+
   // ── Q2 — Revenue (leakage anchor, not scored) ──
   {
     id: "revenue",
@@ -190,10 +223,12 @@ export const QUESTIONS: Question[] = [
 ];
 
 /**
- * Filters the bank down to the 9-question sequence for a track. Mirrors the
+ * Filters the bank down to the 10-question sequence for a track. Mirrors the
  * reference logic, minus the "other" fallback — Q1 here only ever resolves
  * to `construction` or `home_services`, so nothing downstream needs an
- * industry-agnostic path.
+ * industry-agnostic path. The sector/trade follow-up right after Q1 is
+ * context for the appendix and personalization only — it has no `points`,
+ * so `computeScores` and `computeLeakage` ignore it.
  */
 export function getQuestionsForTrack(track: Track | undefined): Question[] {
   if (!track) {
