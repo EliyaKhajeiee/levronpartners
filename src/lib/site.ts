@@ -6,9 +6,9 @@ export const site = {
 
   /**
    * Deliberately says "operation" and not "construction operation".
-   * Construction, home services, and tax are where we're selling, and the
-   * copy leans that way — but the site stays legible to the operator in
-   * another trade who lands on it, because those are still deals we take.
+   * Construction and home services are where we're selling, and the copy
+   * leans that way — but the site stays legible to the operator in another
+   * trade who lands on it, because those are still deals we take.
    */
   description:
     "We find where your operation is leaking hours, then build the software that removes them. Custom to how your business actually runs.",

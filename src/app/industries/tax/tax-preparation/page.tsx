@@ -6,7 +6,7 @@ import { IndustryHero } from "@/components/IndustryHero";
 import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
-import { industries } from "@/lib/industries";
+import { taxIndustry } from "@/lib/industries";
 import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Automated document intake and self-serve status updates for tax preparation firms — so the busiest weeks of the year go to preparing returns, not chasing paperwork.",
 };
 
-const group = industries.find((g) => g.slug === "tax")!;
+const group = taxIndustry;
 const page = group.children.find((c) => c.slug === "tax-preparation")!;
 
 const lost = [

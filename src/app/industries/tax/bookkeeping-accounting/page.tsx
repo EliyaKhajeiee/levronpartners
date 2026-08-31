@@ -6,7 +6,7 @@ import { IndustryHero } from "@/components/IndustryHero";
 import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
-import { industries } from "@/lib/industries";
+import { taxIndustry } from "@/lib/industries";
 import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Categorization review queues, client-facing reporting, and a close checklist that runs itself — so a client’s books get closed on a schedule, not whenever there’s a spare afternoon.",
 };
 
-const group = industries.find((g) => g.slug === "tax")!;
+const group = taxIndustry;
 const page = group.children.find((c) => c.slug === "bookkeeping-accounting")!;
 
 const slow = [

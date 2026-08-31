@@ -5,7 +5,7 @@ import { IndustryHero } from "@/components/IndustryHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { IndustryChildren } from "@/components/IndustryChildren";
 import { JsonLd } from "@/components/JsonLd";
-import { industries } from "@/lib/industries";
+import { taxIndustry } from "@/lib/industries";
 import { serviceSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Document intake, client status updates, and engagement paperwork — the systems that get a tax or accounting firm through its busiest season without burning out the staff doing it.",
 };
 
-const group = industries.find((g) => g.slug === "tax")!;
+const group = taxIndustry;
 
 const stuck = [
   {
