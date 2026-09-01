@@ -35,7 +35,7 @@ export function ImageHero({
   chip?: Chip;
 }) {
   return (
-    <section className="relative isolate flex min-h-[78svh] flex-col justify-between overflow-hidden md:min-h-[88svh]">
+    <section className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden md:min-h-[88svh]">
       <Image
         src={imageSrc}
         alt={imageAlt}
