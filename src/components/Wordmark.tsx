@@ -5,14 +5,38 @@ const WORDMARKS = {
   partners: { src: "/brand/wordmark.png", width: 597, height: 130, className: "h-[1.25em] w-auto" },
   construction: {
     src: "/brand/wordmark-construction.png",
-    width: 1024,
-    height: 341,
+    width: 962,
+    height: 168,
     className: "h-[1.35em] w-auto",
   },
   home_services: {
     src: "/brand/wordmark-home-services.png",
-    width: 1024,
-    height: 341,
+    width: 971,
+    height: 161,
+    className: "h-[1.35em] w-auto",
+  },
+  plumbing: {
+    src: "/brand/wordmark-plumbing.png",
+    width: 903,
+    height: 150,
+    className: "h-[1.35em] w-auto",
+  },
+  roofing: {
+    src: "/brand/wordmark-roofing.png",
+    width: 958,
+    height: 149,
+    className: "h-[1.35em] w-auto",
+  },
+  hvac: {
+    src: "/brand/wordmark-hvac.png",
+    width: 946,
+    height: 148,
+    className: "h-[1.35em] w-auto",
+  },
+  electrical: {
+    src: "/brand/wordmark-electrical.png",
+    width: 955,
+    height: 153,
     className: "h-[1.35em] w-auto",
   },
 } as const;
