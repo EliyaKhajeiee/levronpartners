@@ -31,47 +31,38 @@ const links = [
 ];
 
 /**
- * The entire header nav (IndustriesMenu + Work/Process/Contact) is
- * `hidden sm:flex` — deliberately, since a hover panel makes no sense on
- * touch. But nothing replaced it below `sm`, which meant a phone visitor had
- * no way to reach Industries, Work, Process, or Contact from the header at
- * all — only the logo and "Get Started." This is the replacement: a
- * full-screen drawer, `sm:hidden`, with the same links plus the Industries
- * tree flattened out (a hover fly-out has no touch equivalent, so the whole
- * tree is just laid out in place).
+ * Full-screen drawer for below-`sm`. Desktop keeps a hover Industries panel;
+ * touch gets this instead. Primary links stay one clean list — Industries
+ * expands in place as an accordion so the trade tree doesn't sit forever
+ * between "Industries" and "Work" and break the rhythm.
  */
 export function MobileNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  // The header has `backdrop-blur-md` (a `backdrop-filter`), which per spec
-  // makes it a containing block for `position: fixed` descendants — so a
-  // `fixed inset-0` drawer nested inside it sizes against the header's own
-  // small box, not the viewport, and renders as a ~136px sliver instead of
-  // a full-screen sheet. Portaling to `document.body` escapes that
-  // containing block entirely. `mounted` guards the portal to a
-  // client-only render so SSR doesn't choke on a missing `document`.
+  const [industriesOpen, setIndustriesOpen] = useState(false);
   const mounted = useMounted();
 
-  // Close on route change, so a tapped link doesn't leave the drawer open
-  // behind the new page. Adjusting state during render (not in an effect)
-  // per React's guidance on resetting state from a prop change — avoids the
-  // extra render pass an effect would cost, and this project's lint config
-  // flags setState-in-effect as an error anyway.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setOpen(false);
+    setIndustriesOpen(false);
   }
 
-  // Lock body scroll while the drawer covers the screen, and let Escape
-  // close it like the desktop hover panel does.
+  function close() {
+    setOpen(false);
+    setIndustriesOpen(false);
+  }
+
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        setIndustriesOpen(false);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
@@ -82,65 +73,94 @@ export function MobileNav() {
 
   const drawer = (
     <div
-      className={`bg-paper fixed inset-0 z-40 flex flex-col overflow-y-auto pt-24 pb-10 transition-opacity duration-300 ${
+      className={`bg-paper fixed inset-0 z-40 flex flex-col overflow-y-auto pt-[5.5rem] pb-10 transition-opacity duration-300 ${
         open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      <nav className="flex flex-1 flex-col gap-1 px-6">
-        <Link
-          href="/industries"
-          onClick={() => setOpen(false)}
-          className="border-line display-md flex items-center justify-between border-b py-4 text-[1.375rem]"
-        >
-          Industries
-          <span className="text-teal">→</span>
-        </Link>
-
-        <div className="flex flex-col gap-5 py-5">
-          {industries.map((group) => (
-            <div key={group.slug}>
-              <Link
-                href={group.href}
-                onClick={() => setOpen(false)}
-                className="text-ink text-[0.9375rem] font-semibold"
+      <nav className="flex flex-1 flex-col px-6">
+        <div className="border-line border-b">
+          <div className="flex items-center justify-between gap-3 py-4">
+            <Link
+              href="/industries"
+              onClick={close}
+              className="display-md text-ink text-[1.375rem]"
+            >
+              Industries
+            </Link>
+            <button
+              type="button"
+              onClick={() => setIndustriesOpen((v) => !v)}
+              aria-expanded={industriesOpen}
+              aria-label={industriesOpen ? "Hide industries" : "Show industries"}
+              className="text-muted hover:text-ink flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-300"
+            >
+              <svg
+                width="12"
+                height="8"
+                viewBox="0 0 12 8"
+                fill="none"
+                aria-hidden="true"
+                className={`transition-transform duration-300 ${industriesOpen ? "-scale-y-100" : ""}`}
               >
-                {group.label}
-              </Link>
-              <div className="border-line mt-2 flex flex-col gap-2.5 border-l pl-4">
-                {group.children.map((child) => (
+                <path
+                  d="M1 1.5L6 6.5L11 1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {industriesOpen && (
+            <div className="flex flex-col gap-6 pb-5">
+              {industries.map((group) => (
+                <div key={group.slug} className="flex flex-col gap-2.5">
                   <Link
-                    key={child.href}
-                    href={child.href}
-                    onClick={() => setOpen(false)}
-                    className="text-muted text-[0.875rem]"
+                    href={group.href}
+                    onClick={close}
+                    className="text-ink text-[1rem] font-semibold"
                   >
-                    {child.label}
+                    {group.label}
                   </Link>
-                ))}
-              </div>
+                  <div className="flex flex-col gap-2">
+                    {group.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={close}
+                        className="text-ink/70 hover:text-ink text-[0.9375rem] leading-snug transition-colors duration-300"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
 
         {links.map((l) => (
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setOpen(false)}
-            className="border-line display-md flex items-center justify-between border-b py-4 text-[1.375rem] first:border-t"
+            onClick={close}
+            className="border-line display-md text-ink border-b py-4 text-[1.375rem]"
           >
             {l.label}
           </Link>
         ))}
       </nav>
 
-      <div className="flex flex-col gap-4 px-6 pt-8">
+      <div className="mt-auto flex flex-col gap-4 px-6 pt-10">
         <Link
-          href="/contact#form"
-          onClick={() => setOpen(false)}
-          className="bg-ink pill inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.9375rem] font-semibold text-white"
+          href="/assessment"
+          onClick={close}
+          className="bg-ink pill hover:bg-teal inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.9375rem] font-semibold text-white transition-colors duration-300"
         >
-          Get Started
+          Free Assessment
           <span aria-hidden="true">→</span>
         </Link>
         <a href={`mailto:${site.email}`} className="text-muted text-center text-[0.875rem]">
