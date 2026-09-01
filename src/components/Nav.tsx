@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { navBrandForPath } from "@/lib/brand";
 import { site } from "@/lib/site";
 import { Wordmark } from "./Wordmark";
 import { IndustriesMenu } from "./IndustriesMenu";
@@ -15,12 +16,13 @@ const links = [
 
 export function Nav() {
   const pathname = usePathname();
+  const brand = navBrandForPath(pathname);
 
   return (
     <header className="bg-paper/80 fixed inset-x-0 top-0 z-50 backdrop-blur-md">
       <nav className="relative mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10">
         <Link href="/" className="text-[1.25rem]" aria-label={site.name}>
-          <Wordmark />
+          <Wordmark brand={brand} />
         </Link>
 
         <div className="flex items-center gap-6 sm:gap-8">
