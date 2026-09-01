@@ -15,7 +15,7 @@ export function IndustryBreadcrumb({
   label: string;
 }) {
   return (
-    <div className="px-6 pt-[16vh] pb-6 md:px-10 md:pt-[20vh]">
+    <div className="px-6 pt-[max(7.5rem,16vh)] pb-6 md:px-10 md:pt-[20vh]">
       <div className="mx-auto flex max-w-[1500px] items-center gap-2 text-[0.8125rem]">
         <Link href={parentHref} className="link-quiet">
           {parentLabel}

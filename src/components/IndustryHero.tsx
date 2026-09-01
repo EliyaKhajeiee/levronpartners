@@ -15,7 +15,7 @@ export function IndustryHero({
   headlineClassName = "max-w-[18ch]",
   body,
   links,
-  topPadding = "pt-[22vh] md:pt-[26vh]",
+  topPadding = "pt-[max(9rem,22vh)] md:pt-[26vh]",
 }: {
   eyebrow: string;
   headline: string;

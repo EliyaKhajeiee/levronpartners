@@ -52,7 +52,7 @@ export function ImageHero({
         aria-hidden="true"
       />
 
-      <div className="relative px-6 pt-[14vh] md:px-10 md:pt-[16vh]">
+      <div className="relative px-6 pt-[max(11rem,14vh)] md:px-10 md:pt-[16vh]">
         <div className="mx-auto flex max-w-[1500px] items-center gap-2 text-[0.8125rem]">
           <Link
             href={breadcrumb.parentHref}
