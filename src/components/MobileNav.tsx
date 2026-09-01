@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import { site } from "@/lib/site";
 import { industries } from "@/lib/industries";
 
 const subscribeNever = () => () => {};
@@ -163,9 +162,6 @@ export function MobileNav() {
           Free Assessment
           <span aria-hidden="true">→</span>
         </Link>
-        <a href={`mailto:${site.email}`} className="text-muted text-center text-[0.875rem]">
-          {site.email}
-        </a>
       </div>
     </div>
   );
