@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${site.url}/industries`, changeFrequency: "weekly", priority: 0.95 },
       { url: `${site.url}/work`, changeFrequency: "weekly", priority: 0.85 },
       { url: `${site.url}/process`, changeFrequency: "monthly", priority: 0.7 },
+      { url: `${site.url}/about`, changeFrequency: "monthly", priority: 0.65 },
       { url: `${site.url}/contact`, changeFrequency: "monthly", priority: 0.9 },
     ] satisfies MetadataRoute.Sitemap
   ).map((r) => ({ ...r, lastModified: BUILT }));

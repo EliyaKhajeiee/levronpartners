@@ -11,6 +11,7 @@ import { MobileNav } from "./MobileNav";
 const links = [
   { href: "/work", label: "Work" },
   { href: "/process", label: "Process" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -26,7 +27,7 @@ export function Nav() {
         </Link>
 
         <div className="flex items-center gap-6 sm:gap-8">
-          <div className="hidden items-center gap-8 sm:flex">
+          <div className="hidden items-center gap-8 md:flex">
             <IndustriesMenu />
             {links.map((l) => {
               const active = pathname === l.href;
@@ -45,13 +46,12 @@ export function Nav() {
             })}
           </div>
 
-          {/* Hidden below `sm` — at 390px there isn't room for the logo, this
-              pill's full text, and the hamburger without the pill's text
-              wrapping into the logo (verified, not assumed: it did). The
-              drawer below carries its own "Free Assessment" CTA instead. */}
+          {/* Hidden below `md` — four nav links plus Industries no longer
+              fit beside the logo and this pill at `sm`. The drawer carries
+              its own "Free Assessment" CTA instead. */}
           <Link
             href="/assessment"
-            className="group bg-ink pill hover:bg-teal hidden shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-[0.8125rem] font-semibold whitespace-nowrap text-white sm:inline-flex"
+            className="group bg-ink pill hover:bg-teal hidden shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-[0.8125rem] font-semibold whitespace-nowrap text-white md:inline-flex"
           >
             Free Assessment
             <span className="arrow-shift">→</span>

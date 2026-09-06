@@ -18,6 +18,20 @@ export function organizationSchema() {
     description: site.description,
     email: site.email,
     slogan: site.promise,
+    founder: [
+      {
+        "@type": "Person",
+        name: "Aristotle Taylor",
+        jobTitle: "CEO & Co-Founder",
+        alumniOf: "Stanford University",
+      },
+      {
+        "@type": "Person",
+        name: "Eliya Khajeie",
+        jobTitle: "CTO & Co-Founder",
+        alumniOf: "University of California, Irvine",
+      },
+    ],
   };
 }
 

@@ -26,6 +26,7 @@ function useMounted() {
 const links = [
   { href: "/work", label: "Work" },
   { href: "/process", label: "Process" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -167,7 +168,7 @@ export function MobileNav() {
   );
 
   return (
-    <div className="sm:hidden">
+    <div className="md:hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
