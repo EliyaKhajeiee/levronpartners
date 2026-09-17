@@ -85,10 +85,9 @@ export default function Home() {
               style={{ "--group-delay": "680ms" } as React.CSSProperties}
               className="text-muted max-w-[44ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.5] tracking-[-0.015em]"
             >
-              We find where your operation is leaking time and money, then
-              build the systems that let you take on more without adding
-              overhead. Built around how you actually work — not another
-              platform you have to work around.
+              We identify where your operation wastes time and money. Then,
+              we create systems that speed up work, reduce manual tasks, and
+              help your team do more.
             </p>
 
             <div
@@ -145,7 +144,7 @@ export default function Home() {
         <section className="px-6 py-[16vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">
             <ScrollText
-              text="Nobody needs another dashboard. You need back the four hours a day your office spends retyping what the field already wrote down."
+              text="You don’t need another dashboard. You need back the four hours a day your office spends retyping what the field already wrote."
               className="display-md mx-auto max-w-[24ch] text-center text-[clamp(1.875rem,4.8vw,4rem)]"
             />
           </div>
