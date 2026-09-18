@@ -37,7 +37,7 @@ const methodology = [
 ];
 
 const stats = [
-  { value: "Another home / year", label: "Capacity without another hire" },
+  { value: "1+ projects a year", label: "Capacity without another hire" },
   { value: "Days → 10 minutes", label: "Takeoff through estimate" },
   { value: "50+ hrs / month back", label: "Coordination" },
 ];
@@ -77,7 +77,7 @@ export default function GeneralContractorsPage() {
           ]}
           videoSrc="/video/general-contractors-hero.mp4"
           poster="/video/general-contractors-hero-poster.jpg"
-          chip={{ value: "Another home / year", label: "capacity without another hire" }}
+          chip={{ value: "1+ projects a year", label: "capacity without another hire" }}
         />
 
         <PointsGrid
@@ -93,7 +93,7 @@ export default function GeneralContractorsPage() {
             <Artifact
               label="Case Study"
               title="case-study.md"
-              footnote="Result: enough additional bandwidth to take on another home a year."
+              footnote="Result: enough additional bandwidth to take on another home a year — worth an additional $1.5 million."
             >
               <div className="mx-auto max-w-[62ch]">
                 <h2
