@@ -37,7 +37,7 @@ const stuck = [
 ];
 
 const stats = [
-  { value: "Another home / year", label: "Capacity freed without adding headcount" },
+  { value: "1+ projects a year", label: "Capacity freed without adding headcount" },
   { value: "Days → 10 minutes", label: "Takeoff through estimate" },
   { value: "50+ hrs / month back", label: "Coordination reduced from 3–4 hrs/day to under 1" },
 ];
