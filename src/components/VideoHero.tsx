@@ -65,10 +65,15 @@ export function VideoHero({
 
   return (
     <section
-      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden ${
+      className={`relative isolate flex flex-col overflow-hidden ${
         breadcrumb
-          ? "justify-between"
-          : "justify-end px-6 pb-[10vh] md:px-10 md:pb-[12vh]"
+          ? "min-h-[100svh] justify-between"
+          : // Taller than one screen on mobile only — bottom-anchored copy on
+            // a page with two body paragraphs, links, and a chip barely
+            // clears the fixed nav inside a plain 100svh box on a phone.
+            // Extra height plus a smaller bottom pad give it room to settle
+            // lower, away from the nav, without touching desktop at all.
+            "min-h-[118svh] justify-end px-6 pb-10 md:min-h-[100svh] md:px-10 md:pb-[12vh]"
       }`}
     >
       <video
@@ -113,7 +118,7 @@ export function VideoHero({
       >
         <p
           data-fade
-          className="mb-8 text-[0.75rem] font-medium tracking-[0.1em] text-white/70 uppercase"
+          className="mb-5 text-[0.75rem] font-medium tracking-[0.1em] text-white/70 uppercase md:mb-8"
         >
           {eyebrow}
         </p>
@@ -129,7 +134,7 @@ export function VideoHero({
             data-fade
             style={{ "--group-delay": `${320 + i * 140}ms` } as React.CSSProperties}
             className={`max-w-[52ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.5] tracking-[-0.015em] ${
-              i === 0 ? "mt-8" : "mt-4"
+              i === 0 ? "mt-5 md:mt-8" : "mt-3 md:mt-4"
             } ${
               paragraphs.length > 1 && i === paragraphs.length - 1
                 ? "font-medium text-white/95"
@@ -145,7 +150,7 @@ export function VideoHero({
           style={
             { "--group-delay": `${460 + (paragraphs.length - 1) * 140}ms` } as React.CSSProperties
           }
-          className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3"
+          className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3 md:mt-10"
         >
           {links.map((l, i) => (
             <span key={l.href} className="flex items-center gap-4">
@@ -171,7 +176,7 @@ export function VideoHero({
             style={
               { "--group-delay": `${680 + (paragraphs.length - 1) * 140}ms` } as React.CSSProperties
             }
-            className="mt-12 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-[0.8125rem] text-white backdrop-blur-md"
+            className="mt-6 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-[0.8125rem] text-white backdrop-blur-md md:mt-12"
           >
             <span
               className="bg-teal size-1.5 shrink-0 rounded-full"

@@ -72,11 +72,6 @@ export default function CivilExcavationPage() {
 
       <main id="top" className="flex-1">
         <ImageHero
-          breadcrumb={{
-            parentHref: group.href,
-            parentLabel: group.label,
-            label: page.label,
-          }}
           eyebrow={page.eyebrow}
           headline="You’ll know what that job cost in three months."
           headlineClassName="max-w-[19ch]"

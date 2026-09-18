@@ -74,11 +74,6 @@ export default function RoofingPage() {
 
       <main id="top" className="flex-1">
         <ImageHero
-          breadcrumb={{
-            parentHref: group.href,
-            parentLabel: group.label,
-            label: page.label,
-          }}
           eyebrow={page.eyebrow}
           headline="The inspection isn’t where you lose the job."
           headlineClassName="max-w-[19ch]"

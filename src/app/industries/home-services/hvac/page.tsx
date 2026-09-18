@@ -65,11 +65,6 @@ export default function HvacPage() {
 
       <main id="top" className="flex-1">
         <VideoHero
-          breadcrumb={{
-            parentHref: group.href,
-            parentLabel: group.label,
-            label: page.label,
-          }}
           eyebrow={page.eyebrow}
           headline="More trucks shouldn’t mean more office work."
           headlineClassName="max-w-[17ch]"

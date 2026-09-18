@@ -3,7 +3,6 @@ import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
 import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
@@ -69,18 +68,11 @@ export default function PlumbingPage() {
       />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
         <IndustryHero
           eyebrow={page.eyebrow}
           headline="Stop losing emergency calls to the plumber who calls back first."
           headlineClassName="max-w-[19ch]"
           body="A burst pipe doesn’t wait for business hours, and neither does the homeowner looking for someone to fix it. Whoever answers first usually gets the job — price doesn’t come into it. We build the response and dispatch layer that makes sure that’s you, and the estimating system that gets a number back to them before they’ve called anyone else."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },

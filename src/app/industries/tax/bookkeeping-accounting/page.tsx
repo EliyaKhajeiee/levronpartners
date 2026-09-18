@@ -3,7 +3,6 @@ import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
 import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { taxIndustry } from "@/lib/industries";
@@ -69,18 +68,11 @@ export default function BookkeepingAccountingPage() {
       />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
         <IndustryHero
           eyebrow={page.eyebrow}
           headline="Closing the books shouldn’t take longer than the month it covers."
           headlineClassName="max-w-[19ch]"
           body="Categorization, reconciliation, and client reporting carry the same handful of decisions every month — decisions your firm has already made a hundred times. The problem is that they still get made by hand, one transaction and one client at a time. We build the review queue, the client-facing reporting, and the close checklist that keep every client on the same schedule, whether it’s one bookkeeper’s caseload or twenty."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },

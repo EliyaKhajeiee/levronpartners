@@ -3,7 +3,6 @@ import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
 import { IndustryHero } from "@/components/IndustryHero";
-import { IndustryBreadcrumb } from "@/components/IndustryBreadcrumb";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { taxIndustry } from "@/lib/industries";
@@ -69,18 +68,11 @@ export default function TaxPreparationPage() {
       />
 
       <main id="top" className="flex-1">
-        <IndustryBreadcrumb
-          parentHref={group.href}
-          parentLabel={group.label}
-          label={page.label}
-        />
-
         <IndustryHero
           eyebrow={page.eyebrow}
           headline="Half your season goes to chasing documents, not preparing returns."
           headlineClassName="max-w-[19ch]"
           body="A return can’t start until the file is complete, and getting there today means emailing, texting, and calling the same client more than once. We build the intake and status layer that chases the missing pieces automatically and answers “is it done yet” before anyone has to ask — so the hours you have during the season go to the returns, not the paperwork around them."
-          topPadding="pt-0"
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
