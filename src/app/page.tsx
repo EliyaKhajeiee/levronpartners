@@ -7,25 +7,38 @@ import { ScrollText } from "@/components/ScrollText";
 import { Magnetic } from "@/components/Magnetic";
 import { ContactCta } from "@/components/ContactCta";
 import { Proof } from "@/components/Proof";
+import { Stats } from "@/components/Stats";
+
+const stats = [
+  { label: "hours recovered", from: 25000, to: 30000, suffix: "+" },
+  {
+    label: "recovered & generated",
+    to: 1.2,
+    prefix: "$",
+    suffix: "M+",
+    decimals: 1,
+  },
+  { label: "projects delivered", from: 80, to: 105, suffix: "+" },
+];
 
 const onward = [
   {
     href: "/industries",
     label: "Industries",
-    title: "Two places time actually goes",
-    body: "Construction and home service — and the trades inside each.",
+    title: "Built for your line of work",
+    body: "Construction, home services, and the trades within each.",
   },
   {
     href: "/work",
     label: "Work",
-    title: "Where the week goes",
-    body: "Some of the moments operators have brought us first.",
+    title: "What we’ve helped solve",
+    body: "The problems owners brought us and what we built to help.",
   },
   {
     href: "/process",
     label: "Process",
-    title: "How an engagement runs",
-    body: "Map the constraints, ship in weeks, then compound.",
+    title: "How we work with you",
+    body: "Understand your operation, build what’s needed, and improve it as you grow.",
   },
 ];
 
@@ -36,7 +49,12 @@ export default function Home() {
 
       <main id="top" className="flex-1">
         {/* ───────────── Hero ───────────── */}
-        <section className="flex min-h-[100svh] flex-col justify-between px-6 pt-28 pb-14 md:px-10 md:pt-32 md:pb-20">
+        {/* Pinned to the viewport for exactly one screen height. Everything
+            below it is wrapped in an opaque layer stacked above this one, so
+            as the page scrolls that layer slides up and covers the hero
+            rather than the hero scrolling away with it — the stats bar is
+            the first thing that slides over. */}
+        <section className="sticky top-0 z-0 flex min-h-[100svh] flex-col justify-between overflow-x-clip px-6 pt-28 pb-14 md:px-10 md:pt-32 md:pb-20">
           <div className="mx-auto w-full max-w-[1500px]">
             <p data-fade className="label mb-8">
               For construction &amp; home service businesses
@@ -107,76 +125,84 @@ export default function Home() {
           </div>
         </section>
 
-        <Proof />
+        {/* Everything from here down is the opaque layer that slides up
+            over the pinned hero above. */}
+        <div className="relative z-10 bg-paper">
+          <Stats stats={stats} />
+          <Proof />
 
-        {/* ───────────── Intro ───────────── */}
-        <section className="px-6 py-[14vh] md:px-10">
-          <div className="mx-auto grid max-w-[1500px] items-end gap-12 md:grid-cols-12">
-            {hasPhoto(photos.intro) && (
-              <div
-                data-rise
-                className="relative aspect-[5/4] overflow-hidden rounded-[1.25rem] md:col-span-5"
+          {/* ───────────── Intro ───────────── */}
+          <section className="px-6 py-[14vh] md:px-10">
+            <div className="mx-auto grid max-w-[1500px] items-end gap-12 md:grid-cols-12">
+              {hasPhoto(photos.intro) && (
+                <div
+                  data-rise
+                  className="relative aspect-[5/4] overflow-hidden rounded-[1.25rem] md:col-span-5"
+                >
+                  <Image
+                    src={photos.intro.src}
+                    alt={photos.intro.alt}
+                    fill
+                    sizes="(min-width: 768px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
+              <h2
+                data-split
+                className={`display-md text-[clamp(1.875rem,3.8vw,3.375rem)] ${
+                  hasPhoto(photos.intro)
+                    ? "md:col-span-6 md:col-start-7"
+                    : "md:col-span-9"
+                }`}
               >
-                <Image
-                  src={photos.intro.src}
-                  alt={photos.intro.alt}
-                  fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            )}
+                <Split text="We built Levron for the operators who are out of hours before they are out of work." />
+              </h2>
+            </div>
+          </section>
 
-            <h2
-              data-split
-              className={`display-md text-[clamp(1.875rem,3.8vw,3.375rem)] ${
-                hasPhoto(photos.intro)
-                  ? "md:col-span-6 md:col-start-7"
-                  : "md:col-span-9"
-              }`}
-            >
-              <Split text="We built Levron for the operators who are out of hours before they are out of work." />
-            </h2>
-          </div>
-        </section>
+          {/* ───────────── Statement ───────────── */}
+          <section className="px-6 py-[16vh] md:px-10">
+            <div className="mx-auto max-w-[1500px]">
+              <ScrollText
+                text="You don’t need another dashboard. You need back the four hours a day your office spends retyping what the field already wrote."
+                className="display-md mx-auto max-w-[24ch] text-center text-[clamp(1.875rem,4.8vw,4rem)]"
+              />
+            </div>
+          </section>
 
-        {/* ───────────── Statement ───────────── */}
-        <section className="px-6 py-[16vh] md:px-10">
-          <div className="mx-auto max-w-[1500px]">
-            <ScrollText
-              text="You don’t need another dashboard. You need back the four hours a day your office spends retyping what the field already wrote."
-              className="display-md mx-auto max-w-[24ch] text-center text-[clamp(1.875rem,4.8vw,4rem)]"
-            />
-          </div>
-        </section>
+          {/* ───────────── Onward ───────────── */}
+          <section className="px-6 pb-[14vh] md:px-10">
+            <div className="mx-auto grid max-w-[1500px] gap-x-12 md:grid-cols-3">
+              {onward.map((card, i) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  data-fade
+                  style={
+                    { "--group-delay": `${i * 120}ms` } as React.CSSProperties
+                  }
+                  className="group border-line block border-t py-10 md:pr-12"
+                >
+                  <div className="label">{card.label}</div>
+                  <h3 className="display-md mt-5 flex items-center gap-4 text-[clamp(1.5rem,2.6vw,2.25rem)]">
+                    {card.title}
+                    <span className="arrow-shift text-teal">→</span>
+                  </h3>
+                  <p className="text-ink/70 mt-3 max-w-[40ch] text-[0.9375rem] leading-[1.6]">
+                    {card.body}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
 
-        {/* ───────────── Onward ───────────── */}
-        <section className="px-6 pb-[14vh] md:px-10">
-          <div className="mx-auto grid max-w-[1500px] gap-x-12 md:grid-cols-3">
-            {onward.map((card, i) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                data-fade
-                style={
-                  { "--group-delay": `${i * 120}ms` } as React.CSSProperties
-                }
-                className="group border-line block border-t py-10 md:pr-12"
-              >
-                <div className="label">{card.label}</div>
-                <h3 className="display-md mt-5 flex items-center gap-4 text-[clamp(1.5rem,2.6vw,2.25rem)]">
-                  {card.title}
-                  <span className="arrow-shift text-teal">→</span>
-                </h3>
-                <p className="text-ink/70 mt-3 max-w-[40ch] text-[0.9375rem] leading-[1.6]">
-                  {card.body}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <ContactCta body="Bring your last ten quotes and a normal week off the schedule. In forty-five minutes, we can usually see where the capacity is getting eaten." />
+          <ContactCta
+            heading="Let’s find what’s taking up your time."
+            body="Bring a few recent quotes and a typical week’s schedule. In 30 minutes, we’ll walk through where the work slows down and what could come off your team’s plate."
+          />
+        </div>
       </main>
     </>
   );

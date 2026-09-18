@@ -20,9 +20,9 @@ export default function IndustriesPage() {
       <main id="top" className="flex-1">
         <VideoHero
           eyebrow="Industries"
-          headline="Two places time actually goes."
+          headline="Where the work piles up."
           headlineClassName="max-w-[18ch]"
-          body="Construction and home service run differently, but the same pattern shows up in each: the company knows more than any system it runs on. Start with the operation that matches yours, or the trade underneath it if we have something more specific to say."
+          body="Construction and home service businesses run differently, but both rely on know-how that lives in people’s heads, spreadsheets, and past jobs. We build systems around that knowledge and the way your team works. Choose your industry below to see what that can look like for your business."
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },

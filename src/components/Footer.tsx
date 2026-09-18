@@ -5,6 +5,7 @@ import { Wordmark } from "./Wordmark";
 
 const links = [
   { href: "/work", label: "Work" },
+  { href: "/resources", label: "Resources" },
   { href: "/process", label: "Process" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -23,45 +24,52 @@ const industryLinks = [
 /** The four words along the bottom of the brand deck. */
 const values = ["Clarity", "Precision", "Momentum", "Leverage"];
 
+/** Shared look for every link in the deck — quiet on the ink, full paper on hover. */
+const linkClass = "text-paper/65 hover:text-paper transition-colors duration-300";
+
+/** Shared look for the small caps labels ("Industries", the four values). */
+const labelClass = "text-paper/45 text-[0.75rem] font-medium tracking-[0.1em] uppercase";
+
+/**
+ * The closing block — one dark plate rather than three light rows, so the
+ * page ends on a clear stop instead of trailing off in more small text.
+ */
 export function Footer() {
   return (
-    <footer className="px-6 pb-10 md:px-10">
-      <div className="mx-auto max-w-[1500px]">
+    <footer className="bg-ink text-paper">
+      <div className="mx-auto max-w-[1500px] px-6 py-10 md:px-10">
         {/* The deck's value bar, set as a ruled row rather than a slogan. */}
-        <div className="border-line flex flex-wrap items-center gap-x-8 gap-y-3 border-t py-7 md:gap-x-14">
+        <div className="border-paper/15 flex flex-wrap items-center gap-x-10 gap-y-3 border-b pb-8 md:gap-x-14">
           {values.map((v) => (
-            <span key={v} className="label">
+            <span key={v} className={labelClass}>
               {v}
             </span>
           ))}
-          <span className="text-muted w-full text-[0.8125rem] tracking-[-0.01em] md:ml-auto md:w-auto">
+          <span className="text-paper/45 w-full text-[0.8125rem] tracking-[-0.01em] md:ml-auto md:w-auto">
             {site.line}
           </span>
         </div>
 
-        <div className="border-line flex flex-wrap items-center gap-x-7 gap-y-3 border-t py-8 text-[0.8125rem]">
-          <span className="label">Industries</span>
+        <div className="border-paper/15 flex flex-wrap items-center gap-x-7 gap-y-3 border-b py-8 text-[0.8125rem]">
+          <span className={labelClass}>Industries</span>
           {industryLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="link-quiet">
+            <Link key={l.href} href={l.href} className={linkClass}>
               {l.label}
             </Link>
           ))}
         </div>
 
-        <div className="border-line flex flex-col gap-6 border-t pt-8 text-[0.8125rem] md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-6 pt-8 text-[0.8125rem] md:flex-row md:items-center md:justify-between">
           <Link href="/" className="text-[1rem]" aria-label={site.name}>
-            <Wordmark />
+            <Wordmark className="[&_img]:brightness-0 [&_img]:invert" />
           </Link>
 
-          <div className="text-muted flex flex-wrap items-center gap-x-7 gap-y-3">
+          <div className="text-paper/55 flex flex-wrap items-center gap-x-7 gap-y-3">
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className="link-quiet">
+              <Link key={l.href} href={l.href} className={linkClass}>
                 {l.label}
               </Link>
             ))}
-            <a href={`mailto:${site.email}`} className="link-quiet">
-              {site.email}
-            </a>
             <span>
               © {new Date().getFullYear()} {site.name}
             </span>

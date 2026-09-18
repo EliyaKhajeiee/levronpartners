@@ -405,6 +405,169 @@ body {
   transform: scaleX(1);
 }
 
+/* ---------------- Resource article body ----------------
+   Plain CSS rather than a Tailwind typography plugin — every other block of
+   copy on this site is hand-styled, and Resources posts are just another
+   artifact (see `Artifact`) that happens to hold Markdown instead of a
+   list. Sized and coloured off the same tokens as the case-study body. */
+
+.resource-prose {
+  color: color-mix(in oklab, var(--color-ink) 82%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.resource-prose > :first-child {
+  margin-top: 0;
+}
+
+.resource-prose h2 {
+  color: var(--color-ink);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.15;
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  margin: 2.75em 0 0.9em;
+}
+
+.resource-prose h3 {
+  color: var(--color-ink);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  margin: 2.2em 0 0.75em;
+}
+
+.resource-prose p {
+  margin: 1.25em 0;
+}
+
+.resource-prose strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.resource-prose em {
+  font-style: italic;
+}
+
+.resource-prose a {
+  color: var(--color-teal);
+  text-underline-offset: 3px;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--color-teal) 40%, transparent);
+  transition: text-decoration-color 0.4s var(--ease-out-expo);
+}
+
+.resource-prose a:hover {
+  text-decoration-color: currentColor;
+}
+
+.resource-prose ul,
+.resource-prose ol {
+  margin: 1.25em 0;
+  padding-left: 1.35em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.resource-prose ul {
+  list-style: disc;
+}
+
+.resource-prose ol {
+  list-style: decimal;
+}
+
+.resource-prose li {
+  padding-left: 0.15em;
+}
+
+.resource-prose li::marker {
+  color: var(--color-teal);
+}
+
+.resource-prose blockquote {
+  border-left: 2px solid var(--color-teal);
+  margin: 2.25em 0;
+  padding-left: 1.5em;
+}
+
+.resource-prose blockquote p {
+  color: var(--color-ink);
+  font-weight: 700;
+  letter-spacing: -0.024em;
+  line-height: 1.4;
+  font-size: clamp(1.125rem, 1.8vw, 1.4375rem);
+  margin: 0;
+}
+
+.resource-prose blockquote p + p {
+  color: var(--color-muted);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  margin-top: 0.75em;
+}
+
+.resource-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-size: 0.875rem;
+}
+
+.resource-prose th,
+.resource-prose td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.75em 1.1em 0.75em 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.resource-prose th {
+  color: var(--color-muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.resource-prose code {
+  background: color-mix(in oklab, var(--color-line) 55%, transparent);
+  border-radius: 0.3em;
+  padding: 0.15em 0.4em;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.resource-prose pre {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 0.9em;
+  padding: 1.35em 1.5em;
+  margin: 2em 0;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+.resource-prose pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 1em;
+}
+
+.resource-prose hr {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  margin: 2.5em 0;
+}
+
 /* ---------------- Print action plan ----------------
    #print-shell marks the standalone print/PDF route. It renders inside the
    normal layout (so nothing about routing changes), but reads as its own

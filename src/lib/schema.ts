@@ -66,6 +66,46 @@ export function serviceSchema({
   };
 }
 
+/** One Resources article — a Markdown post rendered at `/resources/[slug]`. */
+export function articleSchema({
+  headline,
+  description,
+  url,
+  datePublished,
+}: {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    datePublished,
+    url: `${site.url}${url}`,
+    author: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/brand/mark.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${site.url}${url}`,
+    },
+  };
+}
+
 /** A page's position in the Industries hierarchy, oldest ancestor first. */
 export function breadcrumbSchema(trail: { name: string; url: string }[]) {
   return {

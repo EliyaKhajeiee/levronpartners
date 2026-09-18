@@ -3,7 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { ImageHero } from "@/components/ImageHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { CaseStudyCallout } from "@/components/CaseStudyCallout";
@@ -64,21 +64,21 @@ export default function HvacPage() {
       />
 
       <main id="top" className="flex-1">
-        <ImageHero
+        <VideoHero
           breadcrumb={{
             parentHref: group.href,
             parentLabel: group.label,
             label: page.label,
           }}
           eyebrow={page.eyebrow}
-          headline="Every install quote is mostly the last one."
-          headlineClassName="max-w-[18ch]"
-          body="Removal and disposal. Flare connections. Warranty language. Standard scope. A lot of the same work gets typed again after every walkthrough. We build around the way your techs and estimators already work, so the repetitive scope fills itself in and the judgment — especially the pricing — stays with your people."
+          headline="More trucks shouldn’t mean more office work."
+          headlineClassName="max-w-[17ch]"
+          body="Every truck you add means more quotes, more scheduling, and more customers to follow up with. Usually, it all lands on the same two or three people. We create custom systems. They manage repetitive tasks and link to your existing software."
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
-          imageSrc="/photos/industries/hvac.jpg"
+          videoSrc="/video/hvac-hero.mp4?v=h264"
           chip={{ value: "15 hrs/week → under 5", label: "weekly quoting time" }}
         />
 

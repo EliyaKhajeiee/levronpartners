@@ -16,14 +16,14 @@ export function IndustryBreadcrumb({
 }) {
   return (
     <div className="px-6 pt-[max(7.5rem,16vh)] pb-6 md:px-10 md:pt-[20vh]">
-      <div className="mx-auto flex max-w-[1500px] items-center gap-2 text-[0.8125rem]">
-        <Link href={parentHref} className="link-quiet">
+      <div className="mx-auto flex max-w-[1500px] min-w-0 items-center gap-2 text-[0.8125rem]">
+        <Link href={parentHref} className="link-quiet shrink-0">
           {parentLabel}
         </Link>
-        <span className="text-muted" aria-hidden="true">
+        <span className="text-muted shrink-0" aria-hidden="true">
           /
         </span>
-        <span className="text-muted">{label}</span>
+        <span className="text-muted truncate">{label}</span>
       </div>
     </div>
   );

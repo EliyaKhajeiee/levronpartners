@@ -6,6 +6,7 @@ import { Split } from "./Split";
 
 type HeroLink = { label: string; href: string };
 type Chip = { value: string; label: string };
+type Breadcrumb = { parentHref: string; parentLabel: string; label: string };
 
 /**
  * A full-bleed, cinematic hero — video behind the nav, copy sitting low
@@ -16,6 +17,9 @@ type Chip = { value: string; label: string };
  * pinned by an un-layered rule in globals.css and would always win over a
  * `text-white` utility from Tailwind's `@layer utilities`.
  *
+ * Optional `breadcrumb` mirrors `ImageHero` so trade pages can keep the
+ * parent / page trail inside the same full-bleed section.
+ *
  * `poster` always renders behind the `<video>`, so it's what a visitor sees
  * before the clip buffers, if it fails to load at all, and — since the
  * effect below pauses playback on mount — for anyone with
@@ -24,6 +28,7 @@ type Chip = { value: string; label: string };
  * the vestibular-disorder crowd, it's a WCAG 2.3.3 miss.
  */
 export function VideoHero({
+  breadcrumb,
   eyebrow,
   headline,
   headlineClassName = "max-w-[20ch]",
@@ -33,15 +38,20 @@ export function VideoHero({
   poster,
   chip,
 }: {
+  breadcrumb?: Breadcrumb;
   eyebrow: string;
   headline: string;
   headlineClassName?: string;
-  body: string;
+  /** A second string renders as its own, more emphasized closing line —
+   *  for a short punchline that shouldn't read as more of the same
+   *  paragraph. */
+  body: string | string[];
   links: HeroLink[];
   videoSrc: string;
   poster?: string;
   chip?: Chip;
 }) {
+  const paragraphs = Array.isArray(body) ? body : [body];
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -54,7 +64,13 @@ export function VideoHero({
   }, []);
 
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden px-6 pb-[10vh] md:px-10 md:pb-[12vh]">
+    <section
+      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden ${
+        breadcrumb
+          ? "justify-between"
+          : "justify-end px-6 pb-[10vh] md:px-10 md:pb-[12vh]"
+      }`}
+    >
       <video
         ref={videoRef}
         className="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -73,7 +89,28 @@ export function VideoHero({
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto w-full max-w-[1500px]">
+      {breadcrumb && (
+        <div className="relative px-6 pt-[max(11rem,14vh)] md:px-10 md:pt-[16vh]">
+          <div className="mx-auto flex max-w-[1500px] items-center gap-2 text-[0.8125rem]">
+            <Link
+              href={breadcrumb.parentHref}
+              className="text-white/70 transition-colors duration-500 hover:text-white"
+            >
+              {breadcrumb.parentLabel}
+            </Link>
+            <span className="text-white/40" aria-hidden="true">
+              /
+            </span>
+            <span className="text-white/90">{breadcrumb.label}</span>
+          </div>
+        </div>
+      )}
+
+      <div
+        className={`relative mx-auto w-full max-w-[1500px] ${
+          breadcrumb ? "px-6 pb-[10vh] md:px-10 md:pb-[12vh]" : ""
+        }`}
+      >
         <p
           data-fade
           className="mb-8 text-[0.75rem] font-medium tracking-[0.1em] text-white/70 uppercase"
@@ -86,17 +123,28 @@ export function VideoHero({
         >
           <Split text={headline} />
         </h1>
-        <p
-          data-fade
-          style={{ "--group-delay": "320ms" } as React.CSSProperties}
-          className="mt-8 max-w-[52ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.5] tracking-[-0.015em] text-white/75"
-        >
-          {body}
-        </p>
+        {paragraphs.map((paragraph, i) => (
+          <p
+            key={i}
+            data-fade
+            style={{ "--group-delay": `${320 + i * 140}ms` } as React.CSSProperties}
+            className={`max-w-[52ch] text-[clamp(1.0625rem,1.6vw,1.4375rem)] leading-[1.5] tracking-[-0.015em] ${
+              i === 0 ? "mt-8" : "mt-4"
+            } ${
+              paragraphs.length > 1 && i === paragraphs.length - 1
+                ? "font-medium text-white/95"
+                : "text-white/75"
+            }`}
+          >
+            {paragraph}
+          </p>
+        ))}
 
         <div
           data-fade
-          style={{ "--group-delay": "460ms" } as React.CSSProperties}
+          style={
+            { "--group-delay": `${460 + (paragraphs.length - 1) * 140}ms` } as React.CSSProperties
+          }
           className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3"
         >
           {links.map((l, i) => (
@@ -120,7 +168,9 @@ export function VideoHero({
         {chip && (
           <div
             data-fade
-            style={{ "--group-delay": "680ms" } as React.CSSProperties}
+            style={
+              { "--group-delay": `${680 + (paragraphs.length - 1) * 140}ms` } as React.CSSProperties
+            }
             className="mt-12 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-[0.8125rem] text-white backdrop-blur-md"
           >
             <span

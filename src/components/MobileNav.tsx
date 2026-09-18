@@ -25,6 +25,7 @@ function useMounted() {
 
 const links = [
   { href: "/work", label: "Work" },
+  { href: "/resources", label: "Resources" },
   { href: "/process", label: "Process" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

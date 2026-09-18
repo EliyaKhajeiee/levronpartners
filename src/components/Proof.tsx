@@ -117,7 +117,7 @@ export function Proof() {
   const duration = `${half.length * 5}s`;
 
   return (
-    <section className="py-[10vh]">
+    <section className="pt-[4vh] pb-[10vh]">
       {/* ── Proudly partnered with ── */}
       <SectionHead>Proudly partnered with</SectionHead>
 

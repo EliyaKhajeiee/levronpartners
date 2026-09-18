@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ContactCta } from "@/components/ContactCta";
-import { ImageHero } from "@/components/ImageHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { StatStrip } from "@/components/StatStrip";
 import { Artifact } from "@/components/Artifact";
@@ -63,21 +63,20 @@ export default function GeneralContractorsPage() {
       />
 
       <main id="top" className="flex-1">
-        <ImageHero
-          breadcrumb={{
-            parentHref: group.href,
-            parentLabel: group.label,
-            label: page.label,
-          }}
+        <VideoHero
           eyebrow={page.eyebrow}
-          headline="The estimate shouldn’t start over every time."
+          headline="The estimate shouldn’t start over each time."
           headlineClassName="max-w-[17ch]"
-          body="Your best people already know what things cost, how you build, which assemblies work, and where projects usually go sideways. The problem is that knowledge still lives across spreadsheets, old jobs, and individual judgment. We turn it into a system the company owns — without changing how you actually price or build."
+          body={[
+            "Your prices, waste factors, and assemblies are already in old estimates and spreadsheets. Often, one experienced person knows where a job can go wrong. We gather that knowledge so your team can use it for the next bid. This way, you won’t have to dig through past jobs or ask the same questions again.",
+            "That’s one workflow. Most builders have three or four like it, and the estimate usually isn’t the worst one.",
+          ]}
           links={[
             { label: "See what we’d build", href: "/contact" },
             { label: "Read the case study", href: "#case-study" },
           ]}
-          imageSrc="/photos/industries/general-contractors-design-build.jpg"
+          videoSrc="/video/general-contractors-hero.mp4"
+          poster="/photos/industries/general-contractors-design-build.jpg"
           chip={{ value: "Another home / year", label: "capacity without another hire" }}
         />
 
