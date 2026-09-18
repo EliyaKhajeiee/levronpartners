@@ -70,6 +70,10 @@ export function Footer() {
                 {l.label}
               </Link>
             ))}
+            {/* Plain <a>: /llms.txt is a text Route Handler, not an app page. */}
+            <a href="/llms.txt" className={linkClass}>
+              llms.txt
+            </a>
             <span>
               © {new Date().getFullYear()} {site.name}
             </span>
