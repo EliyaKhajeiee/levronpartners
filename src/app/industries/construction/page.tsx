@@ -67,7 +67,10 @@ export default function ConstructionPage() {
           ]}
           videoSrc="/video/construction-hero.mp4"
           poster="/video/construction-poster.jpg"
-          chip={{ value: "50+ hrs/month back", label: "coordination, reduced from 3–4 hrs/day to under 1" }}
+          chip={[
+            { value: "50+ hrs/month back", label: "coordination, reduced from 3–4 hrs/day to under 1" },
+            { value: "1+ projects a year", label: "capacity freed without adding headcount" },
+          ]}
         />
 
         <PointsGrid

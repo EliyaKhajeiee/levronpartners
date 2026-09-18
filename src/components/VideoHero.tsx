@@ -20,6 +20,9 @@ type Breadcrumb = { parentHref: string; parentLabel: string; label: string };
  * Optional `breadcrumb` mirrors `ImageHero` so trade pages can keep the
  * parent / page trail inside the same full-bleed section.
  *
+ * `chip` takes either one stat or an array — pass an array to stack a
+ * second (or third) pill underneath the first, same pill styling each time.
+ *
  * `poster` always renders behind the `<video>`, so it's what a visitor sees
  * before the clip buffers, if it fails to load at all, and — since the
  * effect below pauses playback on mount — for anyone with
@@ -49,9 +52,10 @@ export function VideoHero({
   links: HeroLink[];
   videoSrc: string;
   poster?: string;
-  chip?: Chip;
+  chip?: Chip | Chip[];
 }) {
   const paragraphs = Array.isArray(body) ? body : [body];
+  const chips = chip ? (Array.isArray(chip) ? chip : [chip]) : [];
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -191,20 +195,27 @@ export function VideoHero({
           ))}
         </div>
 
-        {chip && (
-          <div
-            data-fade
-            style={
-              { "--group-delay": `${680 + (paragraphs.length - 1) * 140}ms` } as React.CSSProperties
-            }
-            className="mt-6 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-[0.8125rem] text-white backdrop-blur-md md:mt-12"
-          >
-            <span
-              className="bg-teal size-1.5 shrink-0 rounded-full"
-              aria-hidden="true"
-            />
-            <span className="font-medium">{chip.value}</span>
-            <span className="text-white/60">{chip.label}</span>
+        {chips.length > 0 && (
+          <div className="mt-6 flex flex-col items-start gap-3 md:mt-12">
+            {chips.map((c, i) => (
+              <div
+                key={c.value}
+                data-fade
+                style={
+                  {
+                    "--group-delay": `${680 + (paragraphs.length - 1) * 140 + i * 140}ms`,
+                  } as React.CSSProperties
+                }
+                className="inline-flex w-fit items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-[0.8125rem] text-white backdrop-blur-md"
+              >
+                <span
+                  className="bg-teal size-1.5 shrink-0 rounded-full"
+                  aria-hidden="true"
+                />
+                <span className="font-medium">{c.value}</span>
+                <span className="text-white/60">{c.label}</span>
+              </div>
+            ))}
           </div>
         )}
       </div>
