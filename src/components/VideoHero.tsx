@@ -57,10 +57,31 @@ export function VideoHero({
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       video.pause();
       video.currentTime = 0;
+      return;
     }
+
+    // Mobile browsers (notably Chrome on Android with Data Saver, and
+    // WebKit after the tab was backgrounded) can silently drop the
+    // `autoplay` attribute — the clip stalls on the poster frame with a
+    // native play affordance instead of looping. Setting `muted` via the
+    // property (not just the attribute) and calling `play()` ourselves is
+    // the belt-and-suspenders fix recommended for autoplay-blocked video;
+    // the rejected promise is expected and safe to ignore.
+    video.muted = true;
+    const attemptPlay = () => {
+      video.play().catch(() => {});
+    };
+    attemptPlay();
+
+    // If it still isn't rolling once data has actually loaded, try again —
+    // covers the case where autoplay was attempted before the browser had
+    // enough of the clip buffered to honour it.
+    video.addEventListener("loadeddata", attemptPlay);
+    return () => video.removeEventListener("loadeddata", attemptPlay);
   }, []);
 
   return (

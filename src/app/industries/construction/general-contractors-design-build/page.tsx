@@ -76,7 +76,7 @@ export default function GeneralContractorsPage() {
             { label: "Read the case study", href: "#case-study" },
           ]}
           videoSrc="/video/general-contractors-hero.mp4"
-          poster="/photos/industries/general-contractors-design-build.jpg"
+          poster="/video/general-contractors-hero-poster.jpg"
           chip={{ value: "Another home / year", label: "capacity without another hire" }}
         />
 
