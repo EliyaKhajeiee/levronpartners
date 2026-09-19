@@ -50,7 +50,7 @@ function SectionHead({ children }: { children: React.ReactNode }) {
 function PartnerLogo({ p, clone = false }: { p: Partner; clone?: boolean }) {
   return (
     <div
-      className="flex shrink-0 items-center gap-2.5 px-6 sm:px-10"
+      className="flex shrink-0 items-center gap-2.5 px-4 sm:px-6"
       {...(clone ? { "data-marquee-clone": "", "aria-hidden": true } : {})}
     >
       <span className={`relative block w-auto ${p.className}`}>
