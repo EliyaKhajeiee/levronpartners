@@ -61,9 +61,14 @@ export default function ResourcesPage() {
 
         <section className="px-6 pb-[14vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">
-            {rest.map((r, i) => (
-              <ResourceCard key={r.slug} resource={r} delayMs={i * 60} />
-            ))}
+            <p data-fade className="label mb-6">
+              Articles
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((r, i) => (
+                <ResourceCard key={r.slug} resource={r} delayMs={i * 60} />
+              ))}
+            </div>
           </div>
         </section>
 

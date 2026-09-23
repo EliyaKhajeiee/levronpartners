@@ -10,6 +10,7 @@ date: "2026-09-15"
 author: "Levron Partners"
 readingTime: "6 min"
 featured: true
+coverImage: "/images/5-minute-rule.png"
 dek: "Leads contacted within 5 minutes are 100x more likely to book than leads contacted after 30 minutes. Most contractors take days, not minutes. Here's what that gap is actually costing you — and how to close it without hiring anyone."
 ---
 

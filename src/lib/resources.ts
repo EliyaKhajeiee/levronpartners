@@ -38,6 +38,11 @@ export type Resource = {
   /** Pulled out into its own card at the top of `/resources`. At most one
    *  post should carry this at a time — set it in that post's frontmatter. */
   featured: boolean;
+  /** Public path used as the card preview, the image on the article, and
+   *  the Open Graph image. Keep these under `/images`, not `/resources` —
+   *  that URL is the article route, so a file there never gets served.
+   *  Omit and the card is text-only. */
+  coverImage?: string;
 };
 
 function loadResource(filename: string): Resource {
@@ -58,6 +63,7 @@ function loadResource(filename: string): Resource {
     dek: data.dek as string,
     html: marked.parse(content, { async: false }) as string,
     featured: Boolean(data.featured),
+    coverImage: (data.coverImage as string | undefined) || undefined,
   };
 }
 

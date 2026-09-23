@@ -72,11 +72,14 @@ export function articleSchema({
   description,
   url,
   datePublished,
+  image,
 }: {
   headline: string;
   description: string;
   url: string;
   datePublished: string;
+  /** Public path, same one the page and the social card use. */
+  image?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -85,6 +88,7 @@ export function articleSchema({
     description,
     datePublished,
     url: `${site.url}${url}`,
+    ...(image ? { image: [`${site.url}${image}`] } : {}),
     author: {
       "@type": "Organization",
       name: site.name,

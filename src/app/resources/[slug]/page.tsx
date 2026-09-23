@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
@@ -27,6 +28,9 @@ export async function generateMetadata({
   if (!r) return {};
 
   const url = `/resources/${r.slug}`;
+  const images = r.coverImage
+    ? [{ url: r.coverImage, alt: r.title }]
+    : undefined;
 
   return {
     title: r.seoTitle,
@@ -40,11 +44,13 @@ export async function generateMetadata({
       url,
       publishedTime: r.date,
       authors: [r.author],
+      ...(images && { images }),
     },
     twitter: {
       card: "summary_large_image",
       title: r.seoTitle,
       description: r.metaDescription,
+      ...(images && { images: [r.coverImage!] }),
     },
   };
 }
@@ -69,6 +75,7 @@ export default async function ResourcePage({
           description: r.metaDescription,
           url: `/resources/${r.slug}`,
           datePublished: r.date,
+          image: r.coverImage,
         })}
       />
       <JsonLd
@@ -88,7 +95,7 @@ export default async function ResourcePage({
         <section className="px-6 pb-[7vh] md:px-10">
           <div className="mx-auto max-w-[1500px]">
             <p data-fade className="label mb-8">
-              {r.contentType === "case-study" ? "Case Study" : "Guide"}
+              {r.category}
             </p>
             <h1
               data-split
@@ -115,6 +122,22 @@ export default async function ResourcePage({
               <span aria-hidden="true">·</span>
               <span>{site.name}</span>
             </div>
+
+            {r.coverImage && (
+              <figure
+                data-rise
+                className="border-line relative mt-12 aspect-[16/9] overflow-hidden rounded-[1.25rem] border"
+              >
+                <Image
+                  src={r.coverImage}
+                  alt={r.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1500px) 1500px, 100vw"
+                  className="object-cover"
+                />
+              </figure>
+            )}
           </div>
         </section>
 
@@ -139,12 +162,14 @@ export default async function ResourcePage({
         {more.length > 0 && (
           <section className="border-line border-t px-6 py-[12vh] md:px-10">
             <div className="mx-auto max-w-[1500px]">
-              <p data-fade className="label mb-4">
+              <p data-fade className="label mb-6">
                 Keep reading
               </p>
-              {more.map((res, i) => (
-                <ResourceCard key={res.slug} resource={res} delayMs={i * 80} />
-              ))}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {more.map((res, i) => (
+                  <ResourceCard key={res.slug} resource={res} delayMs={i * 80} />
+                ))}
+              </div>
             </div>
           </section>
         )}

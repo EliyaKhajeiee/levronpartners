@@ -9,6 +9,7 @@ tags: ["AI tools for business", "ChatGPT for contractors", "photo to text AI", "
 date: "2026-09-18"
 author: "Levron Partners"
 readingTime: "6 min"
+coverImage: "/images/stop-retyping-paper.png"
 dek: "Every AI app has a camera button. Most people have never pressed it. Here's what it actually does — and where it's genuinely useful for a trade or service business."
 ---
 
