@@ -551,6 +551,8 @@ body {
   padding: 1.35em 1.5em;
   margin: 2em 0;
   overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-size: 0.8125rem;
   line-height: 1.65;
 }
