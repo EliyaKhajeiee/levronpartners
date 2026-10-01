@@ -42,6 +42,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${body.variable} h-full antialiased`}>
+      <head>
+        <script
+          id="vtag-ai-js"
+          async
+          src="https://r2.leadsy.ai/tag.js"
+          data-pid="WDGcUbfQZ7DAemCQ"
+          data-version="062024"
+        />
+      </head>
       <body className="bg-paper text-ink flex min-h-full flex-col">
         <JsonLd data={organizationSchema()} />
         <Nav />
