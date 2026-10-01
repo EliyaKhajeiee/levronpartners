@@ -35,7 +35,7 @@ export const founders: Founder[] = [
       alt: "Aristotle Taylor",
     },
     lead: "Leads client strategy, operations methodology, and business development. His background combines Stanford MS&E, hands-on consulting, and time in the field selling AI.",
-    body: "Construction and home service were around long before any of that. His father worked as a handyman across roofing, electrical, painting, landscaping, and other residential work, and Aristotle grew up riding along to job sites and customers’ homes. His father was also into computers well before most people saw where they were headed. If the tools Levron builds today had existed then, he probably would’ve been one of the first to use them.",
+    body: "Construction and home service were around long before any of that. His father worked as a handyman across roofing, electrical, painting, landscaping, and other residential work, and Aristotle grew up riding along to job sites and customers’ homes. His father was also into computers well before most people saw where they were headed. If the tools Levron builds today had existed then, he probably would’ve been one of the first to use them. His uncle is also an active construction project manager.",
   },
   {
     name: "Eliya Khajeie",
