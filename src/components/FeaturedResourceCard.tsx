@@ -18,14 +18,14 @@ export function FeaturedResourceCard({ resource }: { resource: Resource }) {
       className="group border-line flex flex-col overflow-hidden rounded-[1.75rem] border bg-white/45 md:flex-row"
     >
       {resource.coverImage && (
-        <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden bg-white/40 md:aspect-auto md:w-[280px] lg:w-[340px]">
+        <div className="relative aspect-[16/9] w-full shrink-0 self-start overflow-hidden bg-white/40 md:w-1/2">
           <Image
             src={resource.coverImage}
             alt=""
             fill
             priority
-            sizes="(min-width: 1024px) 340px, (min-width: 768px) 280px, 100vw"
-            className="object-cover object-left transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-contain"
           />
         </div>
       )}
