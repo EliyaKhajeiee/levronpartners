@@ -155,11 +155,25 @@ map finds. The moments operators bring first:
 
 ## Guides and analysis
 
-This domain's resources library (${site.url}/resources) is live as a
-section but does not yet have published posts. For the existing guide
-library written by the same team (Last Week in AI, build-vs-buy, true
-cost of manual work, and named case-study writeups), see:
+Published on this domain, newest first: ${site.url}/resources
 
+- [This Week in AI for Contractors and Home Services: Eight States Sued OpenAI, and Accenture Put Its Staff on a $29 AI Budget](${site.url}/resources/this-week-in-ai-states-sued-openai-29-cap) — October 12–18, 2026. Eight states sued OpenAI over ChatGPT safety claims, the FTC demanded records from OpenAI and Anthropic, Accenture capped staff Claude use at $29 a month, and a TV season was lost when a backup failed.
+- [This Week in AI for Contractors and Home Services: Free ChatGPT Now Builds Calculators](${site.url}/resources/this-week-in-ai-free-chatgpt-calculators) — October 5–11, 2026. Free ChatGPT builds calculators, Claude works inside Google Sheets, ChatGPT is testing picture ads, and AI that books service calls got its first rulebook.
+- [See the Exact Words Customers Typed Before They Found Your Business](${site.url}/resources/searches-that-led-customers-to-your-business)
+- [This Week in AI for Contractors: Two Big Companies Launched AI That Does Office Work](${site.url}/resources/ai-office-work-meta-muse-openai-dots-contractors)
+- [How to Answer a Bad Online Review Without Making It Worse](${site.url}/resources/how-to-answer-a-bad-online-review)
+- [The Question Your Office Answered Five Times This Week](${site.url}/resources/the-question-your-office-answered-five-times)
+- [The AI Slowdown Debate — and What It Means for Your Business](${site.url}/resources/ai-slowdown-debate-what-it-means-for-your-business)
+- [Stop Retyping Things That Are Already on Paper](${site.url}/resources/ai-camera-button-photo-to-text-for-contractors)
+- [The 5-Minute Rule: What Slow Lead Response Is Costing Your Trade Business](${site.url}/resources/5-minute-rule-lead-response-contractors)
+- [You Don't Have a Lead Problem. You Have a Response-Time Problem.](${site.url}/resources/response-time-not-lead-problem-roofing)
+- [Do You Actually Need a CRM? A Decision Guide for Contractors & Trades](${site.url}/resources/do-contractors-need-a-crm)
+- [The True Cost of Manual Work: What Office Admin Actually Costs Your Contracting Business](${site.url}/resources/true-cost-of-manual-work-contractors)
+- [South Central Investment Group: 50 Hours a Month Freed by Centralizing Jobs](${site.url}/resources/south-central-investment-group-general-contractor-case-study)
+- [Kung Fu Air Service: Quoting Time Cut From 15 Hours to 5 With Voice AI](${site.url}/resources/kung-fu-air-service-hvac-quoting-case-study)
+- [The First Workflow to Automate — and 3 You Shouldn't Start With](${site.url}/resources/first-workflow-to-automate-for-contractors)
+
+Levron Labs is a separate company and keeps its own guide library:
 https://levronlabs.com/resources
 
 ## Free assessment
