@@ -73,7 +73,8 @@ export default function HvacPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
-          videoSrc="/video/hvac-hero.mp4?v=h264"
+          videoSrc="/video/home-services-hero.mp4"
+          poster="/video/home-services-poster.jpg"
           chip={{ value: "15 hrs/week → under 5", label: "weekly quoting time" }}
         />
 
