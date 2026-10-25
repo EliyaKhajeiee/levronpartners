@@ -157,6 +157,7 @@ map finds. The moments operators bring first:
 
 Published on this domain, newest first: ${site.url}/resources
 
+- [This Week in AI for Contractors and Home Services: Breaking Into a Website Now Costs About $50](${site.url}/resources/this-week-in-ai-website-break-in-costs-50) — October 19–25, 2026. AI agents broke into company websites for about $50 a success, a serious flaw was found in the software behind most websites, attackers reached Microsoft 365 accounts through ConnectWise, and Claude Duet started chasing unpaid invoices.
 - [This Week in AI for Contractors and Home Services: Eight States Sued OpenAI, and Accenture Put Its Staff on a $29 AI Budget](${site.url}/resources/this-week-in-ai-states-sued-openai-29-cap) — October 12–18, 2026. Eight states sued OpenAI over ChatGPT safety claims, the FTC demanded records from OpenAI and Anthropic, Accenture capped staff Claude use at $29 a month, and a TV season was lost when a backup failed.
 - [This Week in AI for Contractors and Home Services: Free ChatGPT Now Builds Calculators](${site.url}/resources/this-week-in-ai-free-chatgpt-calculators) — October 5–11, 2026. Free ChatGPT builds calculators, Claude works inside Google Sheets, ChatGPT is testing picture ads, and AI that books service calls got its first rulebook.
 - [See the Exact Words Customers Typed Before They Found Your Business](${site.url}/resources/searches-that-led-customers-to-your-business)
