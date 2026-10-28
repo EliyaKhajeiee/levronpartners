@@ -112,7 +112,12 @@ export function BuildExpoWelcomeModal() {
           <div className="mt-5 space-y-2">
             <Link
               href={welcomeAssessmentHref(expo)}
-              onClick={() => track("buildexpo_welcome_assessment_clicked")}
+              onClick={() => {
+                track("buildexpo_welcome_assessment_clicked");
+                // The popup lives in the root layout, so a client-side page change
+                // doesn't unmount it: close it as they head to the assessment.
+                setOpen(false);
+              }}
               className="bg-ink hover:bg-teal flex w-full items-center justify-center rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white transition"
             >
               Take the free assessment
