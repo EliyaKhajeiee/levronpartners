@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { track } from "@vercel/analytics";
-import { BUILDEXPO_ASSESSMENT_HREF, consumeBuildExpoWelcome } from "@/lib/buildExpo";
+import { consumeWelcomeVideo, welcomeAssessmentHref } from "@/lib/buildExpo";
 
-/** Let the page paint first so the popup doesn't feel like a wall. */
-const SHOW_DELAY_MS = 1200;
+/** Eliya 2026-10-28: the video pops up right away, for every visitor. */
+const SHOW_DELAY_MS = 0;
 
 /** Never interrupt the assessment itself. */
 const SKIP_PREFIXES = ["/assessment", "/api"];
@@ -16,21 +16,25 @@ const SKIP_PREFIXES = ["/assessment", "/api"];
 const VIDEO = { src: "/buildexpo/video.mp4", poster: "/buildexpo/poster.jpg", length: "5 min" };
 
 /**
- * One-time welcome for people who found us at BuildExpo (see src/lib/buildExpo.ts).
+ * Welcome video popup for every visitor, the moment they land, once per visit
+ * (see src/lib/buildExpo.ts). BuildExpo visitors get the BuildExpo greeting.
  * Low-pressure on purpose: the video first, the free assessment second, and
  * "Just looking around" as an equal exit.
  */
 export function BuildExpoWelcomeModal() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [expo, setExpo] = useState(false);
 
   useEffect(() => {
     if (SKIP_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return;
     // Consume when the timer fires, not on mount (Strict Mode runs effects twice).
     const timer = window.setTimeout(() => {
-      if (!consumeBuildExpoWelcome(window.location.search)) return;
+      const welcome = consumeWelcomeVideo(window.location.search);
+      if (!welcome.show) return;
+      setExpo(welcome.buildExpo);
       setOpen(true);
-      track("buildexpo_welcome_shown", { path: pathname });
+      track("buildexpo_welcome_shown", { path: pathname, buildexpo: welcome.buildExpo });
     }, SHOW_DELAY_MS);
     return () => window.clearTimeout(timer);
     // Only on first landing, not on every client-side navigation.
@@ -78,10 +82,10 @@ export function BuildExpoWelcomeModal() {
         </button>
 
         <p className="text-teal pr-10 text-xs font-semibold tracking-[0.14em] uppercase">
-          Good to meet you at BuildExpo
+          {expo ? "Good to meet you at BuildExpo" : "See it on a real job"}
         </p>
         <h2 id="buildexpo-welcome-title" className="text-ink mt-3 text-2xl leading-tight font-extrabold">
-          Thanks for stopping by. Here&rsquo;s a quick look at what we do.
+          {expo ? "Thanks for stopping by. Here\u2019s a quick look at what we do." : "Here\u2019s a quick look at what we do."}
         </h2>
         <p className="text-muted mt-2 text-sm">About {VIDEO.length}. Watch now or save it for later.</p>
 
@@ -107,7 +111,7 @@ export function BuildExpoWelcomeModal() {
           </p>
           <div className="mt-5 space-y-2">
             <Link
-              href={BUILDEXPO_ASSESSMENT_HREF}
+              href={welcomeAssessmentHref(expo)}
               onClick={() => track("buildexpo_welcome_assessment_clicked")}
               className="bg-ink hover:bg-teal flex w-full items-center justify-center rounded-full px-8 py-4 text-[0.9375rem] font-semibold text-white transition"
             >
