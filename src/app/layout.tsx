@@ -7,7 +7,6 @@ import { organizationSchema } from "@/lib/schema";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
-import { BuildExpoWelcomeModal } from "@/components/buildexpo/BuildExpoWelcomeModal";
 
 const body = Figtree({
   variable: "--font-body",
@@ -57,8 +56,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
-        {/* 2026-10-28: one-time welcome for BuildExpo visitors (src/lib/buildExpo.ts). */}
-        <BuildExpoWelcomeModal />
+        {/* Welcome video popup is paused. Restore with <BuildExpoWelcomeModal /> from @/components/buildexpo/BuildExpoWelcomeModal. */}
         <Analytics />
       </body>
     </html>
