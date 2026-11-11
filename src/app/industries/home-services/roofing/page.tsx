@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { ImageHero } from "@/components/ImageHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { Artifact } from "@/components/Artifact";
 import { JsonLd } from "@/components/JsonLd";
@@ -73,7 +73,7 @@ export default function RoofingPage() {
       />
 
       <main id="top" className="flex-1">
-        <ImageHero
+        <VideoHero
           eyebrow={page.eyebrow}
           headline="The inspection isn’t where you lose the job."
           headlineClassName="max-w-[19ch]"
@@ -82,7 +82,8 @@ export default function RoofingPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
-          imageSrc="/photos/industries/roofing.jpg"
+          videoSrc="/video/roofing-hero.mp4"
+          poster="/video/roofing-hero-poster.jpg"
         />
 
         <PointsGrid

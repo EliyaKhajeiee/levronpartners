@@ -3,7 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { Split } from "@/components/Split";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { ImageHero } from "@/components/ImageHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
@@ -71,7 +71,7 @@ export default function CivilExcavationPage() {
       />
 
       <main id="top" className="flex-1">
-        <ImageHero
+        <VideoHero
           eyebrow={page.eyebrow}
           headline="You’ll know what that job cost in three months."
           headlineClassName="max-w-[19ch]"
@@ -80,7 +80,8 @@ export default function CivilExcavationPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
-          imageSrc="/photos/industries/civil-excavation-site-work.jpg"
+          videoSrc="/video/civil-excavation-hero.mp4"
+          poster="/video/civil-excavation-hero-poster.jpg"
         />
 
         <PointsGrid

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
@@ -68,7 +68,7 @@ export default function PlumbingPage() {
       />
 
       <main id="top" className="flex-1">
-        <IndustryHero
+        <VideoHero
           eyebrow={page.eyebrow}
           headline="Stop losing emergency calls to the plumber who calls back first."
           headlineClassName="max-w-[19ch]"
@@ -77,6 +77,8 @@ export default function PlumbingPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          videoSrc="/video/plumbing-hero.mp4"
+          poster="/video/plumbing-hero-poster.jpg"
         />
 
         <PointsGrid heading="The job usually goes before you even hear about it." items={lost} />

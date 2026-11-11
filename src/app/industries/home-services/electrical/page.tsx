@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/Reveal";
 import { ScrollText } from "@/components/ScrollText";
 import { ContactCta } from "@/components/ContactCta";
-import { IndustryHero } from "@/components/IndustryHero";
+import { VideoHero } from "@/components/VideoHero";
 import { PointsGrid } from "@/components/PointsGrid";
 import { JsonLd } from "@/components/JsonLd";
 import { industries } from "@/lib/industries";
@@ -68,7 +68,7 @@ export default function ElectricalPage() {
       />
 
       <main id="top" className="flex-1">
-        <IndustryHero
+        <VideoHero
           eyebrow={page.eyebrow}
           headline="Your bids take too long, and slow bids lose jobs."
           headlineClassName="max-w-[18ch]"
@@ -77,6 +77,8 @@ export default function ElectricalPage() {
             { label: "See what we’d build", href: "/contact" },
             { label: "See the work", href: "/work" },
           ]}
+          videoSrc="/video/electrical-hero.mp4"
+          poster="/video/electrical-hero-poster.jpg"
         />
 
         <PointsGrid heading="Slow bids lose jobs your price would have won." items={slow} />
