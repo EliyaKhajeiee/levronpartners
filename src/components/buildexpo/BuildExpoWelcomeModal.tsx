@@ -9,8 +9,8 @@ import { consumeWelcomeVideo, welcomeAssessmentHref } from "@/lib/buildExpo";
 /** Eliya 2026-10-28: the video pops up right away, for every visitor. */
 const SHOW_DELAY_MS = 0;
 
-/** Never interrupt the assessment itself. */
-const SKIP_PREFIXES = ["/assessment", "/api"];
+/** Never interrupt the assessment, or the page that already is the demo. */
+const SKIP_PREFIXES = ["/assessment", "/api", "/estimationdemo"];
 
 /** The 5-minute video: one real job, plans to a priced estimate (same file as levronlabs.com). */
 const VIDEO = { src: "/buildexpo/video.mp4", poster: "/buildexpo/poster.jpg", length: "5 min" };
